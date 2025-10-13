@@ -1,0 +1,537 @@
+/* === PÁGINA DE DETALHES DO DESTINO === */
+
+.destino-detalhes {
+    min-height: 100vh;
+}
+
+/* Hero Section */
+.destino-hero {
+    position: relative;
+    height: 70vh;
+    overflow: hidden;
+}
+
+.ultra-luxury-hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+}
+
+.ultra-luxury-hero .hero-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(139, 69, 19, 0.8) 0%,
+        rgba(255, 215, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+.luxury-crown {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: crownFloat 3s ease-in-out infinite;
+}
+
+@keyframes crownFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+}
+
+.destino-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, #fff 0%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.destino-location {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0.9;
+}
+
+.destino-category {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.ultra-luxury-category {
+    background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+    color: #1a1a1a;
+    border: none;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    animation: luxuryGlow 2s ease-in-out infinite alternate;
+}
+
+/* Botão Voltar */
+.back-button-container {
+    padding: 2rem 0 1rem 0;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: #374151;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-back:hover {
+    background: #f8fafc;
+    border-color: #fbbf24;
+    color: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover svg {
+    transform: translateX(-3px);
+}
+
+/* Layout de Conteúdo */
+.destino-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.destino-description h2,
+.destino-atracoes h2,
+.luxury-incluso h2,
+.luxury-diferenciais h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #fbbf24;
+    padding-bottom: 0.5rem;
+}
+
+.destino-description p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+
+/* Exclusividade */
+.exclusivity-info {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    padding: 2rem;
+    border-radius: 1rem;
+    border-left: 5px solid #f59e0b;
+    margin-top: 2rem;
+}
+
+.exclusivity-info h3 {
+    color: #92400e;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.exclusivity-info p {
+    color: #92400e;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Atrações */
+.atracoes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.atracao-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #fbbf24;
+    transition: all 0.3s ease;
+}
+
+.atracao-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.atracao-number {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.atracao-name {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Inclusos Luxury */
+.luxury-incluso {
+    background: linear-gradient(135deg, #f8fafc 0%, #fff8dc 100%);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 2px solid #ffd700;
+}
+
+.incluso-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.incluso-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.incluso-icon {
+    color: #10b981;
+    font-size: 1.25rem;
+}
+
+.incluso-text {
+    font-weight: 500;
+    color: #374151;
+    line-height: 1.5;
+}
+
+/* Diferenciais Showcase */
+.diferenciais-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.diferencial-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid #ffd700;
+    font-weight: 600;
+    color: #92400e;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.diferencial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.destino-info-card,
+.booking-card,
+.share-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.destino-info-card h3,
+.share-card h4 {
+    margin: 0 0 1.5rem 0;
+    color: #374151;
+    font-weight: 700;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: #374151;
+}
+
+.info-item span {
+    color: #6b7280;
+    text-align: right;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.star {
+    color: #d1d5db;
+}
+
+.star.filled {
+    color: #fbbf24;
+}
+
+.rating-number {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Booking Card */
+.luxury-booking {
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    color: white;
+    border: 3px solid #ffd700;
+}
+
+.price-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+}
+
+.luxury-booking .price-label {
+    color: #ffd700;
+}
+
+.price-main {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.luxury-price {
+    color: #ffd700 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.price-details {
+    margin-top: 0.5rem;
+}
+
+.price-details small {
+    color: #d1d5db;
+    font-style: italic;
+}
+
+.btn-reservar {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #1f2937;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-reservar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+}
+
+.luxury-btn {
+    background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+    font-size: 1.125rem;
+    padding: 1.25rem;
+}
+
+.booking-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.benefit-item {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.luxury-benefit {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+/* Compartilhamento */
+.share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.share-btn {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn.facebook {
+    background: #1877f2;
+    color: white;
+}
+
+.share-btn.whatsapp {
+    background: #25d366;
+    color: white;
+}
+
+.share-btn.copy {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .destino-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .destino-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .destino-hero {
+        height: 50vh;
+    }
+    
+    .hero-content {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+    
+    .destino-title {
+        font-size: 2rem;
+    }
+    
+    .destino-content-grid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .back-button-container {
+        padding: 1rem;
+    }
+    
+    .btn-back {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.8rem;
+    }
+    
+    .atracoes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .diferenciais-showcase {
+        grid-template-columns: 1fr;
+    }
+}

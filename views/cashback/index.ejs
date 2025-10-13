@@ -1,0 +1,306 @@
+<%- include('../partials/head', { pageCSS: 'cashback' }) %>
+
+<%- include('../partials/header', { currentPage: 'cashback' }) %>
+
+<!-- Hero do Cashback -->
+<div class="cashback-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-info">
+        <h1 class="hero-title">Programa Eco Cashback</h1>
+        <p class="hero-subtitle">Ganhe pontos a cada compra e troque por descontos incríveis!</p>
+      </div>
+      
+      <div class="pontos-card">
+        <div class="pontos-header">
+          <div class="nivel-badge nivel-<%= usuario.nivelCashback.toLowerCase() %>">
+            <span class="nivel-icon">
+              <%= usuario.nivelCashback === 'Bronze' ? '🥉' : usuario.nivelCashback === 'Silver' ? '🥈' : usuario.nivelCashback === 'Gold' ? '🥇' : usuario.nivelCashback === 'Platinum' ? '💎' : '👑' %>
+            </span>
+            <span class="nivel-texto">Nível <%= usuario.nivelCashback %></span>
+          </div>
+          <div class="cashback-percentual"><%= usuario.porcentagemCashback %>% de Cashback</div>
+        </div>
+        
+        <div class="pontos-principal">
+          <div class="pontos-valor"><%= usuario.pontosTotal.toLocaleString('pt-BR') %></div>
+          <div class="pontos-label">pontos disponíveis</div>
+        </div>
+        
+        <% if (usuario.pontosPendentes > 0) { %>
+          <div class="pontos-pendentes">
+            <span class="pendentes-icon">⏳</span>
+            <span><%= usuario.pontosPendentes %> pontos pendentes</span>
+          </div>
+        <% } %>
+        
+        <div class="progresso-nivel">
+          <div class="progresso-header">
+            <span>Próximo nível: <%= usuario.proximoNivel || 'Máximo alcançado' %></span>
+            <% if (usuario.proximoNivel) { %>
+              <span><%= usuario.pontosTotal %>/<%= usuario.pontosProximoNivel %></span>
+            <% } %>
+          </div>
+          <% if (usuario.proximoNivel) { %>
+            <div class="progresso-barra">
+              <div class="progresso-fill" data-width="<%= Math.min(100, (usuario.pontosTotal / usuario.pontosProximoNivel) * 100) %>"></div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div class="cashback-dashboard">
+  <div class="container">
+    <!-- Estatísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <div class="stat-valor">R$ <%= estatisticas.totalGasto.toLocaleString('pt-BR') %></div>
+          <div class="stat-label">Total gasto</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-info">
+          <div class="stat-valor"><%= estatisticas.pontosGanhos.toLocaleString('pt-BR') %></div>
+          <div class="stat-label">Pontos ganhos</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🎁</div>
+        <div class="stat-info">
+          <div class="stat-valor"><%= estatisticas.pontosUsados.toLocaleString('pt-BR') %></div>
+          <div class="stat-label">Pontos utilizados</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-info">
+          <div class="stat-valor"><%= usuario.porcentagemCashback %>%</div>
+          <div class="stat-label">Taxa atual</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Conteúdo principal -->
+    <div class="dashboard-grid">
+      <!-- Recompensas em destaque -->
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recompensas em Destaque</h2>
+          <a href="/cashback/recompensas" class="ver-todas">Ver todas</a>
+        </div>
+        
+        <div class="recompensas-grid">
+          <% recompensasDestaque.forEach(function(recompensa) { %>
+            <div class="recompensa-card <%= recompensa.pontosNecessarios <= usuario.pontosTotal ? 'disponivel' : 'indisponivel' %>">
+              <div class="recompensa-icon"><%= recompensa.icon %></div>
+              <div class="recompensa-info">
+                <h3 class="recompensa-titulo"><%= recompensa.titulo %></h3>
+                <p class="recompensa-descricao"><%= recompensa.descricao %></p>
+                <div class="recompensa-pontos">
+                  <span class="pontos-necessarios"><%= recompensa.pontosNecessarios %> pontos</span>
+                  <% if (recompensa.pontosNecessarios <= usuario.pontosTotal) { %>
+                    <button class="btn-resgatar" data-recompensa-id="<%= recompensa.id %>" data-pontos="<%= recompensa.pontosNecessarios %>">
+                      Resgatar
+                    </button>
+                  <% } else { %>
+                    <span class="faltam-pontos">
+                      Faltam <%= (recompensa.pontosNecessarios - usuario.pontosTotal).toLocaleString('pt-BR') %> pontos
+                    </span>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        
+        <% if (recompensasDestaque.length === 0) { %>
+          <div class="empty-state">
+            <div class="empty-icon">🎯</div>
+            <p>Continue comprando para desbloquear mais recompensas!</p>
+          </div>
+        <% } %>
+      </div>
+      
+      <!-- Histórico recente -->
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Atividade Recente</h2>
+          <a href="/cashback/historico" class="ver-todas">Ver histórico completo</a>
+        </div>
+        
+        <div class="historico-lista">
+          <% historicoRecente.forEach(function(transacao) { %>
+            <div class="transacao-item">
+              <div class="transacao-icon">
+                <%= transacao.tipo === 'compra' ? '🛒' : transacao.tipo === 'resgate' ? '🎁' : '⭐' %>
+              </div>
+              
+              <div class="transacao-info">
+                <div class="transacao-titulo"><%= transacao.descricao %></div>
+                <div class="transacao-data"><%= transacao.data.toLocaleDateString('pt-BR') %></div>
+              </div>
+              
+              <div class="transacao-pontos">
+                <span class="pontos-valor <%= transacao.pontos > 0 ? 'positivos' : 'negativos' %>">
+                  <%= transacao.pontos > 0 ? '+' : '' %><%= transacao.pontos %> pts
+                </span>
+                <% if (transacao.valor > 0) { %>
+                  <span class="transacao-valor">R$ <%= transacao.valor.toLocaleString('pt-BR') %></span>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Como funciona -->
+    <div class="como-funciona">
+      <h2 class="section-title">Como Funciona o Eco Cashback</h2>
+      
+      <div class="funciona-grid">
+        <div class="funciona-step">
+          <div class="step-numero">1</div>
+          <div class="step-content">
+            <h3>Faça suas compras</h3>
+            <p>A cada pacote comprado, você ganha pontos proporcionais ao valor gasto.</p>
+          </div>
+        </div>
+        
+        <div class="funciona-step">
+          <div class="step-numero">2</div>
+          <div class="step-content">
+            <h3>Acumule pontos</h3>
+            <p>Seus pontos ficam disponíveis imediatamente após a confirmação da compra.</p>
+          </div>
+        </div>
+        
+        <div class="funciona-step">
+          <div class="step-numero">3</div>
+          <div class="step-content">
+            <h3>Troque por recompensas</h3>
+            <p>Use seus pontos para resgatar descontos, upgrades e vantagens exclusivas.</p>
+          </div>
+        </div>
+        
+        <div class="funciona-step">
+          <div class="step-numero">4</div>
+          <div class="step-content">
+            <h3>Suba de nível</h3>
+            <p>Quanto mais pontos acumular, maior sua taxa de cashback nas próximas compras.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Níveis do programa -->
+    <div class="niveis-programa">
+      <h2 class="section-title">Níveis do Programa</h2>
+      
+      <div class="niveis-grid">
+        <div class="nivel-card <%= usuario.nivelCashback === 'Bronze' ? 'atual' : '' %>">
+          <div class="nivel-header">
+            <span class="nivel-icon">🥉</span>
+            <span class="nivel-nome">Bronze</span>
+          </div>
+          <div class="nivel-cashback">3% de cashback</div>
+          <div class="nivel-requisito">0+ pontos</div>
+        </div>
+        
+        <div class="nivel-card <%= usuario.nivelCashback === 'Silver' ? 'atual' : '' %>">
+          <div class="nivel-header">
+            <span class="nivel-icon">🥈</span>
+            <span class="nivel-nome">Silver</span>
+          </div>
+          <div class="nivel-cashback">5% de cashback</div>
+          <div class="nivel-requisito">1.000+ pontos</div>
+        </div>
+        
+        <div class="nivel-card <%= usuario.nivelCashback === 'Gold' ? 'atual' : '' %>">
+          <div class="nivel-header">
+            <span class="nivel-icon">🥇</span>
+            <span class="nivel-nome">Gold</span>
+          </div>
+          <div class="nivel-cashback">8% de cashback</div>
+          <div class="nivel-requisito">2.500+ pontos</div>
+        </div>
+        
+        <div class="nivel-card <%= usuario.nivelCashback === 'Platinum' ? 'atual' : '' %>">
+          <div class="nivel-header">
+            <span class="nivel-icon">💎</span>
+            <span class="nivel-nome">Platinum</span>
+          </div>
+          <div class="nivel-cashback">12% de cashback</div>
+          <div class="nivel-requisito">5.000+ pontos</div>
+        </div>
+        
+        <div class="nivel-card <%= usuario.nivelCashback === 'Diamond' ? 'atual' : '' %>">
+          <div class="nivel-header">
+            <span class="nivel-icon">👑</span>
+            <span class="nivel-nome">Diamond</span>
+          </div>
+          <div class="nivel-cashback">15% de cashback</div>
+          <div class="nivel-requisito">10.000+ pontos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script>
+function resgatarRecompensa(id) {
+    const btn = event.target;
+    const textoOriginal = btn.textContent;
+    
+    btn.textContent = 'Resgatando...';
+    btn.disabled = true;
+    
+    fetch(`/cashback/resgatar/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`${data.message}\nCódigo: ${data.codigoResgate}\nPontos restantes: ${data.pontosRestantes}`);
+            location.reload();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao resgatar recompensa');
+    })
+    .finally(() => {
+        btn.textContent = textoOriginal;
+        btn.disabled = false;
+    });
+}
+
+// Configurar largura da barra de progresso
+document.addEventListener('DOMContentLoaded', function() {
+    const progressBars = document.querySelectorAll('.progresso-fill');
+    progressBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        if (width) {
+            bar.style.width = width + '%';
+        }
+    });
+});
+</script>

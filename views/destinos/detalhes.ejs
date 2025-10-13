@@ -1,0 +1,219 @@
+<%- include('../partials/head', { pageCSS: 'destino-detalhes' }) %>
+
+<%- include('../partials/header', { currentPage: 'destinos' }) %>
+
+<main class="destino-detalhes">
+  <!-- Hero Section -->
+  <section class="destino-hero <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-hero' : '' %>">
+    <div class="hero-image" style="background-image: url('<%= destino.imagem %>');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <% if (destino.categoria === 'Ultra Luxury') { %>
+          <div class="luxury-crown">👑</div>
+        <% } %>
+        <h1 class="destino-title"><%= destino.nome %></h1>
+        <p class="destino-location">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+          </svg>
+          <%= destino.estado || destino.pais %>, <%= destino.regiao === 'Internacional' ? destino.pais : destino.regiao %>
+        </p>
+        <div class="destino-category <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-category' : '' %>">
+          <%= destino.categoria %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botão Voltar -->
+  <div class="container">
+    <div class="back-button-container">
+      <a href="/destinos" class="btn-back">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+        </svg>
+        Voltar aos Destinos
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="destino-content-grid">
+      <!-- Coluna Principal -->
+      <div class="main-content">
+        <!-- Descrição -->
+        <section class="destino-description">
+          <h2>Sobre o Destino</h2>
+          <p><%= destino.descricaoCompleta || destino.descricao %></p>
+          
+          <% if (destino.exclusividade) { %>
+            <div class="exclusivity-info">
+              <h3>✨ Exclusividade</h3>
+              <p><%= destino.exclusividade %></p>
+            </div>
+          <% } %>
+        </section>
+
+        <!-- Atrações -->
+        <section class="destino-atracoes">
+          <h2>🌟 Principais Atrações</h2>
+          <div class="atracoes-grid">
+            <% destino.atrações.forEach(function(atracao, index) { %>
+              <div class="atracao-item">
+                <div class="atracao-number"><%= index + 1 %></div>
+                <div class="atracao-name"><%= atracao %></div>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+
+        <!-- Inclusos Especiais (para Ultra Luxury) -->
+        <% if (destino.incluso && destino.incluso.length > 0) { %>
+          <section class="luxury-incluso">
+            <h2>👑 Experiências Incluídas</h2>
+            <div class="incluso-grid">
+              <% destino.incluso.forEach(function(item) { %>
+                <div class="incluso-item">
+                  <div class="incluso-icon">✅</div>
+                  <div class="incluso-text"><%= item %></div>
+                </div>
+              <% }); %>
+            </div>
+          </section>
+        <% } %>
+
+        <!-- Diferenciais Especiais -->
+        <% if (destino.diferenciais && destino.diferenciais.length > 0) { %>
+          <section class="luxury-diferenciais">
+            <h2>💎 Experiências Exclusivas</h2>
+            <div class="diferenciais-showcase">
+              <% destino.diferenciais.forEach(function(diferencial) { %>
+                <div class="diferencial-card">
+                  <%= diferencial %>
+                </div>
+              <% }); %>
+            </div>
+          </section>
+        <% } %>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Informações do Destino -->
+        <div class="destino-info-card">
+          <h3>📋 Informações Essenciais</h3>
+          
+          <div class="info-item">
+            <strong>Melhor época:</strong>
+            <span><%= destino.melhorEpoca %></span>
+          </div>
+          
+          <% if (destino.clima) { %>
+            <div class="info-item">
+              <strong>Clima:</strong>
+              <span><%= destino.clima %></span>
+            </div>
+          <% } %>
+          
+          <% if (destino.temperatura) { %>
+            <div class="info-item">
+              <strong>Temperatura:</strong>
+              <span><%= destino.temperatura %></span>
+            </div>
+          <% } %>
+          
+          <% if (destino.avaliacaoMedia) { %>
+            <div class="info-item">
+              <strong>Avaliação:</strong>
+              <div class="rating">
+                <% for(let i = 1; i <= 5; i++) { %>
+                  <span class="star <%= i <= destino.avaliacaoMedia ? 'filled' : '' %>">⭐</span>
+                <% } %>
+                <span class="rating-number">(<%= destino.avaliacaoMedia %>)</span>
+              </div>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Preço e Reserva -->
+        <div class="booking-card <%= destino.categoria === 'Ultra Luxury' ? 'luxury-booking' : '' %>">
+          <% if (destino.preco) { %>
+            <div class="price-section">
+              <div class="price-label">
+                <%= destino.categoria === 'Ultra Luxury' ? 'Experiência Completa' : 'A partir de' %>
+              </div>
+              <div class="price-main <%= destino.categoria === 'Ultra Luxury' ? 'luxury-price' : '' %>">
+                R$ <%= destino.preco.toLocaleString('pt-BR') %>
+              </div>
+              <% if (destino.categoria === 'Ultra Luxury') { %>
+                <div class="price-details">
+                  <small>*Por casal, 7 dias, tudo incluído</small>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+          
+          <a href="/destinos/<%= destino.slug %>/comprar" class="btn-reservar <%= destino.categoria === 'Ultra Luxury' ? 'luxury-btn' : '' %>">
+            <%= destino.categoria === 'Ultra Luxury' ? '👑 Solicitar Consultoria VIP' : '🛒 Comprar' %>
+          </a>
+          
+          <div class="booking-benefits">
+            <div class="benefit-item">✅ Cancelamento flexível</div>
+            <div class="benefit-item">✅ Pagamento parcelado</div>
+            <% if (destino.categoria === 'Ultra Luxury') { %>
+              <div class="benefit-item luxury-benefit">👑 Consultoria personalizada</div>
+              <div class="benefit-item luxury-benefit">💎 Concierge 24/7</div>
+            <% } else { %>
+              <div class="benefit-item">✅ Suporte 24/7</div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Compartilhar -->
+        <div class="share-card">
+          <h4>Compartilhar</h4>
+          <div class="share-buttons">
+            <button class="share-btn facebook">📘 Facebook</button>
+            <button class="share-btn whatsapp">💬 WhatsApp</button>
+            <button class="share-btn copy">📋 Copiar Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script>
+// Funcionalidade de compartilhamento
+document.addEventListener('DOMContentLoaded', function() {
+    const shareButtons = document.querySelectorAll('.share-btn');
+    
+    shareButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const type = this.classList[1];
+            const url = window.location.href;
+            const text = `Conheça <%= destino.nome %> - <%= destino.descricao %>`;
+            
+            switch(type) {
+                case 'facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                    break;
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(url).then(() => {
+                        this.textContent = '✅ Copiado!';
+                        setTimeout(() => {
+                            this.textContent = '📋 Copiar Link';
+                        }, 2000);
+                    });
+                    break;
+            }
+        });
+    });
+});
+</script>

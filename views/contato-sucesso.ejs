@@ -1,0 +1,481 @@
+<%- include('partials/head', { pageCSS: 'sobre-contato' }) %>
+
+<%- include('partials/header', { currentPage: 'contato' }) %>
+
+<!-- Hero de Sucesso -->
+<div class="sucesso-contato-hero">
+  <div class="container">
+    <div class="sucesso-icon">
+      <div class="check-circle">
+        <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+        </svg>
+      </div>
+    </div>
+    <h1 class="sucesso-title">✉️ Mensagem Enviada!</h1>
+    <p class="sucesso-subtitle">Recebemos sua mensagem e entraremos em contato em breve</p>
+    <div class="protocolo-contato">
+      <span class="protocolo-label">Protocolo de Atendimento:</span>
+      <span class="protocolo-numero"># <%= protocolo %></span>
+    </div>
+  </div>
+</div>
+
+<!-- Próximos Passos -->
+<section class="proximos-passos-contato">
+  <div class="container">
+    <h2 class="section-title center">📋 O que acontece agora?</h2>
+    
+    <div class="passos-timeline">
+      <div class="passo-timeline">
+        <div class="passo-numero">1</div>
+        <div class="passo-content">
+          <h3>📧 Confirmação Automática</h3>
+          <p>Você receberá um e-mail de confirmação em sua caixa de entrada nos próximos minutos.</p>
+          <span class="passo-tempo">Imediato</span>
+        </div>
+      </div>
+      
+      <div class="passo-timeline">
+        <div class="passo-numero">2</div>
+        <div class="passo-content">
+          <h3>👥 Análise da Equipe</h3>
+          <p>Nossa equipe especializada analisará sua solicitação e preparará uma resposta personalizada.</p>
+          <span class="passo-tempo">1-2 horas</span>
+        </div>
+      </div>
+      
+      <div class="passo-timeline">
+        <div class="passo-numero">3</div>
+        <div class="passo-content">
+          <h3>📞 Primeiro Contato</h3>
+          <p>Entraremos em contato através do meio de sua preferência para esclarecer dúvidas iniciais.</p>
+          <span class="passo-tempo">2 horas úteis</span>
+        </div>
+      </div>
+      
+      <div class="passo-timeline">
+        <div class="passo-numero">4</div>
+        <div class="passo-content">
+          <h3>🎯 Proposta Personalizada</h3>
+          <p>Elaboraremos uma proposta detalhada baseada em suas necessidades e preferências.</p>
+          <span class="passo-tempo">24 horas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Informações Importantes -->
+<section class="info-importante">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-card-sucesso">
+        <div class="card-icon">📧</div>
+        <h3>Verifique seu E-mail</h3>
+        <p>Enviamos uma confirmação para sua caixa de entrada. Verifique também a pasta de spam/lixo eletrônico.</p>
+      </div>
+      
+      <div class="info-card-sucesso">
+        <div class="card-icon">📱</div>
+        <h3>Mantenha o Celular Ligado</h3>
+        <p>Nossa equipe pode entrar em contato via telefone ou WhatsApp conforme sua preferência indicada.</p>
+      </div>
+      
+      <div class="info-card-sucesso">
+        <div class="card-icon">💼</div>
+        <h3>Prepare Informações</h3>
+        <p>Se solicitou orçamento, tenha em mente datas flexíveis e preferências para otimizar nossa proposta.</p>
+      </div>
+      
+      <div class="info-card-sucesso">
+        <div class="card-icon">🕐</div>
+        <h3>Horário de Atendimento</h3>
+        <p>Segunda à Sexta: 8h às 18h<br>Sábados: 9h às 15h<br>Emergências: WhatsApp 24h</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contatos de Urgência -->
+<section class="contatos-urgencia">
+  <div class="container">
+    <div class="urgencia-content">
+      <h2>🚨 Precisa Falar com Urgência?</h2>
+      <p>Para questões urgentes ou se precisar de atendimento imediato:</p>
+      
+      <div class="contatos-rapidos">
+        <a href="tel:+5521999997777" class="contato-rapido telefone">
+          <span class="contato-icon">📞</span>
+          <div class="contato-info">
+            <strong>Emergência 24h</strong>
+            <span>(21) 99999-7777</span>
+          </div>
+        </a>
+        
+        <a href="https://wa.me/5521999998888?text=Protocolo: <%= protocolo %> - Preciso de atendimento urgente" target="_blank" class="contato-rapido whatsapp">
+          <span class="contato-icon">💬</span>
+          <div class="contato-info">
+            <strong>WhatsApp</strong>
+            <span>(21) 99999-8888</span>
+          </div>
+        </a>
+        
+        <a href="mailto:suporte@ecocompanion.com?subject=URGENTE - Protocolo <%= protocolo %>" class="contato-rapido email">
+          <span class="contato-icon">✉️</span>
+          <div class="contato-info">
+            <strong>E-mail Urgente</strong>
+            <span>suporte@ecocompanion.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Enquanto Espera -->
+<section class="enquanto-espera">
+  <div class="container">
+    <h2 class="section-title center">🌟 Enquanto Você Espera</h2>
+    <p class="espera-intro">Explore nosso site e descubra mais sobre nossos destinos incríveis:</p>
+    
+    <div class="acoes-espera">
+      <a href="/destinos" class="acao-card">
+        <div class="acao-icon">🏖️</div>
+        <h3>Explore Destinos</h3>
+        <p>Conheça todos os nossos destinos nacionais e internacionais</p>
+      </a>
+      
+      <a href="/sobre" class="acao-card">
+        <div class="acao-icon">👥</div>
+        <h3>Nossa História</h3>
+        <p>Saiba mais sobre a Eco Companion e nossa paixão por viagens</p>
+      </a>
+      
+      <a href="/" class="acao-card">
+        <div class="acao-icon">📱</div>
+        <h3>Redes Sociais</h3>
+        <p>Siga-nos para ver fotos incríveis e dicas de viagem</p>
+      </a>
+      
+      <a href="#" onclick="window.print()" class="acao-card">
+        <div class="acao-icon">🖨️</div>
+        <h3>Salvar Protocolo</h3>
+        <p>Imprima esta página para ter seu número de protocolo</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
+
+<style>
+/* Estilos específicos para a página de sucesso do contato */
+.sucesso-contato-hero {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sucesso-icon {
+  margin-bottom: 1.5rem;
+}
+
+.check-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  animation: checkBounce 0.6s ease-out;
+}
+
+.sucesso-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Pacifico', cursive;
+}
+
+.sucesso-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.protocolo-contato {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 500;
+}
+
+.protocolo-numero {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Timeline dos próximos passos */
+.proximos-passos-contato {
+  padding: 4rem 0;
+  background: white;
+}
+
+.passos-timeline {
+  display: grid;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.passo-timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 1rem;
+  border-left: 4px solid var(--yellow-400);
+}
+
+.passo-timeline .passo-numero {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--yellow-400);
+  color: var(--slate-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.passo-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.passo-content p {
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.passo-tempo {
+  background: var(--yellow-100);
+  color: var(--yellow-800);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Informações importantes */
+.info-importante {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.info-card-sucesso {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-card-sucesso h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.info-card-sucesso p {
+  color: var(--slate-600);
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+/* Contatos de urgência */
+.contatos-urgencia {
+  padding: 4rem 0;
+  background: white;
+}
+
+.urgencia-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.urgencia-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.urgencia-content p {
+  color: var(--slate-600);
+  margin-bottom: 2rem;
+}
+
+.contatos-rapidos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.contato-rapido {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.contato-rapido.telefone {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.contato-rapido.whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.contato-rapido.email {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.contato-rapido:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contato-icon {
+  font-size: 1.5rem;
+}
+
+.contato-info {
+  text-align: left;
+}
+
+.contato-info strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.contato-info span {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+/* Enquanto espera */
+.enquanto-espera {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.espera-intro {
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--slate-600);
+  margin-bottom: 3rem;
+}
+
+.acoes-espera {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.acao-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.acao-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.acao-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.acao-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.acao-card p {
+  color: var(--slate-600);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+</style>
+
+<script>
+// Animação do check quando carrega
+window.addEventListener('load', function() {
+  setTimeout(() => {
+    const checkCircle = document.querySelector('.check-circle');
+    if (checkCircle) {
+      checkCircle.classList.add('animate-check');
+    }
+  }, 500);
+});
+
+// Copiar protocolo ao clicar
+document.querySelector('.protocolo-numero').addEventListener('click', function() {
+  const protocolo = '<%= protocolo %>';
+  navigator.clipboard.writeText(protocolo).then(() => {
+    alert('Protocolo copiado para a área de transferência!');
+  });
+});
+
+document.querySelector('.protocolo-numero').style.cursor = 'pointer';
+document.querySelector('.protocolo-numero').title = 'Clique para copiar';
+</script>

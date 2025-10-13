@@ -1,0 +1,181 @@
+<%- include('../partials/head') %>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <!-- Botão Voltar -->
+    <div class="auth-back">
+      <a href="/" class="back-btn">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+        Voltar ao início
+      </a>
+    </div>
+
+    <!-- Logo -->
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="/imagens/logo.png" alt="Eco Companion Logo" width="60" height="60">
+        <h1>Eco Companion</h1>
+      </div>
+      <p class="auth-subtitle">Crie sua conta e comece a viajar</p>
+    </div>
+
+    <!-- Mensagens -->
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        <%= error %>
+      </div>
+    <% } %>
+    
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success">
+        <span class="alert-icon">✅</span>
+        <%= success %>
+      </div>
+    <% } %>
+
+    <!-- Formulário de Registro -->
+    <form method="POST" action="/auth/registro" class="auth-form">
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input 
+          type="text" 
+          id="nome" 
+          name="nome" 
+          value="<%= typeof nome !== 'undefined' ? nome : '' %>"
+          placeholder="Seu nome completo"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          value="<%= typeof email !== 'undefined' ? email : '' %>"
+          placeholder="seu@email.com"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <div class="password-field">
+          <input 
+            type="password" 
+            id="senha" 
+            name="senha" 
+            placeholder="Mínimo 6 caracteres"
+            required
+            minlength="6"
+          >
+          <button type="button" class="password-toggle" onclick="togglePassword('senha')">
+            <span class="show-password">👁️</span>
+            <span class="hide-password" style="display: none;">🙈</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmarSenha">Confirmar Senha</label>
+        <div class="password-field">
+          <input 
+            type="password" 
+            id="confirmarSenha" 
+            name="confirmarSenha" 
+            placeholder="Digite a senha novamente"
+            required
+          >
+          <button type="button" class="password-toggle" onclick="togglePassword('confirmarSenha')">
+            <span class="show-password">👁️</span>
+            <span class="hide-password" style="display: none;">🙈</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" name="termos" value="1" required>
+          <span class="checkmark"></span>
+          Aceito os <a href="/termos" target="_blank">termos de uso</a> e <a href="/privacidade" target="_blank">política de privacidade</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">
+        Criar Conta
+        <span class="btn-icon">→</span>
+      </button>
+    </form>
+
+    <!-- Divisor -->
+    <div class="auth-divider">
+      <span>ou</span>
+    </div>
+
+    <!-- Login Social (Placeholder) -->
+    <div class="social-login">
+      <button type="button" class="btn btn-google">
+        <span class="social-icon">🔵</span>
+        Registrar com Google
+      </button>
+      <button type="button" class="btn btn-facebook">
+        <span class="social-icon">📘</span>
+        Registrar com Facebook
+      </button>
+    </div>
+
+    <!-- Link para Login -->
+    <div class="auth-footer">
+      <p>Já tem uma conta? 
+        <a href="/auth" class="auth-link">Fazer login</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Informações Laterais -->
+  <div class="auth-info">
+    <div class="info-content">
+      <h2>🚀 Junte-se a nós!</h2>
+      <p>Crie sua conta gratuita e tenha acesso a benefícios exclusivos.</p>
+      
+      <div class="benefits">
+        <div class="benefit">
+          ✅ <strong>Conta gratuita</strong> - Sem taxas ou mensalidades
+        </div>
+        <div class="benefit">
+          ✅ <strong>Cashback automático</strong> - Ganhe pontos em cada compra
+        </div>
+        <div class="benefit">
+          ✅ <strong>Ofertas exclusivas</strong> - Descontos especiais para membros
+        </div>
+        <div class="benefit">
+          ✅ <strong>Suporte 24/7</strong> - Atendimento sempre disponível
+        </div>
+        <div class="benefit">
+          ✅ <strong>Sem compromisso</strong> - Cancele quando quiser
+        </div>
+      </div>
+      
+      <div class="stats">
+        <div class="stat">
+          <strong>10,000+</strong>
+          <span>Viajantes satisfeitos</span>
+        </div>
+        <div class="stat">
+          <strong>50+</strong>
+          <span>Destinos disponíveis</span>
+        </div>
+        <div class="stat">
+          <strong>4.9⭐</strong>
+          <span>Avaliação média</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/scripts') %>

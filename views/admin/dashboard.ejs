@@ -1,0 +1,242 @@
+<%- include('../partials/head', { pageCSS: 'admin-dashboard' }) %>
+
+<!-- Admin Header -->
+<header class="admin-header">
+  <div class="container">
+    <div class="admin-nav">
+      <h1 class="admin-title">🛡️ Dashboard Administrativo</h1>
+      <div class="admin-controls">
+        <button class="refresh-btn" onclick="refreshDashboard()">🔄 Atualizar</button>
+        <div class="status-indicator">
+          <span class="status-dot online" id="system-status"></span>
+          <span>Sistema Online</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="container">
+    
+    <!-- Métricas Principais -->
+    <section class="metrics-overview">
+      <div class="metrics-grid">
+        <!-- Performance -->
+        <div class="metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-content">
+            <h3>Performance</h3>
+            <div class="metric-value" id="response-time"><%= data.performance.responseTime %></div>
+            <div class="metric-label">Tempo de Resposta</div>
+          </div>
+          <div class="metric-trend positive">+5%</div>
+        </div>
+
+        <!-- Usuários Online -->
+        <div class="metric-card">
+          <div class="metric-icon">👥</div>
+          <div class="metric-content">
+            <h3>Usuários</h3>
+            <div class="metric-value" id="users-online"><%= data.users.online %></div>
+            <div class="metric-label">Online Agora</div>
+          </div>
+          <div class="metric-trend positive">+12%</div>
+        </div>
+
+        <!-- Requests -->
+        <div class="metric-card">
+          <div class="metric-icon">📊</div>
+          <div class="metric-content">
+            <h3>Requests</h3>
+            <div class="metric-value" id="total-requests"><%= data.performance.requests.toLocaleString() %></div>
+            <div class="metric-label">Hoje</div>
+          </div>
+          <div class="metric-trend positive">+8%</div>
+        </div>
+
+        <!-- Conversão -->
+        <div class="metric-card">
+          <div class="metric-icon">💰</div>
+          <div class="metric-content">
+            <h3>Conversão</h3>
+            <div class="metric-value" id="conversion-rate"><%= data.users.conversion %></div>
+            <div class="metric-label">Taxa de Conversão</div>
+          </div>
+          <div class="metric-trend positive">+3%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status das Integrações -->
+    <section class="integrations-status">
+      <h2>🔗 Status das Integrações</h2>
+      <div class="integrations-grid">
+        <% Object.entries(data.integrations).forEach(function([key, integration]) { %>
+          <div class="integration-status-card" data-service="<%= key %>">
+            <div class="integration-header">
+              <h3>
+                <% if (key === 'booking') { %>🏨 Booking.com<% } %>
+                <% if (key === 'payment') { %>💳 Pagamentos<% } %>
+                <% if (key === 'weather') { %>🌤️ Clima<% } %>
+                <% if (key === 'analytics') { %>📊 Analytics<% } %>
+              </h3>
+              <div class="status-badge <%= integration.status %>">
+                <%= integration.status === 'online' ? 'Online' : 'Aviso' %>
+              </div>
+            </div>
+            <div class="integration-metrics">
+              <div class="metric">
+                <span class="metric-label">Latência:</span>
+                <span class="metric-value"><%= integration.latency %></span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Requests:</span>
+                <span class="metric-value"><%= integration.requests %></span>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+
+    <!-- Segurança e Automação -->
+    <div class="admin-grid">
+      
+      <!-- Painel de Segurança -->
+      <section class="security-panel">
+        <h2>🛡️ Segurança</h2>
+        <div class="security-items">
+          <div class="security-item">
+            <div class="security-icon">🔒</div>
+            <div class="security-content">
+              <h4>SSL Certificado</h4>
+              <span class="security-status active">Ativo</span>
+            </div>
+          </div>
+          
+          <div class="security-item">
+            <div class="security-icon">🔥</div>
+            <div class="security-content">
+              <h4>Firewall</h4>
+              <span class="security-status active">Protegido</span>
+            </div>
+          </div>
+          
+          <div class="security-item">
+            <div class="security-icon">⚠️</div>
+            <div class="security-content">
+              <h4>Ameaças Bloqueadas</h4>
+              <span class="security-count"><%= data.security.blocked %></span>
+            </div>
+          </div>
+        </div>
+        
+        <button class="view-logs-btn" onclick="viewSecurityLogs()">
+          📋 Ver Logs de Segurança
+        </button>
+      </section>
+
+      <!-- Painel de Automação -->
+      <section class="automation-panel">
+        <h2>🤖 Automação</h2>
+        <div class="automation-stats">
+          <div class="automation-stat">
+            <h4>📧 Emails Automáticos</h4>
+            <div class="stat-details">
+              <span>Enviados: <strong><%= data.automation.emails.sent %></strong></span>
+              <span>Entregues: <strong><%= data.automation.emails.delivered %></strong></span>
+              <span>Abertos: <strong><%= data.automation.emails.opened %></strong></span>
+            </div>
+          </div>
+          
+          <div class="automation-stat">
+            <h4>🔔 Notificações</h4>
+            <div class="stat-details">
+              <span>Enviadas: <strong><%= data.automation.notifications.sent %></strong></span>
+              <span>Clicadas: <strong><%= data.automation.notifications.clicked %></strong></span>
+            </div>
+          </div>
+          
+          <div class="automation-stat">
+            <h4>💾 Backups</h4>
+            <div class="stat-details">
+              <span>Último: <strong><%= data.automation.backups.last %></strong></span>
+              <span class="backup-status success">✅ Sucesso</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Reviews em Tempo Real -->
+    <section class="live-reviews-panel">
+      <h2>⭐ Reviews em Tempo Real</h2>
+      <div class="reviews-overview">
+        <div class="reviews-stats">
+          <div class="stat">
+            <span class="stat-number"><%= data.reviews.total.toLocaleString() %></span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number"><%= data.reviews.average %></span>
+            <span class="stat-label">Média</span>
+          </div>
+        </div>
+        
+        <div class="recent-reviews">
+          <h4>Reviews Recentes:</h4>
+          <% data.reviews.recent.forEach(function(review) { %>
+            <div class="review-item">
+              <div class="review-content">
+                <strong><%= review.name %></strong>
+                <span class="review-rating">
+                  <% for(let i = 0; i < review.rating; i++) { %>★<% } %>
+                </span>
+              </div>
+              <div class="review-text">"<%= review.text %>"</div>
+              <div class="review-time"><%= review.time %> atrás</div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gráficos e Analytics -->
+    <section class="analytics-panel">
+      <h2>📊 Analytics em Tempo Real</h2>
+      <div class="charts-container">
+        <div class="chart-card">
+          <h3>Tráfego do Site</h3>
+          <canvas id="traffic-chart" width="400" height="200"></canvas>
+        </div>
+        
+        <div class="chart-card">
+          <h3>Performance do Sistema</h3>
+          <canvas id="performance-chart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Logs Modal -->
+<div id="logs-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>📋 Logs de Segurança</h3>
+      <button class="modal-close" onclick="closeLogs()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="logs-container">
+        <!-- Logs serão carregados aqui -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/scripts', { pageJS: 'admin-dashboard' }) %>
+
+</body>
+</html>

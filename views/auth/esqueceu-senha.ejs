@@ -1,0 +1,121 @@
+<%- include('../partials/head') %>
+
+<div class="auth-container">
+  <div class="auth-card auth-card-small">
+    <!-- Botão Voltar -->
+    <div class="auth-back">
+      <a href="/auth" class="back-btn">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+        Voltar ao login
+      </a>
+    </div>
+
+    <!-- Logo -->
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="/imagens/logo.png" alt="Eco Companion Logo" width="60" height="60">
+        <h1>Eco Companion</h1>
+      </div>
+      <p class="auth-subtitle">Recupere o acesso à sua conta</p>
+    </div>
+
+    <!-- Mensagens -->
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        <%= error %>
+      </div>
+    <% } %>
+    
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success">
+        <span class="alert-icon">✅</span>
+        <%= success %>
+      </div>
+    <% } %>
+
+    <!-- Formulário de Recuperação -->
+    <form method="POST" action="/auth/esqueceu-senha" class="auth-form">
+      <div class="form-group">
+        <label for="email">Email da Conta</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          value="<%= typeof email !== 'undefined' ? email : '' %>"
+          placeholder="Digite o email da sua conta"
+          required
+        >
+        <small class="form-help">
+          Enviaremos um link de recuperação para este email
+        </small>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">
+        Enviar Link de Recuperação
+        <span class="btn-icon">📧</span>
+      </button>
+    </form>
+
+    <!-- Links de Navegação -->
+    <div class="auth-footer">
+      <p>
+        <a href="/auth" class="auth-link">← Voltar ao login</a>
+      </p>
+      <p>
+        Não tem uma conta? 
+        <a href="/auth/registro" class="auth-link">Criar conta</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Informações de Ajuda -->
+  <div class="auth-info">
+    <div class="info-content">
+      <h2>🔒 Recuperação Segura</h2>
+      <p>Siga os passos para recuperar o acesso à sua conta com segurança.</p>
+      
+      <div class="steps">
+        <div class="step">
+          <span class="step-number">1</span>
+          <div>
+            <h3>Digite seu email</h3>
+            <p>Use o mesmo email que você cadastrou na sua conta</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <span class="step-number">2</span>
+          <div>
+            <h3>Verifique seu email</h3>
+            <p>Enviaremos um link seguro para redefinir sua senha</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <span class="step-number">3</span>
+          <div>
+            <h3>Crie nova senha</h3>
+            <p>Clique no link e defina uma nova senha forte</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-note">
+        <h4>💡 Dica de Segurança</h4>
+        <p>Crie uma senha com pelo menos 8 caracteres, incluindo letras, números e símbolos.</p>
+      </div>
+
+      <div class="contact-support">
+        <h4>Precisa de ajuda?</h4>
+        <p>Entre em contato conosco:</p>
+        <p>📧 <a href="mailto:suporte@ecocompanion.com">suporte@ecocompanion.com</a></p>
+        <p>📞 <a href="tel:+5511999999999">(11) 99999-9999</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/scripts') %>

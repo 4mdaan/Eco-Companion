@@ -1,5 +1,12 @@
 <!-- Scripts personalizados -->
 <script src="/js/main.js"></script>
+<script src="/js/security-automation.js"></script>
+<script src="/js/chat-float.js"></script>
+
+<!-- Page-specific JavaScript -->
+<% if (typeof pageJS !== 'undefined') { %>
+  <script src="/js/<%= pageJS %>.js"></script>
+<% } %>
 
 <!-- Analytics (se necessário) -->
 <% if (typeof analytics !== 'undefined' && analytics) { %>

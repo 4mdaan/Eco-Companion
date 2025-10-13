@@ -1,0 +1,217 @@
+<%- include('../partials/head', { pageCSS: 'destino-compra' }) %>
+
+<%- include('../partials/header', { currentPage: 'destinos' }) %>
+
+<!-- Hero de Sucesso -->
+<div class="sucesso-hero">
+  <div class="container">
+    <div class="sucesso-icon">
+      <div class="check-circle">
+        <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+        </svg>
+      </div>
+    </div>
+    <h1 class="sucesso-title">🎉 Reserva Confirmada!</h1>
+    <p class="sucesso-subtitle">Sua viagem para <strong><%= pedido.destino %></strong> foi reservada com sucesso</p>
+    <div class="numero-reserva">
+      <span class="numero-label">Número da Reserva:</span>
+      <span class="numero-valor"># <%= pedido.numeroReserva %></span>
+    </div>
+  </div>
+</div>
+
+<!-- Detalhes da Reserva -->
+<div class="sucesso-content">
+  <div class="container">
+    <div class="sucesso-grid">
+      <!-- Detalhes da Viagem -->
+      <div class="detalhes-card">
+        <h2 class="card-title">📋 Detalhes da Reserva</h2>
+        
+        <div class="detalhe-item">
+          <div class="detalhe-label">🏖️ Destino:</div>
+          <div class="detalhe-valor"><%= pedido.destino %></div>
+        </div>
+        
+        <div class="detalhe-item">
+          <div class="detalhe-label">👥 Pessoas:</div>
+          <div class="detalhe-valor"><%= pedido.pessoas %> <%= pedido.pessoas === 1 ? 'pessoa' : 'pessoas' %></div>
+        </div>
+        
+        <div class="detalhe-item">
+          <div class="detalhe-label">💰 Valor por pessoa:</div>
+          <div class="detalhe-valor">R$ <%= pedido.valorUnitario.toLocaleString('pt-BR') %></div>
+        </div>
+        
+        <div class="detalhe-item total">
+          <div class="detalhe-label">💳 Valor Total:</div>
+          <div class="detalhe-valor">R$ <%= pedido.valorTotal.toLocaleString('pt-BR') %></div>
+        </div>
+        
+        <div class="detalhe-item">
+          <div class="detalhe-label">💳 Pagamento:</div>
+          <div class="detalhe-valor">
+            <% if (pedido.metodoPagamento === 'pix') { %>
+              📱 PIX
+            <% } else if (pedido.metodoPagamento === 'cartao') { %>
+              💳 Cartão de Crédito
+            <% } else { %>
+              🧾 Boleto Bancário
+            <% } %>
+          </div>
+        </div>
+        
+        <div class="detalhe-item">
+          <div class="detalhe-label">📅 Data da Reserva:</div>
+          <div class="detalhe-valor"><%= pedido.dataReserva.toLocaleDateString('pt-BR') %></div>
+        </div>
+      </div>
+      
+      <!-- Dados do Cliente -->
+      <div class="cliente-card">
+        <h2 class="card-title">👤 Dados do Cliente</h2>
+        
+        <div class="cliente-info">
+          <div class="info-item">
+            <strong>Nome:</strong> <%= pedido.cliente.nome %>
+          </div>
+          <div class="info-item">
+            <strong>E-mail:</strong> <%= pedido.cliente.email %>
+          </div>
+          <div class="info-item">
+            <strong>Telefone:</strong> <%= pedido.cliente.telefone %>
+          </div>
+          <div class="info-item">
+            <strong>CPF:</strong> <%= pedido.cliente.cpf %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Próximos Passos -->
+    <div class="proximos-passos">
+      <h2 class="passos-title">📝 Próximos Passos</h2>
+      
+      <div class="passos-grid">
+        <div class="passo-item">
+          <div class="passo-numero">1</div>
+          <div class="passo-content">
+            <h3>📧 Confirmação por E-mail</h3>
+            <p>Você receberá um e-mail com todos os detalhes da sua reserva em até 10 minutos.</p>
+          </div>
+        </div>
+        
+        <div class="passo-item">
+          <div class="passo-numero">2</div>
+          <div class="passo-content">
+            <h3>📄 Documentação</h3>
+            <p>Prepare seus documentos: RG, CPF e passaporte (se necessário).</p>
+          </div>
+        </div>
+        
+        <div class="passo-item">
+          <div class="passo-numero">3</div>
+          <div class="passo-content">
+            <h3>📞 Contato Especializado</h3>
+            <p>Nossa equipe entrará em contato em até 24h para finalizar os detalhes.</p>
+          </div>
+        </div>
+        
+        <div class="passo-item">
+          <div class="passo-numero">4</div>
+          <div class="passo-content">
+            <h3>🧳 Prepare-se!</h3>
+            <p>Sua aventura incrível está prestes a começar. Boa viagem!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ações -->
+    <div class="sucesso-actions">
+      <div class="actions-grid">
+        <a href="/destinos" class="btn-explorar">
+          🌍 Explorar Mais Destinos
+        </a>
+        
+        <a href="/" class="btn-home">
+          🏠 Voltar ao Início
+        </a>
+        
+        <button onclick="window.print()" class="btn-imprimir">
+          🖨️ Imprimir Reserva
+        </button>
+        
+        <a href="mailto:<%= pedido.cliente.email %>?subject=Reserva <%= pedido.numeroReserva %>&body=Sua reserva para <%= pedido.destino %> foi confirmada!" class="btn-email">
+          📧 Enviar por E-mail
+        </a>
+      </div>
+    </div>
+    
+    <!-- Dúvidas -->
+    <div class="ajuda-section">
+      <div class="ajuda-card">
+        <h3>❓ Precisa de Ajuda?</h3>
+        <p>Nossa equipe está aqui para ajudar você a ter a melhor experiência de viagem.</p>
+        
+        <div class="contatos">
+          <div class="contato-item">
+            <span class="contato-icon">📞</span>
+            <div>
+              <strong>Central de Atendimento</strong><br>
+              <span>(11) 99999-9999</span>
+            </div>
+          </div>
+          
+          <div class="contato-item">
+            <span class="contato-icon">📧</span>
+            <div>
+              <strong>E-mail de Suporte</strong><br>
+              <span>suporte@ecocompanion.com</span>
+            </div>
+          </div>
+          
+          <div class="contato-item">
+            <span class="contato-icon">💬</span>
+            <div>
+              <strong>WhatsApp</strong><br>
+              <span>(11) 99999-9999</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+<script>
+// Animação de confetti quando a página carregar
+window.addEventListener('load', function() {
+  // Simular confetti (pode adicionar uma biblioteca real de confetti)
+  setTimeout(() => {
+    const checkCircle = document.querySelector('.check-circle');
+    if (checkCircle) {
+      checkCircle.classList.add('animate-check');
+    }
+  }, 500);
+});
+
+// Função para copiar número da reserva
+function copiarReserva() {
+  const numeroReserva = '<%= pedido.numeroReserva %>';
+  navigator.clipboard.writeText(numeroReserva).then(() => {
+    alert('Número da reserva copiado!');
+  });
+}
+
+// Adicionar evento de clique no número da reserva
+document.querySelector('.numero-valor').addEventListener('click', copiarReserva);
+document.querySelector('.numero-valor').style.cursor = 'pointer';
+document.querySelector('.numero-valor').title = 'Clique para copiar';
+</script>
+
+<%- include('../partials/scripts') %>

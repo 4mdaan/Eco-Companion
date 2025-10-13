@@ -20,12 +20,20 @@ const indexRoutes = require('./routes/index');
 const pacotesRoutes = require('./routes/pacotes');
 const destinosRoutes = require('./routes/destinos');
 const carrinhoRoutes = require('./routes/carrinho');
+const cashbackRoutes = require('./routes/cashback');
+const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
+const chatRoutes = require('./routes/chat');
 
 // Usar as rotas
 app.use('/', indexRoutes);
 app.use('/pacotes', pacotesRoutes);
 app.use('/destinos', destinosRoutes);
 app.use('/carrinho', carrinhoRoutes);
+app.use('/cashback', cashbackRoutes);
+app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
+app.use('/chat', chatRoutes);
 
 // Middleware para tratamento de erros 404
 app.use((req, res, next) => {

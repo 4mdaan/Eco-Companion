@@ -2,10 +2,7 @@
   <div class="header-container">
     <a href="/" class="logo">
       <div class="logo-icon">
-        <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="14" r="8" fill="currentColor" />
-          <path d="M8 42c8-6 32-6 48 0-5 10-18 18-24 18s-19-8-24-18z" fill="currentColor" />
-        </svg>
+        <img src="/imagens/logo.png" alt="Eco Companion Logo" width="36" height="36">
       </div>
       <span class="logo-text">Eco Companion</span>
     </a>
@@ -21,6 +18,12 @@
         <a href="/destinos" class="nav-link <%= currentPage === 'destinos' ? 'active' : '' %>">Destinos</a>
       </li>
       <li class="nav-item">
+        <a href="/agenda" class="nav-link <%= currentPage === 'agenda' ? 'active' : '' %>">Agenda</a>
+      </li>
+      <li class="nav-item">
+        <a href="/promocoes" class="nav-link <%= currentPage === 'promocoes' ? 'active' : '' %>">Promoções</a>
+      </li>
+      <li class="nav-item">
         <a href="/sobre" class="nav-link <%= currentPage === 'sobre' ? 'active' : '' %>">Sobre</a>
       </li>
       <li class="nav-item">
@@ -34,6 +37,12 @@
           <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
         </svg>
         <span class="carrinho-contador" id="carrinho-contador">0</span>
+      </a>
+      <a href="/auth" class="login-btn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/>
+        </svg>
+        Login
       </a>
     </div>
 

@@ -13,11 +13,9 @@
       Agenda
     </a>
 
-    <a href="/pacotes" class="filter-button">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 2L3 6v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      Pacotes
+    <a href="/cashback" class="filter-button">
+      💰
+      Cashback
     </a>
   </section>
 
@@ -177,9 +175,108 @@
       </div>
     </div>
   </section>
+
+  <!-- Sistema de Reviews Automatizado -->
+  <section class="automated-reviews-section">
+    <div class="container">
+      <div class="reviews-header">
+        <h2>⭐ Reviews em Tempo Real</h2>
+        <p>Veja o que nossos clientes estão dizendo agora mesmo</p>
+      </div>
+      
+      <div class="live-reviews-feed">
+        <div id="reviews-container" class="reviews-grid">
+          <!-- Reviews serão carregados automaticamente via JavaScript -->
+        </div>
+        
+        <div class="reviews-stats">
+          <div class="stat-item">
+            <div class="stat-number" id="total-reviews">2,847</div>
+            <div class="stat-label">Reviews Totais</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="avg-rating">4.9</div>
+            <div class="stat-label">Avaliação Média</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="satisfaction">98%</div>
+            <div class="stat-label">Satisfação</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sistema de Integração e APIs -->
+  <section class="integration-dashboard">
+    <div class="container">
+      <div class="integration-header">
+        <h2>🔗 Integrações Ativas</h2>
+        <p>Conectado com os melhores serviços para você</p>
+      </div>
+      
+      <div class="integrations-grid">
+        <div class="integration-item" data-service="booking">
+          <div class="integration-icon">🏨</div>
+          <div class="integration-info">
+            <h3>Booking.com</h3>
+            <div class="status-indicator">
+              <span class="status-dot online"></span>
+              <span class="status-text">Online</span>
+            </div>
+          </div>
+          <div class="integration-data">
+            <span class="data-point">15,234 hotéis</span>
+          </div>
+        </div>
+
+        <div class="integration-item" data-service="weather">
+          <div class="integration-icon">🌤️</div>
+          <div class="integration-info">
+            <h3>Clima Tempo</h3>
+            <div class="status-indicator">
+              <span class="status-dot online"></span>
+              <span class="status-text">Atualizado</span>
+            </div>
+          </div>
+          <div class="integration-data">
+            <span class="data-point" id="weather-data">Carregando...</span>
+          </div>
+        </div>
+
+        <div class="integration-item" data-service="payment">
+          <div class="integration-icon">💳</div>
+          <div class="integration-info">
+            <h3>Pagamentos</h3>
+            <div class="status-indicator">
+              <span class="status-dot online"></span>
+              <span class="status-text">Seguro</span>
+            </div>
+          </div>
+          <div class="integration-data">
+            <span class="data-point">PIX, Cartões, PayPal</span>
+          </div>
+        </div>
+
+        <div class="integration-item" data-service="analytics">
+          <div class="integration-icon">📊</div>
+          <div class="integration-info">
+            <h3>Analytics</h3>
+            <div class="status-indicator">
+              <span class="status-dot online"></span>
+              <span class="status-text">Monitorando</span>
+            </div>
+          </div>
+          <div class="integration-data">
+            <span class="data-point" id="visitors-count">847 visitantes hoje</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <%- include('partials/footer') %>
-<%- include('partials/scripts') %>
+<%- include('partials/scripts', { pageJS: 'home-automation' }) %>
 
 <script src="/js/carrinho.js"></script>

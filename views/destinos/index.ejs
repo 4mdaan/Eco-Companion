@@ -11,10 +11,18 @@
   <!-- Grid de Destinos -->
   <div class="packages-grid">
     <% destinos.forEach(function(destino) { %>
-      <article class="package-card-detailed">
-        <div class="package-image-large <%= destino.bgClass %>">
-          <% if (destino.destaque) { %>
+      <article class="package-card-detailed <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-card' : '' %>">
+        <div class="package-image-large" style="background-image: url('<%= destino.imagem %>');">
+          <% if (destino.categoria === 'Ultra Luxury') { %>
+            <div class="package-badge ultra-luxury-badge">
+              <span class="crown-icon">👑</span>
+              ULTRA LUXURY
+            </div>
+          <% } else if (destino.destaque) { %>
             <div class="package-badge">Destaque</div>
+          <% } %>
+          <% if (destino.exclusividade) { %>
+            <div class="exclusivity-badge">✨ <%= destino.exclusividade %></div>
           <% } %>
         </div>
         
@@ -31,25 +39,47 @@
           
           <p class="package-description-detailed"><%= destino.descricao %></p>
           
-          <!-- Características do destino -->
+          <!-- Atrações principais -->
           <div class="package-highlights">
-            <% destino.caracteristicas.forEach(function(item) { %>
+            <% destino.atrações.slice(0, 4).forEach(function(atracao) { %>
               <div class="highlight-item">
                 <svg class="highlight-icon" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <%= item %>
+                <%= atracao %>
               </div>
             <% }); %>
           </div>
           
+          <!-- Diferenciais especiais para Ultra Luxury -->
+          <% if (destino.diferenciais && destino.diferenciais.length > 0) { %>
+            <div class="luxury-differentials">
+              <h4>✨ Experiências Exclusivas</h4>
+              <div class="differentials-grid">
+                <% destino.diferenciais.slice(0, 3).forEach(function(diferencial) { %>
+                  <div class="differential-item"><%= diferencial %></div>
+                <% }); %>
+              </div>
+            </div>
+          <% } %>
+          
           <div class="package-pricing">
             <div class="price-info">
-              <div class="price-label">Pacotes a partir de</div>
-              <div class="price-value">R$ <%= destino.precoMinimo %></div>
+              <% if (destino.preco) { %>
+                <div class="price-label">Experiência completa a partir de</div>
+                <div class="price-value <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-price' : '' %>">
+                  R$ <%= destino.preco ? destino.preco.toLocaleString('pt-BR') : destino.precoMinimo %>
+                </div>
+                <% if (destino.categoria === 'Ultra Luxury') { %>
+                  <div class="price-note">*Valor por casal, 7 dias</div>
+                <% } %>
+              <% } else { %>
+                <div class="price-label">Pacotes a partir de</div>
+                <div class="price-value">R$ <%= destino.precoMinimo || '1.200' %></div>
+              <% } %>
             </div>
-            <a href="/pacotes?destino=<%= destino.slug %>" class="btn-view-details">
-              Ver Pacotes
+            <a href="/destinos/<%= destino.slug %>" class="btn-view-details">
+              Ver Detalhes
             </a>
           </div>
         </div>
@@ -57,6 +87,162 @@
     <% }); %>
   </div>
 </main>
+
+<!-- Seção de Segurança e Confiança -->
+<section class="security-trust-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>🛡️ Segurança e Confiança Garantidas</h2>
+      <p>Sua tranquilidade é nossa prioridade - viaje com total segurança</p>
+    </div>
+    
+    <div class="security-grid">
+      <!-- SSL e Criptografia -->
+      <div class="security-item">
+        <div class="security-icon">🔒</div>
+        <div class="security-content">
+          <h3>SSL 256-bit</h3>
+          <p>Criptografia de nível bancário</p>
+          <div class="security-badge verified">✅ Verificado</div>
+        </div>
+      </div>
+
+      <!-- PCI Compliance -->
+      <div class="security-item">
+        <div class="security-icon">💳</div>
+        <div class="security-content">
+          <h3>PCI DSS Compliant</h3>
+          <p>Padrão internacional para pagamentos</p>
+          <div class="security-badge verified">✅ Certificado</div>
+        </div>
+      </div>
+
+      <!-- Associações -->
+      <div class="security-item">
+        <div class="security-icon">🏆</div>
+        <div class="security-content">
+          <h3>ABAV Certificado</h3>
+          <p>Associação Brasileira de Agências</p>
+          <div class="security-badge verified">✅ Membro Ativo</div>
+        </div>
+      </div>
+
+      <!-- Garantia -->
+      <div class="security-item">
+        <div class="security-icon">🛡️</div>
+        <div class="security-content">
+          <h3>Garantia Total</h3>
+          <p>100% do seu dinheiro de volta</p>
+          <div class="security-badge verified">✅ Garantido</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Automation Features -->
+    <div class="automation-section">
+      <h3>🤖 Automação Inteligente</h3>
+      <div class="automation-grid">
+        <div class="automation-item">
+          <div class="automation-icon">📧</div>
+          <div class="automation-content">
+            <h4>Confirmação Automática</h4>
+            <p>Receba confirmações instantâneas por email e SMS</p>
+          </div>
+        </div>
+
+        <div class="automation-item">
+          <div class="automation-icon">🔔</div>
+          <div class="automation-content">
+            <h4>Lembretes Inteligentes</h4>
+            <p>Alertas sobre documentação e check-in</p>
+          </div>
+        </div>
+
+        <div class="automation-item">
+          <div class="automation-icon">📊</div>
+          <div class="automation-content">
+            <h4>Monitoramento 24/7</h4>
+            <p>Acompanhamento em tempo real da sua viagem</p>
+          </div>
+        </div>
+
+        <div class="automation-item">
+          <div class="automation-icon">🎯</div>
+          <div class="automation-content">
+            <h4>Ofertas Personalizadas</h4>
+            <p>IA que sugere destinos baseado no seu perfil</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Partners -->
+    <div class="integration-section">
+      <h3>🤝 Parcerias e Integrações</h3>
+      <div class="partners-grid">
+        <div class="partner-logo">
+          <img src="/imagens/partners/booking.png" alt="Booking.com" onerror="this.style.display='none'">
+          <span class="partner-name">Booking.com</span>
+        </div>
+        <div class="partner-logo">
+          <img src="/imagens/partners/expedia.png" alt="Expedia" onerror="this.style.display='none'">
+          <span class="partner-name">Expedia</span>
+        </div>
+        <div class="partner-logo">
+          <img src="/imagens/partners/mastercard.png" alt="Mastercard" onerror="this.style.display='none'">
+          <span class="partner-name">Mastercard</span>
+        </div>
+        <div class="partner-logo">
+          <img src="/imagens/partners/visa.png" alt="Visa" onerror="this.style.display='none'">
+          <span class="partner-name">Visa</span>
+        </div>
+        <div class="partner-logo">
+          <img src="/imagens/partners/pix.png" alt="PIX" onerror="this.style.display='none'">
+          <span class="partner-name">PIX</span>
+        </div>
+        <div class="partner-logo">
+          <img src="/imagens/partners/paypal.png" alt="PayPal" onerror="this.style.display='none'">
+          <span class="partner-name">PayPal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Support -->
+    <div class="support-section">
+      <div class="support-content">
+        <div class="support-info">
+          <h3>💬 Suporte ao Vivo</h3>
+          <p>Atendimento especializado 24/7 via chat, WhatsApp e telefone</p>
+          <div class="support-stats">
+            <div class="stat">
+              <span class="stat-number">98%</span>
+              <span class="stat-label">Satisfação</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">&lt;30s</span>
+              <span class="stat-label">Resposta</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Disponível</span>
+            </div>
+          </div>
+        </div>
+        <div class="support-actions">
+          <button class="support-btn chat-btn" onclick="window.open('/chat', '_blank')">
+            💬 Chat ao Vivo
+          </button>
+          <button class="support-btn whatsapp-btn" onclick="openWhatsApp()">
+            📱 WhatsApp
+          </button>
+          <button class="support-btn phone-btn" onclick="callSupport()">
+            📞 Ligar Agora
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <%- include('../partials/footer') %>
 <%- include('../partials/scripts') %>

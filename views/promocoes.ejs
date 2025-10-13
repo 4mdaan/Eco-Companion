@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('partials/head', { pageCSS: 'promocoes' }) %>
+
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="promocoes-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>🔥 Promoções Imperdíveis</h1>
+                <p>Descontos exclusivos e ofertas limitadas para os destinos mais incríveis</p>
+                <div class="hero-badge">
+                    <span class="badge-text">Até 30% OFF</span>
+                    <span class="badge-subtitle">Em destinos selecionados</span>
+                </div>
+            </div>
+            <div class="countdown-container">
+                <h3>⏰ Oferta termina em:</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Dias</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promoções Destacadas -->
+    <section class="promocoes-destacadas">
+        <div class="container">
+            <div class="section-header">
+                <h2>⭐ Ofertas em Destaque</h2>
+                <p>As melhores promoções com descontos especiais</p>
+            </div>
+            
+            <div class="promocoes-grid">
+                <% promocoes.destacadas.forEach(function(promo) { %>
+                <div class="promo-card <%= promo.tipo %>">
+                    <div class="promo-badge">
+                        <span class="discount-percent">-<%= promo.desconto %>%</span>
+                    </div>
+                    
+                    <div class="promo-header">
+                        <h3 class="promo-title"><%= promo.titulo %></h3>
+                        <p class="promo-destino">📍 <%= promo.destino %></p>
+                    </div>
+
+                    <div class="promo-pricing">
+                        <div class="price-comparison">
+                            <span class="original-price">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
+                            <span class="promo-price">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
+                        </div>
+                        <div class="savings">
+                            Economia de R$ <%= (promo.precoOriginal - promo.precoPromocional).toLocaleString('pt-BR') %>
+                        </div>
+                    </div>
+
+                    <div class="promo-benefits">
+                        <h4>✨ Incluso na promoção:</h4>
+                        <ul>
+                            <% promo.beneficios.forEach(function(beneficio) { %>
+                            <li>✓ <%= beneficio %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+
+                    <div class="promo-availability">
+                        <div class="availability-info">
+                            <span class="vagas-count">👥 <%= promo.vagas %> vagas disponíveis</span>
+                            <span class="validade">📅 Válido até <%= new Date(promo.validadeFim).toLocaleDateString('pt-BR') %></span>
+                        </div>
+                    </div>
+
+                    <div class="promo-conditions">
+                        <small>⚠️ <%= promo.condicoes %></small>
+                    </div>
+
+                    <div class="promo-actions">
+                        <a href="/destinos/<%= promo.slug %>" class="btn-outline">Ver Detalhes</a>
+                        <a href="/destinos/<%= promo.slug %>/comprar" class="btn-primary promo-btn">
+                            🔥 Garantir Oferta
+                        </a>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promoções por Categoria -->
+    <section class="promocoes-categorias">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎯 Promoções por Categoria</h2>
+                <p>Encontre a oferta ideal para seu perfil de viagem</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="nacionais">🇧🇷 Nacionais</button>
+                <button class="tab-btn" data-category="internacionais">🌍 Internacionais</button>
+                <button class="tab-btn" data-category="ecoturismo">🌿 Ecoturismo</button>
+            </div>
+
+            <!-- Nacionais -->
+            <div class="category-content active" data-category="nacionais">
+                <div class="promo-list">
+                    <% promocoes.categorias.nacionais.forEach(function(promo) { %>
+                    <div class="promo-item">
+                        <div class="item-info">
+                            <h4><%= promo.titulo %></h4>
+                            <p class="destination">📍 <%= promo.destino %></p>
+                            <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
+                        </div>
+                        <div class="item-pricing">
+                            <div class="discount-badge">-<%= promo.desconto %>%</div>
+                            <div class="prices">
+                                <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
+                                <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <!-- Internacionais -->
+            <div class="category-content" data-category="internacionais">
+                <div class="promo-list">
+                    <% promocoes.categorias.internacionais.forEach(function(promo) { %>
+                    <div class="promo-item">
+                        <div class="item-info">
+                            <h4><%= promo.titulo %></h4>
+                            <p class="destination">📍 <%= promo.destino %></p>
+                            <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
+                        </div>
+                        <div class="item-pricing">
+                            <div class="discount-badge">-<%= promo.desconto %>%</div>
+                            <div class="prices">
+                                <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
+                                <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <!-- Ecoturismo -->
+            <div class="category-content" data-category="ecoturismo">
+                <div class="promo-list">
+                    <% promocoes.categorias.ecoturismo.forEach(function(promo) { %>
+                    <div class="promo-item">
+                        <div class="item-info">
+                            <h4><%= promo.titulo %></h4>
+                            <p class="destination">📍 <%= promo.destino %></p>
+                            <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
+                        </div>
+                        <div class="item-pricing">
+                            <div class="discount-badge">-<%= promo.desconto %>%</div>
+                            <div class="prices">
+                                <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
+                                <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Última Chance -->
+    <section class="ultima-chance">
+        <div class="container">
+            <div class="section-header urgente">
+                <h2>⚡ Última Chance</h2>
+                <p>Ofertas com prazo limitado - Não perca!</p>
+            </div>
+            
+            <div class="urgente-grid">
+                <% promocoes.ultimaChance.forEach(function(promo) { %>
+                <div class="urgente-card">
+                    <div class="urgencia-badge">
+                        <span>🚨 URGENTE</span>
+                    </div>
+                    
+                    <div class="urgente-content">
+                        <h3><%= promo.titulo %></h3>
+                        <p class="urgencia-text"><%= promo.urgencia %></p>
+                        
+                        <div class="urgente-pricing">
+                            <span class="original-price">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
+                            <span class="promo-price">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
+                            <span class="discount">-<%= promo.desconto %>%</span>
+                        </div>
+                        
+                        <div class="urgente-info">
+                            <span class="vagas">👥 Apenas <%= promo.vagas %> vagas</span>
+                            <span class="prazo">⏰ Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
+                        </div>
+                        
+                        <a href="/destinos/<%= promo.slug %>/comprar" class="btn-urgente">
+                            ⚡ Reservar Agora
+                        </a>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Promoções -->
+    <section class="newsletter-promocoes">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>🎯 Não Perca Nenhuma Oferta!</h2>
+                <p>Cadastre-se e receba as melhores promoções em primeira mão</p>
+                
+                <form class="newsletter-form" id="newsletter-promo-form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Seu melhor e-mail" required>
+                        <button type="submit" class="btn-newsletter">
+                            📧 Quero as Ofertas
+                        </button>
+                    </div>
+                    <div class="newsletter-benefits">
+                        <span>✓ Promoções exclusivas</span>
+                        <span>✓ Descontos de até 40%</span>
+                        <span>✓ Acesso antecipado</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+    <%- include('partials/scripts') %>
+
+    <!-- Scripts específicos das promoções -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Countdown Timer
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const targetDate = new Date('2025-11-30 23:59:59').getTime();
+                const distance = targetDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 60000); // Atualiza a cada minuto
+
+            // Tabs das categorias
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const categoryContents = document.querySelectorAll('.category-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Remove active class
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    categoryContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class
+                    this.classList.add('active');
+                    document.querySelector(`[data-category="${category}"].category-content`).classList.add('active');
+                });
+            });
+
+            // Newsletter form
+            document.getElementById('newsletter-promo-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                alert('🎉 Cadastro realizado com sucesso! Você receberá as melhores ofertas em ' + email);
+                this.reset();
+            });
+
+            // Animações de entrada
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar cards de promoção
+            document.querySelectorAll('.promo-card, .promo-item, .urgente-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

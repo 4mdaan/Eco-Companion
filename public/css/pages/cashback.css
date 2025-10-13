@@ -1,0 +1,598 @@
+/* Estilos específicos para páginas de cashback */
+
+/* Container comum */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* === HERO DO CASHBACK === */
+.cashback-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--sky-800) 100%);
+    color: white;
+    padding: 3rem 0;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Pacifico', cursive;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.9;
+}
+
+/* Card de pontos */
+.pontos-card {
+    background: white;
+    color: var(--slate-800);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    min-width: 320px;
+}
+
+.pontos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.nivel-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.nivel-bronze {
+    background: linear-gradient(135deg, #cd7f32, #b8722c);
+    color: white;
+}
+
+.nivel-silver {
+    background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+    color: white;
+}
+
+.nivel-gold {
+    background: linear-gradient(135deg, #ffd700, #ffcd00);
+    color: #1a1a1a;
+}
+
+.nivel-platinum {
+    background: linear-gradient(135deg, #e5e4e2, #d3d3d3);
+    color: #1a1a1a;
+}
+
+.nivel-diamond {
+    background: linear-gradient(135deg, #b9f2ff, #1e90ff);
+    color: white;
+}
+
+.cashback-percentual {
+    font-weight: 600;
+    color: #10b981;
+    font-size: 0.875rem;
+}
+
+.pontos-principal {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.pontos-valor {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+}
+
+.pontos-label {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.pontos-pendentes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.progresso-nivel {
+    margin-top: 1rem;
+}
+
+.progresso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.progresso-barra {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progresso-fill {
+    height: 100%;
+    background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* === DASHBOARD === */
+.cashback-dashboard {
+    padding: 3rem 0;
+    background: #f8fafc;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--yellow-400);
+    border-radius: 50%;
+}
+
+.stat-valor {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Seções */
+.section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--slate-800);
+}
+
+.ver-todas {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.ver-todas:hover {
+    color: var(--sky-800);
+}
+
+/* Recompensas */
+.recompensas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recompensa-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.recompensa-card.disponivel {
+    border-color: var(--yellow-400);
+    background: rgba(251, 191, 36, 0.05);
+}
+
+.recompensa-card.disponivel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.recompensa-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--yellow-400);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.recompensa-info {
+    flex: 1;
+}
+
+.recompensa-titulo {
+    font-weight: 600;
+    color: var(--slate-800);
+    margin-bottom: 0.25rem;
+}
+
+.recompensa-descricao {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.recompensa-pontos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pontos-necessarios {
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.btn-resgatar {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-resgatar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.faltam-pontos {
+    color: #ef4444;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Histórico */
+.historico-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transacao-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.transacao-item:hover {
+    background: #f8fafc;
+}
+
+.transacao-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--yellow-400);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.transacao-info {
+    flex: 1;
+}
+
+.transacao-titulo {
+    font-weight: 500;
+    color: var(--slate-800);
+    margin-bottom: 0.25rem;
+}
+
+.transacao-data {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.transacao-pontos {
+    text-align: right;
+}
+
+.pontos-valor.positivos {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.pontos-valor.negativos {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.transacao-valor {
+    color: #64748b;
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* Estado vazio */
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* === COMO FUNCIONA === */
+.como-funciona {
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
+}
+
+.funciona-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.funciona-step {
+    text-align: center;
+}
+
+.step-numero {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
+    color: var(--slate-800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+}
+
+.step-content h3 {
+    font-weight: 600;
+    color: var(--slate-800);
+    margin-bottom: 0.5rem;
+}
+
+.step-content p {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* === NÍVEIS DO PROGRAMA === */
+.niveis-programa {
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.niveis-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.nivel-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nivel-card.atual {
+    border-color: var(--yellow-400);
+    background: rgba(251, 191, 36, 0.1);
+    transform: scale(1.05);
+}
+
+.nivel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.nivel-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.nivel-header .nivel-icon {
+    font-size: 2rem;
+}
+
+.nivel-nome {
+    font-weight: 600;
+    color: var(--slate-800);
+    font-size: 1.125rem;
+}
+
+.nivel-cashback {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.nivel-requisito {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .funciona-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .niveis-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .pontos-card {
+        min-width: auto;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+    }
+    
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .recompensa-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .recompensa-pontos {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .funciona-grid, .niveis-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .transacao-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .transacao-pontos {
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .pontos-valor {
+        font-size: 2rem;
+    }
+}
