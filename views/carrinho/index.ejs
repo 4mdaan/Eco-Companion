@@ -1,0 +1,186 @@
+<%- include('../partials/head', { pageCSS: 'carrinho' }) %>
+
+<%- include('../partials/header', { currentPage: 'carrinho' }) %>
+
+<!-- Hero do Carrinho -->
+<div class="carrinho-hero">
+  <div class="container">
+    <h1 class="carrinho-title">Carrinho de Compras</h1>
+    <p class="carrinho-subtitle">Revise seus pacotes selecionados e finalize sua reserva</p>
+  </div>
+</div>
+
+<!-- Conteúdo do Carrinho -->
+<div class="carrinho-content">
+  <div class="container">
+    <% if (carrinho && carrinho.length > 0) { %>
+      <div class="carrinho-grid">
+        <!-- Lista de Itens -->
+        <div class="carrinho-items">
+          <h2 class="section-title">Seus Pacotes</h2>
+          
+          <% carrinho.forEach(function(item) { %>
+            <div class="carrinho-item" data-slug="<%= item.slug %>">
+              <div class="item-image <%= item.bgClass %>"></div>
+              
+              <div class="item-info">
+                <h3 class="item-title"><%= item.destino %></h3>
+                <p class="item-periodo"><%= item.periodo %></p>
+                <div class="item-descricao"><%= item.descricao %></div>
+                
+                <div class="item-precos">
+                  <% if (item.precoOriginal && item.precoOriginal !== item.preco) { %>
+                    <span class="preco-original">R$ <%= item.precoOriginal %></span>
+                  <% } %>
+                  <span class="preco-atual">R$ <%= item.preco %></span>
+                  <span class="preco-label">por pessoa</span>
+                </div>
+              </div>
+              
+              <div class="item-actions">
+                <div class="quantidade-control">
+                  <label class="quantidade-label">Pessoas:</label>
+                  <div class="quantidade-input">
+                    <button type="button" class="btn-menos" onclick="alterarQuantidade('<%= item.slug %>', -1)">-</button>
+                    <input type="number" value="<%= item.quantidade %>" min="1" max="10" class="input-quantidade" onchange="atualizarQuantidade('<%= item.slug %>', this.value)">
+                    <button type="button" class="btn-mais" onclick="alterarQuantidade('<%= item.slug %>', 1)">+</button>
+                  </div>
+                </div>
+                
+                <div class="item-total">
+                  <% 
+                    const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+                    const totalItem = precoNum * item.quantidade;
+                  %>
+                  <span class="total-label">Total:</span>
+                  <span class="total-valor">R$ <%= totalItem.toLocaleString('pt-BR') %></span>
+                </div>
+                
+                <button type="button" class="btn-remover" onclick="removerItem('<%= item.slug %>')">
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                  Remover
+                </button>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        
+        <!-- Resumo do Pedido -->
+        <div class="carrinho-resumo">
+          <div class="resumo-card">
+            <h3 class="resumo-title">Resumo do Pedido</h3>
+            
+            <div class="resumo-linha">
+              <span class="resumo-label">Subtotal (<%= totais.quantidade %> <%= totais.quantidade === 1 ? 'pessoa' : 'pessoas' %>):</span>
+              <span class="resumo-valor">R$ <%= totais.subtotal.toLocaleString('pt-BR') %></span>
+            </div>
+            
+            <% if (totais.desconto > 0) { %>
+              <div class="resumo-linha desconto">
+                <span class="resumo-label">Desconto:</span>
+                <span class="resumo-valor">- R$ <%= totais.desconto.toLocaleString('pt-BR') %></span>
+              </div>
+            <% } %>
+            
+            <div class="resumo-divider"></div>
+            
+            <div class="resumo-total">
+              <span class="total-label">Total:</span>
+              <span class="total-valor">R$ <%= totais.total.toLocaleString('pt-BR') %></span>
+            </div>
+            
+            <div class="resumo-actions">
+              <a href="/carrinho/checkout" class="btn-checkout">
+                Finalizar Compra
+              </a>
+              
+              <a href="/pacotes" class="btn-continuar">
+                Continuar Comprando
+              </a>
+            </div>
+            
+            <div class="resumo-seguranca">
+              <div class="seguranca-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                </svg>
+                <span>Compra 100% Segura</span>
+              </div>
+              
+              <div class="seguranca-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                </svg>
+                <span>Suporte 24h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <% } else { %>
+      <!-- Carrinho Vazio -->
+      <div class="carrinho-vazio">
+        <div class="vazio-icon">
+          <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+        </div>
+        <h2 class="vazio-title">Seu carrinho está vazio</h2>
+        <p class="vazio-texto">Que tal explorar nossos incríveis pacotes de viagem?</p>
+        <a href="/pacotes" class="btn-explorar">Explorar Pacotes</a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script>
+// Funções do carrinho
+function alterarQuantidade(slug, delta) {
+  const input = document.querySelector(`[data-slug="${slug}"] .input-quantidade`);
+  const novaQuantidade = Math.max(1, parseInt(input.value) + delta);
+  input.value = novaQuantidade;
+  atualizarQuantidade(slug, novaQuantidade);
+}
+
+function atualizarQuantidade(slug, quantidade) {
+  fetch('/carrinho/atualizar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ slug, quantidade })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      location.reload(); // Recarregar para atualizar totais
+    }
+  });
+}
+
+function removerItem(slug) {
+  if (confirm('Deseja remover este pacote do carrinho?')) {
+    fetch('/carrinho/remover', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ slug })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        location.reload();
+      }
+    });
+  }
+}
+</script>

@@ -1,0 +1,192 @@
+/* Estilos específicos da página inicial */
+.home-hero {
+    background: linear-gradient(135deg, var(--sky-800) 0%, var(--navy) 100%);
+    color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.home-hero-content {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.hero-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--yellow);
+}
+
+.filter-buttons {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.filter-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--yellow-400);
+    color: var(--slate-800);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.filter-button:hover {
+    background-color: var(--yellow-500);
+}
+
+.packages-section {
+    padding: 2rem 1.5rem;
+}
+
+.packages-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.packages-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.package-card {
+    background: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.package-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-rio {
+    background-image: url('/imagens/rio.png');
+}
+
+.bg-florianopolis {
+    background-image: url('/imagens/Florianópolis.png');
+}
+
+.bg-porto-seguro {
+    background-image: url('/imagens/portoseguro.png');
+}
+
+.bg-destinos-nacionais {
+    background-image: url('/imagens/fernandodenoronha.png');
+}
+
+.bg-gramado {
+    background-image: url('/imagens/gramado.png');
+}
+
+.bg-paris {
+    background-image: url('/imagens/paris.png');
+}
+
+.package-content {
+    padding: 1.5rem;
+}
+
+.package-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--slate-800);
+    margin-bottom: 0.5rem;
+}
+
+.package-description {
+    color: #64748b;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.package-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.package-features {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.package-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.feature-icon {
+    width: 16px;
+    height: 16px;
+    color: #10b981;
+}
+
+@media (max-width: 768px) {
+    .hero-title, .hero-subtitle {
+        font-size: 2rem;
+    }
+    
+    .filter-buttons {
+        justify-content: center;
+    }
+    
+    .packages-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .packages-grid {
+        grid-template-columns: 1fr;
+    }
+}

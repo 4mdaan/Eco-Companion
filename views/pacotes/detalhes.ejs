@@ -1,0 +1,239 @@
+<%- include('../partials/head', { pageCSS: 'packages' }) %>
+
+<%- include('../partials/header', { currentPage: 'pacotes' }) %>
+
+<!-- Hero da página de detalhes -->
+<div class="package-detail-hero <%= pacote.bgClass %>">
+  <div class="package-detail-info">
+    <h1 class="package-detail-title"><%= pacote.destino %></h1>
+    <p class="package-detail-location">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+      </svg>
+      <%= pacote.periodo %>
+    </p>
+  </div>
+</div>
+
+<!-- Seção de Preço -->
+<div class="price-section">
+  <div class="price-container">
+    <div class="price-info">
+      <h2>Informações do Pacote</h2>
+      <div class="package-details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Período:</span>
+          <span class="detail-value"><%= pacote.periodo %></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Duração:</span>
+          <span class="detail-value">5 dias / 4 noites</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Categoria:</span>
+          <span class="detail-value"><%= pacote.categoria || 'Nacional' %></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Avaliação:</span>
+          <span class="detail-value"><%= pacote.avaliacao || 4.5 %>/5 ⭐</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="price-card">
+      <% if (pacote.precoOriginal) { %>
+        <div class="original-price">R$ <%= pacote.precoOriginal %></div>
+        <% 
+          // Converter preços brasileiros para números corretos
+          const precoOriginalNum = parseFloat(pacote.precoOriginal.replace(/\./g, '').replace(',', '.'));
+          const precoAtualNum = parseFloat(pacote.preco.replace(/\./g, '').replace(',', '.'));
+          const desconto = Math.round(((precoOriginalNum - precoAtualNum) / precoOriginalNum) * 100);
+        %>
+        <div class="discount-badge">
+          <%= desconto %>% OFF
+        </div>
+      <% } %>
+      <div class="current-price">R$ <%= pacote.preco %></div>
+      <div class="price-label">por pessoa</div>
+      <button class="btn-quick-book" onclick="adicionarAoCarrinho('<%= pacote.slug %>')">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="package-detail-content">
+  <div>
+    <!-- Seção Sobre o Pacote -->
+    <div class="detail-section">
+      <h2>Sobre este Pacote</h2>
+      <p><%= pacote.descricaoCompleta || pacote.descricao || 'Descubra as maravilhas de ' + pacote.destino + ' com este pacote completo que inclui hospedagem, passeios e experiências inesquecíveis.' %></p>
+      
+      <!-- Avaliação -->
+      <div style="display: flex; align-items: center; gap: 0.5rem; margin: 1.5rem 0;">
+        <div style="display: flex; color: var(--yellow-400); font-size: 1.125rem;">
+          <% for(let i = 1; i <= 5; i++) { %>
+            <% if (i <= Math.floor(pacote.avaliacao || 4.5)) { %>
+              ⭐
+            <% } else if (i === Math.ceil(pacote.avaliacao) && pacote.avaliacao % 1 !== 0) { %>
+              ⭐
+            <% } else { %>
+              ☆
+            <% } %>
+          <% } %>
+        </div>
+        <span style="color: var(--slate-800); font-weight: 600;"><%= pacote.avaliacao || 4.5 %>/5</span>
+        <span style="color: #64748b;">(baseado em avaliações de clientes)</span>
+      </div>
+    </div>
+
+    <!-- Galeria de Imagens -->
+    <div class="detail-section">
+      <h2>Galeria</h2>
+      <div class="image-gallery">
+        <div class="gallery-main">
+          <div class="package-image <%= pacote.bgClass %>" style="height: 300px; border-radius: 0.5rem; margin-bottom: 1rem;"></div>
+        </div>
+        <div class="gallery-grid">
+          <% 
+            // Imagens específicas para cada destino
+            let galeriaImagens = [];
+            if (pacote.slug === 'rio-de-janeiro') {
+              galeriaImagens = ['bg-rio', 'bg-rio', 'bg-rio'];
+            } else if (pacote.slug === 'florianopolis') {
+              galeriaImagens = ['bg-florianopolis', 'bg-florianopolis', 'bg-florianopolis'];
+            } else if (pacote.slug === 'porto-seguro') {
+              galeriaImagens = ['bg-porto-seguro', 'bg-porto-seguro', 'bg-porto-seguro'];
+            } else {
+              galeriaImagens = [pacote.bgClass, pacote.bgClass, pacote.bgClass];
+            }
+          %>
+          <% galeriaImagens.forEach(function(imgClass) { %>
+            <div class="gallery-thumbnail <%= imgClass %>"></div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roteiro -->
+    <div class="detail-section">
+      <h2>Roteiro Completo</h2>
+      <% 
+        const roteiro = pacote.roteiro || [
+          { dia: 1, titulo: 'Chegada e Check-in', descricao: 'Recepção no aeroporto, transfer para o hotel e check-in. Tarde livre para conhecer os arredores.' },
+          { dia: 2, titulo: 'City Tour', descricao: 'Tour pelos principais pontos turísticos da cidade com guia especializado.' },
+          { dia: 3, titulo: 'Atividades Especiais', descricao: 'Dia dedicado às principais atrações e experiências únicas do destino.' },
+          { dia: 4, titulo: 'Dia Livre', descricao: 'Dia livre para atividades opcionais, compras ou relaxar na praia/hotel.' },
+          { dia: 5, titulo: 'Check-out e Partida', descricao: 'Check-out do hotel e transfer para o aeroporto.' }
+        ];
+      %>
+      <% roteiro.forEach(function(dia) { %>
+        <div class="itinerary-day">
+          <div class="day-title">Dia <%= dia.dia %>: <%= dia.titulo %></div>
+          <p><%= dia.descricao %></p>
+        </div>
+      <% }); %>
+    </div>
+
+    <!-- O que está incluso -->
+    <div class="detail-section">
+      <h2>
+        <svg width="20" height="20" fill="currentColor" style="color: #10b981; display: inline;" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        O que está incluso
+      </h2>
+      <ul style="list-style: none; padding: 0;">
+        <% 
+          const inclusos = pacote.inclusos || [
+            'Hospedagem por ' + (pacote.periodo.includes('5 dias') ? '4' : '3') + ' noites',
+            'Café da manhã todos os dias',
+            'Transfer aeroporto-hotel-aeroporto',
+            'Seguro viagem nacional',
+            'Guia turístico especializado',
+            'City tour pelos principais pontos turísticos'
+          ];
+        %>
+        <% inclusos.forEach(function(item) { %>
+          <li style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <svg width="16" height="16" fill="currentColor" style="color: #10b981; margin-top: 0.125rem; flex-shrink: 0;" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span><%= item %></span>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+
+        <!-- O que não está incluso -->
+        <% if (pacote.naoInclusos && pacote.naoInclusos.length > 0) { %>
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <svg width="20" height="20" fill="currentColor" class="text-red-600" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              O que não está incluso
+            </h3>
+            <ul class="space-y-2">
+              <% pacote.naoInclusos.forEach(function(item) { %>
+                <li class="flex items-start gap-2">
+                  <svg width="16" height="16" fill="currentColor" class="text-red-600 mt-1 flex-shrink-0" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="text-slate-600"><%= item %></span>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
+      </div>
+
+  </div>
+
+  <!-- Sidebar de reserva -->
+  <div class="booking-sidebar">
+    <div class="booking-card">
+      <h3 style="margin-bottom: 1.5rem; color: var(--slate-800); font-weight: 600;">Fazer Reserva</h3>
+      
+      <form class="booking-form">
+        <div class="form-group">
+          <label class="form-label">Data de Chegada</label>
+          <input type="date" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Número de Pessoas</label>
+          <select class="form-input" required>
+            <option value="">Selecione</option>
+            <option value="1">1 pessoa</option>
+            <option value="2">2 pessoas</option>
+            <option value="3">3 pessoas</option>
+            <option value="4">4 pessoas</option>
+            <option value="5+">5+ pessoas</option>
+          </select>
+        </div>
+
+        <% if (pacote.disponivel !== false) { %>
+          <button type="button" class="btn-book" onclick="adicionarAoCarrinho('<%= pacote.slug %>')">
+            Adicionar ao Carrinho
+          </button>
+          <a href="/carrinho" class="btn-back" style="margin-top: 0.5rem; width: 100%; text-align: center; text-decoration: none; display: block;">
+            Ver Carrinho
+          </a>
+        <% } else { %>
+          <div style="width: 100%; background: #9ca3af; color: white; padding: 1rem; border-radius: 0.5rem; text-align: center; cursor: not-allowed;">
+            Esgotado
+          </div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</div>
+          </div>
+
+
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script src="/js/carrinho.js"></script>
+<script>

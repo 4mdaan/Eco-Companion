@@ -1,0 +1,62 @@
+<%- include('../partials/head', { pageCSS: 'packages' }) %>
+
+<%- include('../partials/header', { currentPage: 'destinos' }) %>
+
+<div class="packages-hero">
+  <h1>Nossos Destinos</h1>
+  <p>Descubra lugares incríveis para sua próxima aventura</p>
+</div>
+
+<main class="packages-container">
+  <!-- Grid de Destinos -->
+  <div class="packages-grid">
+    <% destinos.forEach(function(destino) { %>
+      <article class="package-card-detailed">
+        <div class="package-image-large <%= destino.bgClass %>">
+          <% if (destino.destaque) { %>
+            <div class="package-badge">Destaque</div>
+          <% } %>
+        </div>
+        
+        <div class="package-content-detailed">
+          <div class="package-header">
+            <h3 class="package-title-large"><%= destino.nome %></h3>
+            <div class="package-location">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+              </svg>
+              <%= destino.regiao %>
+            </div>
+          </div>
+          
+          <p class="package-description-detailed"><%= destino.descricao %></p>
+          
+          <!-- Características do destino -->
+          <div class="package-highlights">
+            <% destino.caracteristicas.forEach(function(item) { %>
+              <div class="highlight-item">
+                <svg class="highlight-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <%= item %>
+              </div>
+            <% }); %>
+          </div>
+          
+          <div class="package-pricing">
+            <div class="price-info">
+              <div class="price-label">Pacotes a partir de</div>
+              <div class="price-value">R$ <%= destino.precoMinimo %></div>
+            </div>
+            <a href="/pacotes?destino=<%= destino.slug %>" class="btn-view-details">
+              Ver Pacotes
+            </a>
+          </div>
+        </div>
+      </article>
+    <% }); %>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

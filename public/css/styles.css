@@ -1,0 +1,40 @@
+:root {
+    --yellow: #FFCB2F;
+    --navy: #174E6B;
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.hero-title {
+    font-family: 'Pacifico', cursive;
+}
+
+.hero-subtitle {
+    font-family: 'Pacifico', cursive;
+}
+
+.bg-rio {
+    background-image: url('/imagens/rio.png');
+}
+
+.bg-florianopolis {
+    background-image: url('/imagens/Florianópolis.png');
+}
+
+.bg-porto-seguro {
+    background-image: url('/imagens/portoseguro.png');
+}
+
+.bg-destinos-nacionais {
+    background-image: url('/imagens/fernandodenoronha.png');
+}
+
+.bg-gramado {
+    background-image: url('/imagens/gramado.png');
+}
+
+.bg-paris {
+    background-image: url('/imagens/paris.png');
+}

@@ -1,0 +1,165 @@
+<%- include('../partials/head', { pageCSS: 'carrinho' }) %>
+
+<%- include('../partials/header', { currentPage: 'sucesso' }) %>
+
+<!-- Hero de Sucesso -->
+<div class="sucesso-hero">
+  <div class="container">
+    <div class="sucesso-content">
+      <div class="sucesso-icon">
+        <svg width="80" height="80" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+        </svg>
+      </div>
+      
+      <h1 class="sucesso-title">Compra Realizada com Sucesso!</h1>
+      <p class="sucesso-subtitle">Sua reserva foi confirmada. Você receberá todos os detalhes por email.</p>
+      
+      <div class="numero-reserva">
+        <span class="reserva-label">Número da Reserva:</span>
+        <span class="reserva-numero">#<%= numeroReserva %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detalhes da Compra -->
+<div class="sucesso-detalhes">
+  <div class="container">
+    <div class="detalhes-grid">
+      <!-- Informações do Cliente -->
+      <div class="cliente-info">
+        <h2 class="section-title">Seus Dados</h2>
+        
+        <div class="info-card">
+          <div class="info-item">
+            <span class="info-label">Nome:</span>
+            <span class="info-valor"><%= dadosCliente.nome %></span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-valor"><%= dadosCliente.email %></span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Telefone:</span>
+            <span class="info-valor"><%= dadosCliente.telefone %></span>
+          </div>
+        </div>
+        
+        <!-- Próximos Passos -->
+        <div class="proximos-passos">
+          <h3 class="passos-title">Próximos Passos</h3>
+          
+          <div class="passo-item">
+            <div class="passo-numero">1</div>
+            <div class="passo-texto">
+              <strong>Email de Confirmação:</strong>
+              Enviado para <%= dadosCliente.email %> com todos os detalhes da sua reserva.
+            </div>
+          </div>
+          
+          <div class="passo-item">
+            <div class="passo-numero">2</div>
+            <div class="passo-texto">
+              <strong>Documentação:</strong>
+              Verifique a validade dos documentos necessários para a viagem.
+            </div>
+          </div>
+          
+          <div class="passo-item">
+            <div class="passo-numero">3</div>
+            <div class="passo-texto">
+              <strong>Contato:</strong>
+              Nossa equipe entrará em contato em até 24h para finalizar os detalhes.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Resumo dos Pacotes -->
+      <div class="pacotes-reservados">
+        <h2 class="section-title">Pacotes Reservados</h2>
+        
+        <% itens.forEach(function(item) { %>
+          <div class="pacote-resumo">
+            <div class="pacote-image <%= item.bgClass %>"></div>
+            
+            <div class="pacote-info">
+              <h3 class="pacote-titulo"><%= item.destino %></h3>
+              <p class="pacote-periodo"><%= item.periodo %></p>
+              
+              <div class="pacote-detalhes">
+                <div class="detalhe-item">
+                  <span class="detalhe-label">Pessoas:</span>
+                  <span class="detalhe-valor"><%= item.quantidade %></span>
+                </div>
+                
+                <div class="detalhe-item">
+                  <span class="detalhe-label">Valor:</span>
+                  <span class="detalhe-valor">
+                    <% 
+                      const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+                      const totalItem = precoNum * item.quantidade;
+                    %>
+                    R$ <%= totalItem.toLocaleString('pt-BR') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+        
+        <!-- Ações -->
+        <div class="sucesso-actions">
+          <a href="/pacotes" class="btn-explorar">
+            Explorar Mais Pacotes
+          </a>
+          
+          <button onclick="window.print()" class="btn-imprimir">
+            Imprimir Comprovante
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Suporte -->
+    <div class="suporte-section">
+      <div class="suporte-card">
+        <h3 class="suporte-title">Precisa de Ajuda?</h3>
+        <p class="suporte-texto">Nossa equipe está pronta para atendê-lo!</p>
+        
+        <div class="suporte-contatos">
+          <div class="contato-item">
+            <div class="contato-icon">📞</div>
+            <div class="contato-info">
+              <div class="contato-tipo">Telefone</div>
+              <div class="contato-valor">(11) 99999-9999</div>
+            </div>
+          </div>
+          
+          <div class="contato-item">
+            <div class="contato-icon">💬</div>
+            <div class="contato-info">
+              <div class="contato-tipo">WhatsApp</div>
+              <div class="contato-valor">(11) 99999-9999</div>
+            </div>
+          </div>
+          
+          <div class="contato-item">
+            <div class="contato-icon">✉️</div>
+            <div class="contato-info">
+              <div class="contato-tipo">Email</div>
+              <div class="contato-valor">contato@ecocompanion.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

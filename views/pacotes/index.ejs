@@ -1,0 +1,86 @@
+<%- include('../partials/head', { pageCSS: 'packages' }) %>
+
+<%- include('../partials/header', { currentPage: 'pacotes' }) %>
+
+<div class="packages-hero">
+  <h1>Nossos Pacotes de Viagem</h1>
+  <p>Descubra ofertas especiais para os destinos mais incríveis do Brasil e do mundo</p>
+</div>
+
+<main class="packages-container">
+  <!-- Filtros -->
+  <div class="packages-filters">
+    <a href="/pacotes" class="filter-chip active">Todos</a>
+    <a href="/pacotes?categoria=nacional" class="filter-chip">Nacional</a>
+    <a href="/pacotes?categoria=internacional" class="filter-chip">Internacional</a>
+    <a href="/pacotes?categoria=promocoes" class="filter-chip">Promoções</a>
+  </div>
+
+  <!-- Grid de Pacotes -->
+  <div class="packages-grid">
+    <% pacotes.forEach(function(pacote) { %>
+      <article class="package-card-detailed">
+        <div class="package-image-large <%= pacote.bgClass %>">
+          <% if (pacote.precoOriginal) { %>
+            <div class="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
+              <%= Math.round(((parseFloat(pacote.precoOriginal) - parseFloat(pacote.preco)) / parseFloat(pacote.precoOriginal)) * 100) %>% OFF
+            </div>
+          <% } %>
+          <% if (pacote.disponivel === false) { %>
+            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <span class="text-white font-bold">Esgotado</span>
+            </div>
+          <% } %>
+        </div>
+        
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-slate-900 mb-2"><%= pacote.destino %></h3>
+          <p class="text-sm text-slate-500 mb-2"><%= pacote.periodo %></p>
+          <p class="text-sm text-slate-600 mb-4"><%= pacote.descricao %></p>
+          
+          <!-- Avaliação -->
+          <div class="flex items-center gap-2 mb-4">
+            <div class="flex text-yellow-400">
+              <% for(let i = 1; i <= 5; i++) { %>
+                <% if (i <= Math.floor(pacote.avaliacao)) { %>
+                  ⭐
+                <% } else if (i === Math.ceil(pacote.avaliacao) && pacote.avaliacao % 1 !== 0) { %>
+                  ⭐
+                <% } else { %>
+                  ☆
+                <% } %>
+              <% } %>
+            </div>
+            <span class="text-sm text-slate-500">(<%= pacote.avaliacao %>/5)</span>
+          </div>
+          
+          <!-- Preços -->
+          <div class="mb-4">
+            <% if (pacote.precoOriginal) { %>
+              <span class="text-sm text-slate-400 line-through">R$ <%= pacote.precoOriginal %></span>
+            <% } %>
+            <div class="text-2xl font-bold text-sky-800">R$ <%= pacote.preco %></div>
+            <span class="text-sm text-slate-500">por pessoa</span>
+          </div>
+          
+          <a href="/pacotes/<%= pacote.slug %>" 
+             class="block w-full text-center bg-sky-700 text-white py-3 rounded-lg hover:bg-sky-800 transition-colors font-semibold">
+            Ver Detalhes
+          </a>
+        </div>
+      </article>
+    <% }); %>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="mt-16 bg-gradient-to-r from-sky-700 to-sky-900 rounded-lg p-8 text-white text-center">
+    <h2 class="text-2xl font-bold mb-4">Não encontrou o que procurava?</h2>
+    <p class="mb-6">Entre em contato conosco e criaremos um pacote personalizado especialmente para você!</p>
+    <a href="/contato" class="inline-block bg-yellow-400 text-slate-800 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors">
+      Falar com um Especialista
+    </a>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

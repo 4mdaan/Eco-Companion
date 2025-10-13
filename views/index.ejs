@@ -1,0 +1,185 @@
+<%- include('partials/head', { pageCSS: 'home' }) %>
+
+<%- include('partials/header', { currentPage: 'home' }) %>
+
+<main class="container">
+  <!-- Seção de filtros/botões -->
+  <section class="filter-buttons">
+    <a href="/agenda" class="filter-button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5" />
+        <path d="M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      Agenda
+    </a>
+
+    <a href="/pacotes" class="filter-button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 2L3 6v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Pacotes
+    </a>
+  </section>
+
+  <!-- Seção hero com pacotes -->
+  <section class="home-hero">
+    <div class="home-hero-content">
+      <h2 class="hero-title">
+        <%= heroTitle || 'Mais que viagens,' %>
+      </h2>
+      <p class="hero-subtitle">
+        <%= heroSubtitle || 'experiências de vida !' %>
+      </p>
+    </div>
+
+    <div class="packages-section">
+      <div class="packages-header">
+        <h3 class="packages-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+          Pacotes em Destaque
+        </h3>
+        <span>Experiências incríveis</span>
+      </div>
+
+      <div class="packages-grid">
+        <% if (typeof pacotes !== 'undefined' && pacotes.length > 0) { %>
+          <% pacotes.forEach(function(pacote) { %>
+            <article class="package-card">
+              <div class="package-image <%= pacote.bgClass %>"></div>
+              <div class="package-content">
+                <h4 class="package-title"><%= pacote.destino %></h4>
+                <p class="package-description"><%= pacote.periodo %></p>
+                <div class="package-price">R$ <%= pacote.preco %></div>
+                <ul class="package-features">
+                  <li class="package-feature">
+                    <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Hospedagem incluída
+                  </li>
+                  <li class="package-feature">
+                    <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Guia especializado
+                  </li>
+                </ul>
+                <a href="/pacotes/<%= pacote.slug %>" class="btn btn-primary">
+                  Ver detalhes
+                </a>
+              </div>
+            </article>
+          <% }); %>
+        <% } else { %>
+          <!-- Pacotes padrão caso não sejam fornecidos via controller -->
+          <article class="package-card">
+            <div class="package-image bg-rio"></div>
+            <div class="package-content">
+              <h4 class="package-title">Rio de Janeiro</h4>
+              <p class="package-description">17 de Nov - 21 de Nov • 5 dias</p>
+              <div class="package-price">R$ 870</div>
+              <ul class="package-features">
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Hotel 4 estrelas
+                </li>
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  City tour incluído
+                </li>
+              </ul>
+              <a href="/pacotes/rio-de-janeiro" class="btn btn-primary">
+                Ver detalhes
+              </a>
+            </div>
+          </article>
+
+          <article class="package-card">
+            <div class="package-image bg-florianopolis"></div>
+            <div class="package-content">
+              <h4 class="package-title">Florianópolis</h4>
+              <p class="package-description">03 de Nov - 07 de Nov • 4 dias</p>
+              <div class="package-price">R$ 841</div>
+              <ul class="package-features">
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Praias paradisíacas
+                </li>
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Transfer incluso
+                </li>
+              </ul>
+              <a href="/pacotes/florianopolis" class="btn btn-primary">
+                Ver detalhes
+              </a>
+            </div>
+          </article>
+
+          <article class="package-card">
+            <div class="package-image bg-porto-seguro"></div>
+            <div class="package-content">
+              <h4 class="package-title">Porto Seguro</h4>
+              <p class="package-description">17 de Dez - 21 de Dez • 5 dias</p>
+              <div class="package-price">R$ 1.828</div>
+              <ul class="package-features">
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Resort all inclusive
+                </li>
+                <li class="package-feature">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Passeios incluídos
+                </li>
+              </ul>
+              <a href="/pacotes/porto-seguro" class="btn btn-primary">
+                Ver detalhes
+              </a>
+            </div>
+          </article>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção destinos nacionais -->
+  <section class="px-6 py-8">
+    <h3 class="text-2xl text-center font-bold tracking-wide">
+      <span class="text-sky-800">DESTINOS</span>
+      <span class="text-yellow-500"> NACIONAIS</span>
+    </h3>
+
+    <div class="mt-6 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+      <div class="h-64 bg-cover bg-center bg-destinos-nacionais relative">
+        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+          <div class="text-center text-white">
+            <h4 class="text-2xl font-bold mb-2">Explore o Brasil</h4>
+            <p class="text-lg">Descubra as maravilhas do nosso país</p>
+            <a href="/destinos" class="inline-block mt-4 bg-yellow-400 text-slate-800 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition-colors">
+              Ver todos os destinos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
+
+<script src="/js/carrinho.js"></script>
