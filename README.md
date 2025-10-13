@@ -43,17 +43,12 @@ agencia_viagens_site/
 
 ## 🛠️ Instalação
 
-1. **Clone ou baixe o projeto:**
-   ```bash
-   cd agencia_viagens_site
-   ```
-
-2. **Instale as dependências:**
+1. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-3. **Execute o projeto:**
+2. **Execute o projeto:**
    ```bash
    # Modo desenvolvimento (com nodemon)
    npm run dev
@@ -62,7 +57,7 @@ agencia_viagens_site/
    npm start
    ```
 
-4. **Abra no navegador:**
+3. **Abra no navegador:**
    ```
    http://localhost:3000
    ```
