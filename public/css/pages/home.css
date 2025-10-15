@@ -533,3 +533,243 @@
         font-size: 2rem;
     }
 }
+
+/* Seção Destinos Nacionais */
+.destinos-nacionais-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.destinos-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.destinos-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.destinos-label {
+    color: var(--sky-800);
+}
+
+.destinos-highlight {
+    color: var(--yellow-500);
+}
+
+.destinos-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.destinos-card {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.destinos-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+.destinos-image {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+}
+
+.destinos-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.destinos-content {
+    text-align: center;
+    color: white;
+    max-width: 500px;
+}
+
+.destinos-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-icon {
+    font-size: 1.2rem;
+}
+
+.badge-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.destinos-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.destinos-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.destinos-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--yellow-400);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.btn-destinos {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--yellow-400);
+    color: var(--slate-800);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.btn-destinos:hover {
+    background: var(--yellow-500);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(251, 191, 36, 0.4);
+    color: var(--slate-800);
+    text-decoration: none;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-destinos:hover .btn-icon {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .destinos-nacionais-section {
+        padding: 2.5rem 0;
+    }
+    
+    .destinos-title {
+        font-size: 2rem;
+    }
+    
+    .destinos-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .destinos-image {
+        height: 350px;
+    }
+    
+    .destinos-main-title {
+        font-size: 2rem;
+    }
+    
+    .destinos-description {
+        font-size: 1.1rem;
+    }
+    
+    .destinos-stats {
+        gap: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .btn-destinos {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .destinos-header {
+        margin-bottom: 2rem;
+    }
+    
+    .destinos-title {
+        font-size: 1.75rem;
+    }
+    
+    .destinos-card {
+        margin: 0 1rem;
+    }
+    
+    .destinos-overlay {
+        padding: 1.5rem;
+    }
+    
+    .destinos-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .destinos-main-title {
+        font-size: 1.75rem;
+    }
+}

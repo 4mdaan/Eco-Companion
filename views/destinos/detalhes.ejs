@@ -67,34 +67,7 @@
           </div>
         </section>
 
-        <!-- Inclusos Especiais (para Ultra Luxury) -->
-        <% if (destino.incluso && destino.incluso.length > 0) { %>
-          <section class="luxury-incluso">
-            <h2>👑 Experiências Incluídas</h2>
-            <div class="incluso-grid">
-              <% destino.incluso.forEach(function(item) { %>
-                <div class="incluso-item">
-                  <div class="incluso-icon">✅</div>
-                  <div class="incluso-text"><%= item %></div>
-                </div>
-              <% }); %>
-            </div>
-          </section>
-        <% } %>
 
-        <!-- Diferenciais Especiais -->
-        <% if (destino.diferenciais && destino.diferenciais.length > 0) { %>
-          <section class="luxury-diferenciais">
-            <h2>💎 Experiências Exclusivas</h2>
-            <div class="diferenciais-showcase">
-              <% destino.diferenciais.forEach(function(diferencial) { %>
-                <div class="diferencial-card">
-                  <%= diferencial %>
-                </div>
-              <% }); %>
-            </div>
-          </section>
-        <% } %>
       </div>
 
       <!-- Sidebar -->

@@ -51,17 +51,6 @@
             <% }); %>
           </div>
           
-          <!-- Diferenciais especiais para Ultra Luxury -->
-          <% if (destino.diferenciais && destino.diferenciais.length > 0) { %>
-            <div class="luxury-differentials">
-              <h4>✨ Experiências Exclusivas</h4>
-              <div class="differentials-grid">
-                <% destino.diferenciais.slice(0, 3).forEach(function(diferencial) { %>
-                  <div class="differential-item"><%= diferencial %></div>
-                <% }); %>
-              </div>
-            </div>
-          <% } %>
           
           <div class="package-pricing">
             <div class="price-info">
@@ -74,10 +63,11 @@
                   <div class="price-note">*Valor por casal, 7 dias</div>
                 <% } %>
               <% } else { %>
-                <div class="price-label">Pacotes a partir de</div>
+                <div class="price-label">Experiência completa a partir de</div>
                 <div class="price-value">R$ <%= destino.precoMinimo || '1.200' %></div>
               <% } %>
             </div>
+            <div style="margin-bottom: 1.2rem;"></div>
             <a href="/destinos/<%= destino.slug %>" class="btn-view-details">
               Ver Detalhes
             </a>

@@ -3,8 +3,10 @@ const router = express.Router();
 
 // Rota para listar todos os pacotes
 router.get('/', (req, res) => {
+  const { categoria } = req.query;
+  
   // Dados simulados de pacotes (em produção, viriam do banco de dados)
-  const pacotes = [
+  let pacotes = [
     {
       id: 1,
       destino: 'Rio de Janeiro',
@@ -49,13 +51,52 @@ router.get('/', (req, res) => {
       categoria: 'nacional',
       avaliacao: 4.9,
       disponivel: true
+    },
+    {
+      id: 4,
+      destino: 'Paris',
+      periodo: '15 de Jan - 22 de Jan',
+      preco: '3.850',
+      precoOriginal: '4.500',
+      descricao: 'Conheça a Cidade Luz neste pacote especial com hospedagem no centro e principais atrações incluídas.',
+      inclusos: ['Hospedagem por 7 noites', 'Café da manhã', 'Ingresso Torre Eiffel', 'Museu do Louvre', 'Transfer aeroporto'],
+      imagem: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?auto=format&fit=crop&w=800&q=60',
+      bgClass: 'bg-paris',
+      slug: 'paris',
+      categoria: 'internacional',
+      avaliacao: 4.7,
+      disponivel: true
+    },
+    {
+      id: 5,
+      destino: 'Gramado',
+      periodo: '10 de Dez - 14 de Dez',
+      preco: '1.290',
+      descricao: 'Magia do Natal Luz em Gramado com hospedagem aconchegante e roteiro completo pela Serra Gaúcha.',
+      inclusos: ['Hospedagem por 4 noites', 'Café da manhã', 'Natal Luz', 'Tour Serra Gaúcha', 'Degustação vinhos'],
+      imagem: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=60',
+      bgClass: 'bg-gramado',
+      slug: 'gramado',
+      categoria: 'nacional',
+      avaliacao: 4.6,
+      disponivel: true
     }
   ];
+
+  // Filtrar pacotes por categoria se especificado
+  if (categoria && categoria !== 'todos') {
+    if (categoria === 'promocoes') {
+      pacotes = pacotes.filter(pacote => pacote.precoOriginal);
+    } else {
+      pacotes = pacotes.filter(pacote => pacote.categoria === categoria);
+    }
+  }
 
   res.render('pacotes/index', {
     title: 'Pacotes de Viagem',
     description: 'Conheça nossos pacotes especiais para os melhores destinos do Brasil e do mundo.',
-    pacotes: pacotes
+    pacotes: pacotes,
+    categoriaAtiva: categoria || 'todos'
   });
 });
 

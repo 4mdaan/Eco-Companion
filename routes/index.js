@@ -112,17 +112,17 @@ router.get('/promocoes', (req, res) => {
             },
             {
                 id: 3,
-                destino: 'Maldivas Privativas',
-                titulo: 'Ultra Luxo - Oferta Especial VIP',
-                precoOriginal: 45000,
-                precoPromocional: 35000,
-                desconto: 22,
+                destino: 'Campos do Jordão',
+                titulo: 'Inverno na Montanha - Promoção Especial',
+                precoOriginal: 1800,
+                precoPromocional: 1440,
+                desconto: 20,
                 validadeInicio: '2025-10-01',
                 validadeFim: '2025-12-31',
-                vagas: 4,
-                slug: 'maldivas-privativas',
-                tipo: 'vip',
-                beneficios: ['Mordomo 24h', 'Iate privativo', 'Spa premium'],
+                vagas: 15,
+                slug: 'campos-do-jordao',
+                tipo: 'promocao',
+                beneficios: ['Lareira na pousada', 'Tour cervejaria', 'Teleférico incluso'],
                 condicoes: 'Exclusivo para casais, máximo 2 casais'
             }
         ],
@@ -149,12 +149,12 @@ router.get('/promocoes', (req, res) => {
             ],
             internacionais: [
                 {
-                    destino: 'Paris',
-                    precoOriginal: 8500,
-                    precoPromocional: 7225,
-                    desconto: 15,
-                    titulo: 'Cidade Luz - Inverno Europeu',
-                    slug: 'paris',
+                    destino: 'Foz do Iguaçu',
+                    precoOriginal: 1500,
+                    precoPromocional: 1200,
+                    desconto: 20,
+                    titulo: 'Cataratas do Iguaçu - Maravilha Natural',
+                    slug: 'foz-do-iguacu',
                     validade: '2025-12-31'
                 }
             ],
@@ -248,12 +248,12 @@ router.get('/agenda', (req, res) => {
             },
             {
                 data: '13/12/2025',
-                destino: 'Maldivas Privativas',
-                tipo: 'Ultra Luxo',
-                preco: 45000,
-                vagas: 4,
-                duracao: '7 dias',
-                slug: 'maldivas-privativas'
+                destino: 'Campos do Jordão',
+                tipo: 'Turismo Rural',
+                preco: 1800,
+                vagas: 12,
+                duracao: '4 dias',
+                slug: 'campos-do-jordao'
             },
             {
                 data: '20/12/2025',

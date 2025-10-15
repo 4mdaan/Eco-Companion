@@ -10,10 +10,10 @@
 <main class="packages-container">
   <!-- Filtros -->
   <div class="packages-filters">
-    <a href="/pacotes" class="filter-chip active">Todos</a>
-    <a href="/pacotes?categoria=nacional" class="filter-chip">Nacional</a>
-    <a href="/pacotes?categoria=internacional" class="filter-chip">Internacional</a>
-    <a href="/pacotes?categoria=promocoes" class="filter-chip">Promoções</a>
+    <a href="/pacotes" class="filter-chip <%= categoriaAtiva === 'todos' ? 'active' : '' %>">Todos</a>
+    <a href="/pacotes?categoria=nacional" class="filter-chip <%= categoriaAtiva === 'nacional' ? 'active' : '' %>">Nacional</a>
+    <a href="/pacotes?categoria=internacional" class="filter-chip <%= categoriaAtiva === 'internacional' ? 'active' : '' %>">Internacional</a>
+    <a href="/pacotes?categoria=promocoes" class="filter-chip <%= categoriaAtiva === 'promocoes' ? 'active' : '' %>">Promoções</a>
   </div>
 
   <!-- Grid de Pacotes -->
@@ -22,61 +22,75 @@
       <article class="package-card-detailed">
         <div class="package-image-large <%= pacote.bgClass %>">
           <% if (pacote.precoOriginal) { %>
-            <div class="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
+            <div class="discount-badge">
               <%= Math.round(((parseFloat(pacote.precoOriginal) - parseFloat(pacote.preco)) / parseFloat(pacote.precoOriginal)) * 100) %>% OFF
             </div>
           <% } %>
           <% if (pacote.disponivel === false) { %>
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <span class="text-white font-bold">Esgotado</span>
+            <div class="sold-out-overlay">
+              <span class="sold-out-text">Esgotado</span>
             </div>
           <% } %>
         </div>
         
-        <div class="p-6">
-          <h3 class="text-xl font-bold text-slate-900 mb-2"><%= pacote.destino %></h3>
-          <p class="text-sm text-slate-500 mb-2"><%= pacote.periodo %></p>
-          <p class="text-sm text-slate-600 mb-4"><%= pacote.descricao %></p>
+        <div class="package-content-detailed">
+          <h3 class="package-title-large"><%= pacote.destino %></h3>
+          <p class="package-period"><%= pacote.periodo %></p>
+          <p class="package-description-detailed"><%= pacote.descricao %></p>
           
           <!-- Avaliação -->
-          <div class="flex items-center gap-2 mb-4">
-            <div class="flex text-yellow-400">
+          <div class="package-rating">
+            <div class="rating-stars">
               <% for(let i = 1; i <= 5; i++) { %>
                 <% if (i <= Math.floor(pacote.avaliacao)) { %>
-                  ⭐
+                  <span class="star filled">★</span>
                 <% } else if (i === Math.ceil(pacote.avaliacao) && pacote.avaliacao % 1 !== 0) { %>
-                  ⭐
+                  <span class="star half">★</span>
                 <% } else { %>
-                  ☆
+                  <span class="star empty">☆</span>
                 <% } %>
               <% } %>
             </div>
-            <span class="text-sm text-slate-500">(<%= pacote.avaliacao %>/5)</span>
+            <span class="rating-score">(<%= pacote.avaliacao %>/5)</span>
           </div>
           
           <!-- Preços -->
-          <div class="mb-4">
-            <% if (pacote.precoOriginal) { %>
-              <span class="text-sm text-slate-400 line-through">R$ <%= pacote.precoOriginal %></span>
-            <% } %>
-            <div class="text-2xl font-bold text-sky-800">R$ <%= pacote.preco %></div>
-            <span class="text-sm text-slate-500">por pessoa</span>
+          <div class="package-pricing">
+            <div class="price-info">
+              <% if (pacote.precoOriginal) { %>
+                <span class="price-original">R$ <%= pacote.precoOriginal %></span>
+              <% } %>
+              <div class="price-current">R$ <%= pacote.preco %></div>
+              <span class="price-note">por pessoa</span>
+            </div>
           </div>
           
-          <a href="/pacotes/<%= pacote.slug %>" 
-             class="block w-full text-center bg-sky-700 text-white py-3 rounded-lg hover:bg-sky-800 transition-colors font-semibold">
-            Ver Detalhes
-          </a>
+          <div class="package-actions">
+            <a href="/pacotes/<%= pacote.slug %>" class="btn-package-details">
+              <span class="btn-icon">👁️</span>
+              Ver Detalhes Completos
+            </a>
+            <button class="btn-add-to-cart" 
+                    data-pacote-id="<%= pacote.id %>"
+                    data-pacote-nome="<%= pacote.destino %>"
+                    data-pacote-preco="<%= pacote.preco %>"
+                    data-pacote-periodo="<%= pacote.periodo %>"
+                    data-pacote-imagem="<%= pacote.bgClass %>"
+                    onclick="adicionarAoCarrinho(this)">
+              <span class="btn-icon">🛒</span>
+              Adicionar ao Carrinho
+            </button>
+          </div>
         </div>
       </article>
     <% }); %>
   </div>
 
   <!-- CTA Section -->
-  <div class="mt-16 bg-gradient-to-r from-sky-700 to-sky-900 rounded-lg p-8 text-white text-center">
-    <h2 class="text-2xl font-bold mb-4">Não encontrou o que procurava?</h2>
-    <p class="mb-6">Entre em contato conosco e criaremos um pacote personalizado especialmente para você!</p>
-    <a href="/contato" class="inline-block bg-yellow-400 text-slate-800 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors">
+  <div class="packages-cta">
+    <h2 class="cta-title">Não encontrou o que procurava?</h2>
+    <p class="cta-description">Entre em contato conosco e criaremos um pacote personalizado especialmente para você!</p>
+    <a href="/contato" class="btn-cta">
       Falar com um Especialista
     </a>
   </div>
@@ -84,3 +98,4 @@
 
 <%- include('../partials/footer') %>
 <%- include('../partials/scripts') %>
+<script src="/js/packages.js"></script>

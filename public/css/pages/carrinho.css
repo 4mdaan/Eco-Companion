@@ -17,9 +17,10 @@
 
 .carrinho-title {
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 0.5rem;
-    font-family: 'Pacifico', cursive;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.02em;
 }
 
 .carrinho-subtitle {
@@ -940,4 +941,75 @@
     .sucesso-actions {
         flex-direction: column;
     }
+}
+
+/* Estilos para carrinho vazio */
+.carrinho-vazio {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.vazio-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+}
+
+.vazio-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 1rem;
+}
+
+.vazio-description {
+    font-size: 1.125rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-continuar-compras {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--yellow-400);
+    color: var(--slate-800);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-continuar-compras:hover {
+    background: var(--yellow-500);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+    color: var(--slate-800);
+    text-decoration: none;
+}
+
+.btn-limpar-carrinho {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-limpar-carrinho:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
 }
