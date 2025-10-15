@@ -7,17 +7,32 @@
     <meta name="description" content="<%= descricao %>">
     
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/components/chat-fixed.css">
     
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/imagens/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/imagens/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/imagens/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/imagens/logo.png">
+    <link rel="shortcut icon" href="/imagens/logo.png">
+    <meta name="msapplication-TileImage" content="/imagens/logo.png">
+    <meta name="theme-color" content="#3b82f6">
 </head>
 <body class="chat-page">
-    <%- include('../partials/header') %>
+    <!-- Header específico do chat -->
+    <div class="chat-page-header">
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Voltar ao site
+        </a>
+        <h1 class="chat-title">Chat de Atendimento</h1>
+        <div class="chat-status">
+            <span class="status-dot online"></span>
+            Assistente Online
+        </div>
+    </div>
     
     <main class="chat-container">
         <!-- Cabeçalho do Chat -->
@@ -52,16 +67,20 @@
                 </div>
                 <div class="message-content">
                     <div class="message-bubble">
-                        <p>👋 Olá! Bem-vindo ao atendimento da <strong>Eco Companion</strong>!</p>
-                        <p>Sou seu assistente virtual e estou aqui para ajudar com:</p>
-                        <ul>
-                            <li>🌍 Informações sobre destinos</li>
-                            <li>📦 Detalhes de pacotes e preços</li>
-                            <li>📄 Documentação necessária</li>
-                            <li>💳 Formas de pagamento</li>
-                            <li>🛡️ Seguro viagem</li>
-                        </ul>
-                        <p>Como posso te ajudar hoje?</p>
+                        <p><strong>👋 Olá! Bem-vindo ao atendimento da Eco Companion!</strong></p>
+                        <p>Sou seu assistente virtual inteligente e estou aqui 24/7 para te ajudar! ✨</p>
+                        
+                        <p><strong>🎯 Posso te ajudar com:</strong></p>
+                        <div class="help-topics">
+                            <span class="topic-tag">🌍 Destinos</span>
+                            <span class="topic-tag">📦 Pacotes</span>
+                            <span class="topic-tag">💰 Preços</span>
+                            <span class="topic-tag">📄 Documentos</span>
+                            <span class="topic-tag">�️ Seguro Viagem</span>
+                            <span class="topic-tag">� Pagamentos</span>
+                        </div>
+                        
+                        <p><strong>💬 Digite sua dúvida ou clique em uma das sugestões abaixo!</strong></p>
                     </div>
                     <span class="message-time" data-time="<%= new Date().toISOString() %>"></span>
                 </div>
@@ -84,17 +103,23 @@
         <div class="chat-input-container">
             <!-- Sugestões Rápidas -->
             <div class="quick-suggestions" id="quickSuggestions">
-                <button class="suggestion-chip" data-message="Quais destinos vocês oferecem?">
-                    🌍 Destinos
+                <button class="suggestion-chip popular" data-message="Quais destinos vocês oferecem?">
+                    🌍 Destinos Disponíveis
                 </button>
-                <button class="suggestion-chip" data-message="Quanto custa um pacote?">
-                    💰 Preços
+                <button class="suggestion-chip" data-message="Quanto custa um pacote para o Caribe?">
+                    💰 Preços e Promoções
                 </button>
-                <button class="suggestion-chip" data-message="Que documentos preciso?">
-                    📄 Documentos
+                <button class="suggestion-chip" data-message="Que documentos preciso para viajar?">
+                    📄 Documentação
                 </button>
-                <button class="suggestion-chip" data-message="Como funciona o pagamento?">
-                    💳 Pagamento
+                <button class="suggestion-chip" data-message="Como funciona o pagamento e parcelamento?">
+                    💳 Formas de Pagamento
+                </button>
+                <button class="suggestion-chip" data-message="Preciso de seguro viagem?">
+                    🛡️ Seguro Viagem
+                </button>
+                <button class="suggestion-chip" data-message="Qual a melhor época para viajar?">
+                    🗓️ Melhor Época
                 </button>
             </div>
             
@@ -150,8 +175,6 @@
             </div>
         </div>
     </main>
-    
-    <%- include('../partials/footer') %>
     
     <!-- Scripts -->
     <script src="/js/chat-bot.js"></script>

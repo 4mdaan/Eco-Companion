@@ -45,10 +45,11 @@
 
 .footer-logo h3 {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 0.5rem;
     color: var(--yellow-400);
-    font-family: 'Pacifico', cursive;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
 }
 
 .footer-tagline {

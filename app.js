@@ -24,6 +24,7 @@ const cashbackRoutes = require('./routes/cashback');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const chatRoutes = require('./routes/chat');
+const legalRoutes = require('./routes/legal');
 
 // Usar as rotas
 app.use('/', indexRoutes);
@@ -34,6 +35,7 @@ app.use('/cashback', cashbackRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/chat', chatRoutes);
+app.use('/', legalRoutes);
 
 // Middleware para tratamento de erros 404
 app.use((req, res, next) => {

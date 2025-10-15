@@ -188,45 +188,6 @@
       </div>
 
   </div>
-
-  <!-- Sidebar de reserva -->
-  <div class="booking-sidebar">
-    <div class="booking-card">
-      <h3 style="margin-bottom: 1.5rem; color: var(--slate-800); font-weight: 600;">Fazer Reserva</h3>
-      
-      <form class="booking-form">
-        <div class="form-group">
-          <label class="form-label">Data de Chegada</label>
-          <input type="date" class="form-input" required>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Número de Pessoas</label>
-          <select class="form-input" required>
-            <option value="">Selecione</option>
-            <option value="1">1 pessoa</option>
-            <option value="2">2 pessoas</option>
-            <option value="3">3 pessoas</option>
-            <option value="4">4 pessoas</option>
-            <option value="5+">5+ pessoas</option>
-          </select>
-        </div>
-
-        <% if (pacote.disponivel !== false) { %>
-          <button type="button" class="btn-book" onclick="adicionarAoCarrinho('<%= pacote.slug %>')">
-            Adicionar ao Carrinho
-          </button>
-          <a href="/carrinho" class="btn-back" style="margin-top: 0.5rem; width: 100%; text-align: center; text-decoration: none; display: block;">
-            Ver Carrinho
-          </a>
-        <% } else { %>
-          <div style="width: 100%; background: #9ca3af; color: white; padding: 1rem; border-radius: 0.5rem; text-align: center; cursor: not-allowed;">
-            Esgotado
-          </div>
-        <% } %>
-      </form>
-    </div>
-  </div>
 </div>
           </div>
 

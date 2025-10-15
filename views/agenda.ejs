@@ -6,290 +6,262 @@
 <body>
     <%- include('partials/header') %>
 
-    <!-- Hero Section -->
-    <section class="agenda-hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>📅 Agenda de Viagens</h1>
-                <p>Descubra as próximas saídas programadas e reserve sua aventura</p>
+    <!-- Dashboard de Agenda Moderna -->
+    <section class="agenda-dashboard">
+        <div class="dashboard-container">
+            <!-- Header do Dashboard -->
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <div class="title-section">
+                        <h1 class="dashboard-title">
+                            <span class="title-icon">🗓️</span>
+                            Agenda de Viagens
+                        </h1>
+                        <p class="dashboard-subtitle">Gerencie suas experiências de forma inteligente</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="action-btn primary" id="newTripBtn">
+                            <i class="fas fa-plus"></i>
+                            Nova Viagem
+                        </button>
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" placeholder="Buscar destino..." id="searchInput">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métricas Rápidas -->
+                <div class="metrics-bar">
+                    <div class="metric-card">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="totalTrips">6</span>
+                            <span class="metric-label">Total de Viagens</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">✅</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="confirmedTrips">4</span>
+                            <span class="metric-label">Confirmadas</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">⏰</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="pendingTrips">2</span>
+                            <span class="metric-label">Pendentes</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-content">
+                            <span class="metric-number" id="totalRevenue">R$ 156k</span>
+                            <span class="metric-label">Receita Total</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-card">
-                    <span class="stat-number">25+</span>
-                    <span class="stat-label">Saídas Programadas</span>
+
+            <!-- Filtros e Visualização -->
+            <div class="control-panel">
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label class="filter-label">Período:</label>
+                        <div class="date-range">
+                            <input type="date" class="date-input" id="startDate">
+                            <span class="date-separator">até</span>
+                            <input type="date" class="date-input" id="endDate">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Categoria:</label>
+                        <select class="select-input" id="categoryFilter">
+                            <option value="all">Todas as categorias</option>
+                            <option value="praia">🏖️ Praia</option>
+                            <option value="montanha">⛰️ Montanha</option>
+                            <option value="cidade">🏙️ Cidade</option>
+                            <option value="aventura">🎯 Aventura</option>
+                            <option value="relax">🧘 Relaxamento</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Status:</label>
+                        <div class="status-chips">
+                            <button class="status-chip active" data-status="all">Todos</button>
+                            <button class="status-chip" data-status="confirmed">Confirmado</button>
+                            <button class="status-chip" data-status="pending">Pendente</button>
+                            <button class="status-chip" data-status="cancelled">Cancelado</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number">180+</span>
-                    <span class="stat-label">Vagas Disponíveis</span>
+
+                <div class="view-controls">
+                    <div class="view-switcher">
+                        <button class="view-btn active" data-view="cards">
+                            <i class="fas fa-th-large"></i>
+                            Cards
+                        </button>
+                        <button class="view-btn" data-view="calendar">
+                            <i class="fas fa-calendar-alt"></i>
+                            Calendário
+                        </button>
+                        <button class="view-btn" data-view="timeline">
+                            <i class="fas fa-stream"></i>
+                            Timeline
+                        </button>
+                        <button class="view-btn" data-view="map">
+                            <i class="fas fa-map"></i>
+                            Mapa
+                        </button>
+                    </div>
+                    
+                    <div class="sort-controls">
+                        <select class="sort-select" id="sortBy">
+                            <option value="date">Ordenar por Data</option>
+                            <option value="price">Ordenar por Preço</option>
+                            <option value="destination">Ordenar por Destino</option>
+                            <option value="status">Ordenar por Status</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">Destinos Únicos</span>
+            </div>
+
+            <!-- Conteúdo Principal -->
+            <div class="main-content">
+                <!-- Vista Cards (Ativa por Padrão) -->
+                <div class="view-container active" id="cardsView">
+                    <div class="trips-grid">
+                        <!-- Cards serão gerados dinamicamente pelo JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Vista Calendário -->
+                <div class="view-container" id="calendarView">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 class="calendar-title" id="calendarTitle">Novembro 2025</h2>
+                        <button class="calendar-nav-btn" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-weekdays">
+                            <div class="weekday">Dom</div>
+                            <div class="weekday">Seg</div>
+                            <div class="weekday">Ter</div>
+                            <div class="weekday">Qua</div>
+                            <div class="weekday">Qui</div>
+                            <div class="weekday">Sex</div>
+                            <div class="weekday">Sáb</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays">
+                            <!-- Dias serão gerados pelo JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vista Timeline -->
+                <div class="view-container" id="timelineView">
+                    <div class="timeline-container">
+                        <!-- Timeline será gerada pelo JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Vista Mapa -->
+                <div class="view-container" id="mapView">
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>Visualização em Mapa</h3>
+                            <p>Veja todas as suas viagens em um mapa interativo</p>
+                            <button class="enable-map-btn">Ativar Mapa</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Filtros -->
-    <section class="agenda-filters">
-        <div class="container">
-            <div class="filters-wrapper">
-                <h3>🔍 Filtrar por:</h3>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-month="all">Todos os Meses</button>
-                    <button class="filter-btn" data-month="novembro2025">Novembro 2025</button>
-                    <button class="filter-btn" data-month="dezembro2025">Dezembro 2025</button>
-                    <button class="filter-btn" data-month="janeiro2026">Janeiro 2026</button>
-                </div>
-                <div class="filter-types">
-                    <select class="type-filter">
-                        <option value="all">Todos os Tipos</option>
-                        <option value="City Tour">City Tour</option>
-                        <option value="Praia & Aventura">Praia & Aventura</option>
-                        <option value="Ecoturismo">Ecoturismo</option>
-                        <option value="Ultra Luxo">Ultra Luxo</option>
-                        <option value="Festa & Cultura">Festa & Cultura</option>
-                    </select>
-                    <select class="price-filter">
-                        <option value="all">Todas as Faixas</option>
-                        <option value="0-1000">Até R$ 1.000</option>
-                        <option value="1000-3000">R$ 1.000 - R$ 3.000</option>
-                        <option value="3000-10000">R$ 3.000 - R$ 10.000</option>
-                        <option value="10000+">Acima de R$ 10.000</option>
-                    </select>
+    <!-- Modal Nova Viagem -->
+    <div class="modal-overlay" id="newTripModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nova Viagem</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="trip-form" id="tripForm">
+                    <div class="form-group">
+                        <label for="tripDestination">Destino</label>
+                        <input type="text" id="tripDestination" placeholder="Ex: Fernando de Noronha" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tripStartDate">Data de Início</label>
+                            <input type="date" id="tripStartDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripEndDate">Data de Término</label>
+                            <input type="date" id="tripEndDate" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tripPrice">Preço (R$)</label>
+                            <input type="number" id="tripPrice" placeholder="2500" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripCategory">Categoria</label>
+                            <select id="tripCategory" required>
+                                <option value="">Selecionar</option>
+                                <option value="praia">🏖️ Praia</option>
+                                <option value="montanha">⛰️ Montanha</option>
+                                <option value="cidade">🏙️ Cidade</option>
+                                <option value="aventura">🎯 Aventura</option>
+                                <option value="relax">🧘 Relaxamento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tripDescription">Descrição</label>
+                        <textarea id="tripDescription" placeholder="Descreva os detalhes da viagem..." rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn secondary" id="cancelTrip">Cancelar</button>
+                <button type="submit" form="tripForm" class="btn primary">Criar Viagem</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes da Viagem -->
+    <div class="modal-overlay" id="tripDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="detailsTitle">Detalhes da Viagem</h3>
+                <button class="modal-close" id="closeTripDetails">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="trip-details" id="tripDetailsContent">
+                    <!-- Conteúdo será preenchido pelo JavaScript -->
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Agenda Principal -->
-    <main class="agenda-main">
-        <div class="container">
-            <!-- Novembro 2025 -->
-            <div class="month-section" data-month="novembro2025">
-                <div class="month-header">
-                    <h2>🍂 Novembro 2025</h2>
-                    <span class="month-subtitle">Primavera em destinos incríveis</span>
-                </div>
-                <div class="agenda-grid">
-                    <% agenda.novembro2025.forEach(function(item) { %>
-                    <div class="agenda-card" data-type="<%= item.tipo %>" data-price="<%= item.preco %>">
-                        <div class="card-header">
-                            <div class="card-date">
-                                <span class="date-day"><%= item.data.split('/')[0] %></span>
-                                <span class="date-month">NOV</span>
-                            </div>
-                            <div class="card-status <%= item.vagas <= 5 ? 'few-spots' : 'available' %>">
-                                <%= item.vagas <= 5 ? '🔥 Últimas vagas!' : '✅ Disponível' %>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title"><%= item.destino %></h3>
-                            <p class="card-type">📋 <%= item.tipo %></p>
-                            <div class="card-details">
-                                <span class="card-duration">⏱️ <%= item.duracao %></span>
-                                <span class="card-spots">👥 <%= item.vagas %> vagas</span>
-                            </div>
-                            <div class="card-price">
-                                <span class="price-label">A partir de</span>
-                                <span class="price-value">R$ <%= item.preco.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <a href="/destinos/<%= item.slug %>" class="btn-primary">Ver Detalhes</a>
-                            <a href="/destinos/<%= item.slug %>/comprar" class="btn-secondary">Reservar Agora</a>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
-
-            <!-- Dezembro 2025 -->
-            <div class="month-section" data-month="dezembro2025">
-                <div class="month-header">
-                    <h2>🎄 Dezembro 2025</h2>
-                    <span class="month-subtitle">Final de ano com experiências únicas</span>
-                </div>
-                <div class="agenda-grid">
-                    <% agenda.dezembro2025.forEach(function(item) { %>
-                    <div class="agenda-card" data-type="<%= item.tipo %>" data-price="<%= item.preco %>">
-                        <div class="card-header">
-                            <div class="card-date">
-                                <span class="date-day"><%= item.data.split('/')[0] %></span>
-                                <span class="date-month">DEZ</span>
-                            </div>
-                            <div class="card-status <%= item.vagas <= 5 ? 'few-spots' : 'available' %>">
-                                <%= item.vagas <= 5 ? '🔥 Últimas vagas!' : '✅ Disponível' %>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title"><%= item.destino %></h3>
-                            <p class="card-type">📋 <%= item.tipo %></p>
-                            <div class="card-details">
-                                <span class="card-duration">⏱️ <%= item.duracao %></span>
-                                <span class="card-spots">👥 <%= item.vagas %> vagas</span>
-                            </div>
-                            <div class="card-price">
-                                <span class="price-label">A partir de</span>
-                                <span class="price-value">R$ <%= item.preco.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <a href="/destinos/<%= item.slug %>" class="btn-primary">Ver Detalhes</a>
-                            <a href="/destinos/<%= item.slug %>/comprar" class="btn-secondary">Reservar Agora</a>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
-
-            <!-- Janeiro 2026 -->
-            <div class="month-section" data-month="janeiro2026">
-                <div class="month-header">
-                    <h2>☀️ Janeiro 2026</h2>
-                    <span class="month-subtitle">Comece o ano com uma nova aventura</span>
-                </div>
-                <div class="agenda-grid">
-                    <% agenda.janeiro2026.forEach(function(item) { %>
-                    <div class="agenda-card" data-type="<%= item.tipo %>" data-price="<%= item.preco %>">
-                        <div class="card-header">
-                            <div class="card-date">
-                                <span class="date-day"><%= item.data.split('/')[0] %></span>
-                                <span class="date-month">JAN</span>
-                            </div>
-                            <div class="card-status <%= item.vagas <= 5 ? 'few-spots' : 'available' %>">
-                                <%= item.vagas <= 5 ? '🔥 Últimas vagas!' : '✅ Disponível' %>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title"><%= item.destino %></h3>
-                            <p class="card-type">📋 <%= item.tipo %></p>
-                            <div class="card-details">
-                                <span class="card-duration">⏱️ <%= item.duracao %></span>
-                                <span class="card-spots">👥 <%= item.vagas %> vagas</span>
-                            </div>
-                            <div class="card-price">
-                                <span class="price-label">A partir de</span>
-                                <span class="price-value">R$ <%= item.preco.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <a href="/destinos/<%= item.slug %>" class="btn-primary">Ver Detalhes</a>
-                            <a href="/destinos/<%= item.slug %>/comprar" class="btn-secondary">Reservar Agora</a>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Call to Action -->
-    <section class="agenda-cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>🎯 Não encontrou a data ideal?</h2>
-                <p>Entre em contato conosco e criaremos um roteiro personalizado para suas datas preferidas</p>
-                <div class="cta-buttons">
-                    <a href="/contato" class="btn-primary large">Falar com Especialista</a>
-                    <a href="https://wa.me/5521999998888" target="_blank" class="btn-whatsapp large">
-                        💬 WhatsApp Direto
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <%- include('partials/footer') %>
     <%- include('partials/scripts') %>
-
-    <!-- Script específico da agenda -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Filtros por mês
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const monthSections = document.querySelectorAll('.month-section');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const month = this.dataset.month;
-                    
-                    // Atualizar botões ativos
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Mostrar/esconder seções
-                    monthSections.forEach(section => {
-                        if (month === 'all' || section.dataset.month === month) {
-                            section.style.display = 'block';
-                            setTimeout(() => section.classList.add('show'), 10);
-                        } else {
-                            section.classList.remove('show');
-                            setTimeout(() => section.style.display = 'none', 300);
-                        }
-                    });
-                });
-            });
-
-            // Filtros por tipo e preço
-            const typeFilter = document.querySelector('.type-filter');
-            const priceFilter = document.querySelector('.price-filter');
-            const agendaCards = document.querySelectorAll('.agenda-card');
-
-            function applyFilters() {
-                const selectedType = typeFilter.value;
-                const selectedPrice = priceFilter.value;
-
-                agendaCards.forEach(card => {
-                    const cardType = card.dataset.type;
-                    const cardPrice = parseInt(card.dataset.price);
-                    
-                    let showCard = true;
-
-                    // Filtro por tipo
-                    if (selectedType !== 'all' && cardType !== selectedType) {
-                        showCard = false;
-                    }
-
-                    // Filtro por preço
-                    if (selectedPrice !== 'all') {
-                        const priceRange = selectedPrice.split('-');
-                        if (priceRange.length === 2) {
-                            const min = parseInt(priceRange[0]);
-                            const max = parseInt(priceRange[1]);
-                            if (cardPrice < min || cardPrice > max) {
-                                showCard = false;
-                            }
-                        } else if (selectedPrice === '10000+') {
-                            if (cardPrice < 10000) {
-                                showCard = false;
-                            }
-                        }
-                    }
-
-                    // Aplicar visibilidade
-                    if (showCard) {
-                        card.style.display = 'block';
-                        setTimeout(() => card.classList.add('show'), 10);
-                    } else {
-                        card.classList.remove('show');
-                        setTimeout(() => card.style.display = 'none', 300);
-                    }
-                });
-            }
-
-            typeFilter.addEventListener('change', applyFilters);
-            priceFilter.addEventListener('change', applyFilters);
-
-            // Animação de entrada inicial
-            setTimeout(() => {
-                document.querySelectorAll('.agenda-card').forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
-                });
-            }, 500);
-        });
-    </script>
+    <script src="/js/agenda.js"></script>
 </body>
 </html>

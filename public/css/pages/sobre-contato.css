@@ -38,16 +38,19 @@
 }
 
 .hero-title {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 3.2rem;
+  font-weight: 800;
   margin-bottom: 1rem;
-  font-family: 'Pacifico', cursive;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   opacity: 0.9;
   line-height: 1.6;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 .hero-image {

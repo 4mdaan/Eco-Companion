@@ -8,17 +8,20 @@
 }
 
 .packages-hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 3.2rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    font-family: 'Pacifico', cursive;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.02em;
 }
 
 .packages-hero p {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     opacity: 0.9;
     max-width: 600px;
     margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .packages-filters {
