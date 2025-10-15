@@ -6,6 +6,9 @@ class ModernAgendaManager {
         this.currentView = 'cards';
         this.currentMonth = new Date().getMonth();
         this.currentYear = new Date().getFullYear();
+        this.map = null;
+        this.markers = [];
+        this.markerGroup = null;
         
         this.init();
     }
@@ -139,7 +142,8 @@ class ModernAgendaManager {
                 category: 'cidade',
                 status: 'confirmed',
                 description: 'Hotel 4 estrelas com city tour incluído. Cristo Redentor, Pão de Açúcar e muito mais!',
-                image: 'bg-rio'
+                image: 'bg-rio',
+                coordinates: [-22.9068, -43.1729]
             },
             {
                 id: 2,
@@ -150,7 +154,8 @@ class ModernAgendaManager {
                 category: 'praia',
                 status: 'confirmed',
                 description: 'Praias paradisíacas com transfer incluso. Ilha da Magia te espera!',
-                image: 'bg-florianopolis'
+                image: 'bg-florianopolis',
+                coordinates: [-27.5954, -48.5480]
             },
             {
                 id: 3,
@@ -161,7 +166,8 @@ class ModernAgendaManager {
                 category: 'praia',
                 status: 'confirmed',
                 description: 'Resort all inclusive com passeios incluídos. História, cultura e praias incríveis!',
-                image: 'bg-porto-seguro'
+                image: 'bg-porto-seguro',
+                coordinates: [-16.4497, -39.0647]
             },
             {
                 id: 4,
@@ -172,7 +178,8 @@ class ModernAgendaManager {
                 category: 'aventura',
                 status: 'pending',
                 description: 'Paraíso ecológico com mergulho e trilhas. Uma das praias mais bonitas do mundo!',
-                image: 'bg-destinos-nacionais'
+                image: 'bg-destinos-nacionais',
+                coordinates: [-3.8536, -32.4297]
             },
             {
                 id: 5,
@@ -183,7 +190,8 @@ class ModernAgendaManager {
                 category: 'montanha',
                 status: 'confirmed',
                 description: 'Charme da serra gaúcha com arquitetura alemã e gastronomia especial!',
-                image: 'bg-gramado'
+                image: 'bg-gramado',
+                coordinates: [-29.3786, -50.8740]
             },
             {
                 id: 6,
@@ -194,7 +202,8 @@ class ModernAgendaManager {
                 category: 'cidade',
                 status: 'pending',
                 description: 'Cidade Luz com Torre Eiffel, Louvre e romance francês!',
-                image: 'bg-paris'
+                image: 'bg-paris',
+                coordinates: [48.8566, 2.3522]
             }
         );
 
@@ -376,20 +385,269 @@ class ModernAgendaManager {
     }
 
     renderMap() {
-        const container = document.querySelector('.map-container');
-        if (!container) return;
+        // Aguardar um pouco para garantir que o DOM está pronto
+        setTimeout(() => {
+            this.initializeMap();
+        }, 100);
+    }
 
-        container.innerHTML = `
-            <div class="map-placeholder">
-                <i class="fas fa-map-marked-alt"></i>
-                <h3>Visualização em Mapa</h3>
-                <p>Veja todas as suas viagens em um mapa interativo</p>
-                <p><strong>${this.filteredTrips.length}</strong> viagens para exibir</p>
-                <button class="enable-map-btn" onclick="alert('Funcionalidade em desenvolvimento!')">
-                    Ativar Mapa
-                </button>
+    initializeMap() {
+        const mapElement = document.getElementById('map');
+        if (!mapElement) return;
+
+        // Inicializar o mapa se ainda não foi criado
+        if (!this.map) {
+            // Centro do Brasil
+            this.map = L.map('map', {
+                center: [-14.2350, -51.9253],
+                zoom: 4,
+                zoomControl: true
+            });
+
+            // Adicionar camada de tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(this.map);
+
+            // Criar grupo de marcadores
+            this.markerGroup = L.layerGroup().addTo(this.map);
+
+            // Configurar filtros do mapa
+            this.setupMapFilters();
+        }
+
+        // Limpar marcadores existentes
+        this.clearMapMarkers();
+
+        // Adicionar marcadores das viagens filtradas
+        this.addTripMarkers();
+
+        // Ajustar zoom para mostrar todos os marcadores
+        this.fitMapToMarkers();
+    }
+
+    setupMapFilters() {
+        const filterButtons = document.querySelectorAll('.map-filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Atualizar botão ativo
+                filterButtons.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Aplicar filtro
+                this.filterMapMarkers(e.target.dataset.filter);
+            });
+        });
+    }
+
+    clearMapMarkers() {
+        if (this.markerGroup) {
+            this.markerGroup.clearLayers();
+        }
+        this.markers = [];
+    }
+
+    addTripMarkers() {
+        this.filteredTrips.forEach(trip => {
+            if (trip.coordinates && trip.coordinates.length === 2) {
+                const marker = this.createTripMarker(trip);
+                this.markers.push(marker);
+                this.markerGroup.addLayer(marker);
+            }
+        });
+    }
+
+    createTripMarker(trip) {
+        const [lat, lng] = trip.coordinates;
+        
+        // Definir cor do marcador baseado no status
+        const getMarkerColor = (status) => {
+            switch (status) {
+                case 'confirmed': return '#10b981'; // verde
+                case 'pending': return '#f59e0b';   // amarelo
+                case 'cancelled': return '#ef4444'; // vermelho
+                default: return '#6b7280';          // cinza
+            }
+        };
+
+        // Criar ícone customizado
+        const markerIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `
+                <div style="
+                    width: 24px; 
+                    height: 24px; 
+                    background-color: ${getMarkerColor(trip.status)}; 
+                    border: 3px solid white; 
+                    border-radius: 50%; 
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 10px;
+                ">
+                    ${this.getCategoryIcon(trip.category)}
+                </div>
+            `,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+
+        // Criar marcador
+        const marker = L.marker([lat, lng], { icon: markerIcon });
+
+        // Adicionar popup
+        const popupContent = this.createPopupContent(trip);
+        marker.bindPopup(popupContent, {
+            maxWidth: 300,
+            className: 'custom-popup'
+        });
+
+        // Adicionar evento de click
+        marker.on('click', () => {
+            this.showTripInfoOnMap(trip);
+        });
+
+        return marker;
+    }
+
+    getCategoryIcon(category) {
+        const icons = {
+            'praia': '🏖️',
+            'montanha': '⛰️',
+            'cidade': '🏙️',
+            'aventura': '🎯',
+            'relax': '🧘'
+        };
+        return icons[category] || '📍';
+    }
+
+    createPopupContent(trip) {
+        const statusLabels = {
+            'confirmed': 'Confirmada',
+            'pending': 'Pendente',
+            'cancelled': 'Cancelada'
+        };
+
+        return `
+            <div class="popup-trip-info">
+                <h4>${trip.destination}</h4>
+                <div class="popup-trip-details">
+                    <div class="popup-detail">
+                        <i class="fas fa-calendar"></i>
+                        ${this.formatDateRange(trip.startDate, trip.endDate)}
+                    </div>
+                    <div class="popup-detail">
+                        <i class="fas fa-money-bill-wave"></i>
+                        R$ ${trip.price.toLocaleString('pt-BR')}
+                    </div>
+                    <div class="popup-detail">
+                        <i class="fas fa-tag"></i>
+                        ${this.getCategoryLabel(trip.category)}
+                    </div>
+                </div>
+                <div class="popup-status ${trip.status}">
+                    ${statusLabels[trip.status] || trip.status}
+                </div>
             </div>
         `;
+    }
+
+    formatDateRange(start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        
+        return `${startDate.toLocaleDateString('pt-BR', options)} - ${endDate.toLocaleDateString('pt-BR', options)}`;
+    }
+
+    getCategoryLabel(category) {
+        const labels = {
+            'praia': '🏖️ Praia',
+            'montanha': '⛰️ Montanha',
+            'cidade': '🏙️ Cidade',
+            'aventura': '🎯 Aventura',
+            'relax': '🧘 Relaxamento'
+        };
+        return labels[category] || category;
+    }
+
+    showTripInfoOnMap(trip) {
+        const infoElement = document.getElementById('selectedTripInfo');
+        if (!infoElement) return;
+
+        const statusLabels = {
+            'confirmed': 'Confirmada',
+            'pending': 'Pendente',
+            'cancelled': 'Cancelada'
+        };
+
+        infoElement.innerHTML = `
+            <h4>${trip.destination}</h4>
+            <div class="selected-trip-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${this.formatDateRange(trip.startDate, trip.endDate)}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>R$ ${trip.price.toLocaleString('pt-BR')}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-tag"></i>
+                    <span>${this.getCategoryLabel(trip.category)}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>${statusLabels[trip.status]}</span>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">${trip.description}</p>
+        `;
+        
+        infoElement.style.display = 'block';
+
+        // Centralizar o mapa no marcador selecionado
+        if (trip.coordinates) {
+            this.map.setView(trip.coordinates, 8, { animate: true });
+        }
+    }
+
+    filterMapMarkers(filter) {
+        // Se o filtro é 'all', mostrar todos os marcadores
+        if (filter === 'all') {
+            this.clearMapMarkers();
+            this.addTripMarkers();
+            return;
+        }
+
+        // Filtrar viagens baseado no status
+        const filteredTrips = this.filteredTrips.filter(trip => trip.status === filter);
+        
+        // Limpar marcadores existentes
+        this.clearMapMarkers();
+        
+        // Adicionar apenas marcadores filtrados
+        filteredTrips.forEach(trip => {
+            if (trip.coordinates && trip.coordinates.length === 2) {
+                const marker = this.createTripMarker(trip);
+                this.markers.push(marker);
+                this.markerGroup.addLayer(marker);
+            }
+        });
+
+        // Ajustar zoom
+        this.fitMapToMarkers();
+    }
+
+    fitMapToMarkers() {
+        if (this.markers.length > 0) {
+            const group = new L.featureGroup(this.markers);
+            this.map.fitBounds(group.getBounds().pad(0.1));
+        }
     }
 
     // Funções de filtro e busca
