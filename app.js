@@ -60,9 +60,10 @@ app.use((err, req, res, next) => {
 });
 
 // Iniciar o servidor
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
   console.log(`📁 Estrutura do projeto configurada com sucesso!`);
+  console.log(`🌍 Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
 
 module.exports = app;
