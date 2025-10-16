@@ -11,6 +11,11 @@ app.set('views', path.join(__dirname, 'views'));
 // Servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Rota de debug para o carrinho
+app.get('/debug-carrinho.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'debug-carrinho.html'));
+});
+
 // Middleware para parsing de dados do formulário
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

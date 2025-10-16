@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Carrinho - Eco Companion</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .output { background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 4px; font-family: monospace; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #fd7e14; }
+    </style>
+</head>
+<body>
+    <h1>🛒 Debug do Carrinho - Eco Companion</h1>
+    
+    <div class="section">
+        <h2>1. Adicionar Itens de Teste ao Carrinho</h2>
+        <button onclick="adicionarItemTeste()">Adicionar Rio de Janeiro</button>
+        <button onclick="adicionarItemTeste2()">Adicionar Florianópolis</button>
+        <button onclick="limparCarrinho()">Limpar Carrinho</button>
+    </div>
+    
+    <div class="section">
+        <h2>2. Verificar Carrinho Local</h2>
+        <button onclick="verificarCarrinhoLocal()">Ver Carrinho localStorage</button>
+        <div id="carrinho-local" class="output"></div>
+    </div>
+    
+    <div class="section">
+        <h2>3. Sincronizar com Backend</h2>
+        <button onclick="sincronizarCarrinho()">Sincronizar</button>
+        <div id="sync-result" class="output"></div>
+    </div>
+    
+    <div class="section">
+        <h2>4. Testar Checkout</h2>
+        <button onclick="testarCheckout()">Ir para Checkout</button>
+        <div id="checkout-result" class="output"></div>
+    </div>
+    
+    <div class="section">
+        <h2>5. Verificar Backend</h2>
+        <button onclick="verificarQuantidadeBackend()">Quantidade no Backend</button>
+        <div id="backend-result" class="output"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            console.log(message);
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : '';
+            return `<div class="${className}">${new Date().toLocaleTimeString()}: ${message}</div>`;
+        }
+
+        function adicionarItemTeste() {
+            const item = {
+                id: 'rio-de-janeiro',
+                nome: 'Rio de Janeiro',
+                slug: 'rio-de-janeiro',
+                preco: 870,
+                precoOriginal: 1200,
+                periodo: '17 de Nov - 21 de Nov',
+                categoria: 'nacional',
+                avaliacao: 4.8,
+                bgClass: 'bg-rio',
+                quantidade: 1,
+                tipo: 'pacote'
+            };
+            
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const existente = carrinho.find(i => i.id === item.id);
+            
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push(item);
+            }
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            verificarCarrinhoLocal();
+            alert('Item adicionado!');
+        }
+
+        function adicionarItemTeste2() {
+            const item = {
+                id: 'florianopolis',
+                nome: 'Florianópolis',
+                slug: 'florianopolis',
+                preco: 841,
+                precoOriginal: 1100,
+                periodo: '03 de Nov - 07 de Nov',
+                categoria: 'nacional',
+                avaliacao: 4.7,
+                bgClass: 'bg-florianopolis',
+                quantidade: 1,
+                tipo: 'pacote'
+            };
+            
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const existente = carrinho.find(i => i.id === item.id);
+            
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push(item);
+            }
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            verificarCarrinhoLocal();
+            alert('Item adicionado!');
+        }
+
+        function limparCarrinho() {
+            localStorage.removeItem('carrinho');
+            document.getElementById('carrinho-local').innerHTML = log('Carrinho limpo', 'warning');
+        }
+
+        function verificarCarrinhoLocal() {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const output = document.getElementById('carrinho-local');
+            
+            if (carrinho.length === 0) {
+                output.innerHTML = log('Carrinho vazio', 'warning');
+            } else {
+                let html = log(`Carrinho tem ${carrinho.length} tipos de itens:`, 'success');
+                carrinho.forEach(item => {
+                    html += log(`- ${item.nome}: R$ ${item.preco} (Qtd: ${item.quantidade})`, 'info');
+                });
+                output.innerHTML = html;
+            }
+        }
+
+        async function sincronizarCarrinho() {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const output = document.getElementById('sync-result');
+            
+            if (carrinho.length === 0) {
+                output.innerHTML = log('Nada para sincronizar - carrinho vazio', 'warning');
+                return;
+            }
+
+            try {
+                const response = await fetch('/carrinho/sincronizar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ itens: carrinho })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    output.innerHTML = log(`Sincronização OK! ${data.itensCarrinho} itens no backend`, 'success');
+                } else {
+                    output.innerHTML = log(`Erro na sincronização: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                output.innerHTML = log(`Erro: ${error.message}`, 'error');
+            }
+        }
+
+        async function verificarQuantidadeBackend() {
+            const output = document.getElementById('backend-result');
+            
+            try {
+                const response = await fetch('/carrinho/api/quantidade');
+                const data = await response.json();
+                
+                output.innerHTML = log(`Backend tem ${data.quantidade} itens no carrinho`, 'success');
+            } catch (error) {
+                output.innerHTML = log(`Erro ao verificar backend: ${error.message}`, 'error');
+            }
+        }
+
+        function testarCheckout() {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const output = document.getElementById('checkout-result');
+            
+            if (carrinho.length === 0) {
+                output.innerHTML = log('Adicione itens ao carrinho primeiro!', 'warning');
+                return;
+            }
+            
+            output.innerHTML = log('Redirecionando para checkout...', 'info');
+            setTimeout(() => {
+                window.location.href = '/carrinho/checkout';
+            }, 1500);
+        }
+
+        // Carregar estado inicial
+        window.onload = function() {
+            verificarCarrinhoLocal();
+        };
+    </script>
+</body>
+</html>

@@ -33,6 +33,15 @@
 <!-- Conteúdo do Checkout -->
 <div class="checkout-content">
   <div class="container">
+    <% if (typeof req !== 'undefined' && req.query && req.query.erro) { %>
+      <div class="alert alert-warning" style="background: #fef3cd; color: #856404; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem; border: 1px solid #ffeaa7;">
+        <% if (req.query.erro === 'dados-incompletos') { %>
+          ⚠️ Por favor, preencha todos os campos obrigatórios.
+        <% } else { %>
+          ⚠️ Ocorreu um erro. Tente novamente.
+        <% } %>
+      </div>
+    <% } %>
     <form method="POST" action="/carrinho/checkout" class="checkout-form">
       <div class="checkout-grid">
         <!-- Formulário de Dados -->
@@ -308,6 +317,30 @@ document.getElementById('cep').addEventListener('blur', function() {
         }
       })
       .catch(error => console.log('Erro ao consultar CEP:', error));
+  }
+});
+
+// Sincronizar carrinho na entrada da página
+document.addEventListener('DOMContentLoaded', async function() {
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  console.log('Carrinho no checkout:', carrinho);
+  
+  if (carrinho.length > 0) {
+    try {
+      const response = await fetch('/carrinho/sincronizar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itens: carrinho })
+      });
+      const data = await response.json();
+      console.log('Sincronização bem-sucedida:', data);
+    } catch (error) {
+      console.error('Erro ao sincronizar carrinho no checkout:', error);
+    }
+  } else {
+    console.warn('Carrinho vazio no checkout!');
   }
 });
 </script>

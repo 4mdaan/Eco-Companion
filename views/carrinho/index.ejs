@@ -93,9 +93,9 @@
             </div>
             
             <div class="resumo-actions">
-              <a href="/carrinho/checkout" class="btn-checkout">
+              <button onclick="finalizarCompraUnificada()" class="btn-checkout">
                 Finalizar Compra
-              </a>
+              </button>
               
               <a href="/pacotes" class="btn-continuar">
                 Continuar Comprando
@@ -140,48 +140,5 @@
 
 <%- include('../partials/footer') %>
 <%- include('../partials/scripts') %>
-<script src="/js/carrinho.js"></script>
+<script src="/js/carrinho-unificado.js"></script>
 
-<script>
-// Funções do carrinho
-function alterarQuantidade(slug, delta) {
-  const input = document.querySelector(`[data-slug="${slug}"] .input-quantidade`);
-  const novaQuantidade = Math.max(1, parseInt(input.value) + delta);
-  input.value = novaQuantidade;
-  atualizarQuantidade(slug, novaQuantidade);
-}
-
-function atualizarQuantidade(slug, quantidade) {
-  fetch('/carrinho/atualizar', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ slug, quantidade })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      location.reload(); // Recarregar para atualizar totais
-    }
-  });
-}
-
-function removerItem(slug) {
-  if (confirm('Deseja remover este pacote do carrinho?')) {
-    fetch('/carrinho/remover', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ slug })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        location.reload();
-      }
-    });
-  }
-}
-</script>

@@ -181,6 +181,16 @@ router.get('/checkout', (req, res) => {
 router.post('/checkout', (req, res) => {
   const { nome, email, telefone, cpf, metodoPagamento, endereco } = req.body;
   
+  // Validar se há itens no carrinho
+  if (carrinho.length === 0) {
+    return res.redirect('/carrinho?erro=carrinho-vazio');
+  }
+  
+  // Validar dados obrigatórios
+  if (!nome || !email || !telefone) {
+    return res.redirect('/carrinho/checkout?erro=dados-incompletos');
+  }
+  
   // Aqui você processaria o pagamento e salvaria no banco de dados
   // Por enquanto, vamos simular sucesso
   
@@ -198,6 +208,104 @@ router.post('/checkout', (req, res) => {
     dadosCliente: { nome, email, telefone }
   });
 });
+
+// API para sincronizar carrinho do frontend
+router.post('/sincronizar', (req, res) => {
+  const { itens } = req.body;
+  
+  console.log('Recebendo itens para sincronização:', itens);
+  
+  if (Array.isArray(itens)) {
+    // Converter itens do frontend para formato do backend
+    carrinho = itens.map(item => {
+      const pacote = encontrarPacote(item.slug || item.id);
+      if (pacote) {
+        console.log('Pacote encontrado:', pacote);
+        return {
+          ...pacote,
+          quantidade: item.quantidade || 1,
+          dataAdicao: new Date()
+        };
+      }
+      
+      // Se não encontrou o pacote, criar com base nos dados do frontend
+      const precoFormatado = formatarPreco(item.preco);
+      const precoOriginalFormatado = formatarPreco(item.precoOriginal || item.preco);
+      
+      console.log('Criando pacote personalizado:', {
+        nome: item.nome,
+        preco: precoFormatado,
+        precoOriginal: precoOriginalFormatado
+      });
+      
+      return {
+        id: item.id,
+        destino: item.nome || item.destino || 'Destino',
+        slug: item.slug || item.id || String(item.id),
+        preco: precoFormatado,
+        precoOriginal: precoOriginalFormatado,
+        quantidade: item.quantidade || 1,
+        periodo: item.periodo || 'Data a definir',
+        bgClass: item.bgClass || 'bg-default',
+        categoria: item.categoria || 'nacional',
+        avaliacao: item.avaliacao || 4.5,
+        disponivel: true,
+        descricao: item.descricao || 'Pacote personalizado',
+        dataAdicao: new Date()
+      };
+    });
+    
+    console.log('Carrinho sincronizado:', carrinho);
+  }
+  
+  res.json({ 
+    success: true, 
+    message: 'Carrinho sincronizado com sucesso!',
+    quantidadeCarrinho: carrinho.reduce((acc, item) => acc + item.quantidade, 0),
+    itensCarrinho: carrinho.length
+  });
+});
+
+// Função auxiliar para formatar preço
+function formatarPreco(preco) {
+  if (!preco) return '0';
+  
+  // Se for número, converter para string formatada
+  if (typeof preco === 'number') {
+    return preco.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  
+  // Se for string, garantir formatação adequada
+  if (typeof preco === 'string') {
+    // Remover caracteres não numéricos exceto vírgula e ponto
+    const numerico = preco.replace(/[^\d.,]/g, '');
+    
+    // Se contém vírgula, assumir formato brasileiro (1.234,56)
+    if (numerico.includes(',')) {
+      const partes = numerico.split(',');
+      const inteiro = partes[0].replace(/\./g, '');
+      return inteiro;
+    }
+    
+    // Se contém apenas ponto, pode ser separador de milhares ou decimal
+    if (numerico.includes('.')) {
+      const partes = numerico.split('.');
+      if (partes[partes.length - 1].length <= 2) {
+        // Último é decimal
+        const decimal = partes.pop();
+        const inteiro = partes.join('');
+        return inteiro;
+      } else {
+        // São separadores de milhares
+        return numerico.replace(/\./g, '');
+      }
+    }
+    
+    return numerico;
+  }
+  
+  return '0';
+}
 
 // API para obter quantidade do carrinho (para header)
 router.get('/api/quantidade', (req, res) => {

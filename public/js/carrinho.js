@@ -192,7 +192,7 @@ function limparCarrinho() {
 }
 
 // Função para finalizar compra
-function finalizarCompra() {
+async function finalizarCompra() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     
     if (carrinho.length === 0) {
@@ -200,11 +200,32 @@ function finalizarCompra() {
         return;
     }
     
-    mostrarNotificacao('Redirecionando para checkout...', 'info');
+    mostrarNotificacao('Sincronizando carrinho...', 'info');
     
-    setTimeout(() => {
-        window.location.href = '/carrinho/checkout';
-    }, 1500);
+    try {
+        // Sincronizar carrinho com o backend antes de ir para checkout
+        const response = await fetch('/carrinho/sincronizar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ itens: carrinho })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            mostrarNotificacao('Redirecionando para checkout...', 'info');
+            setTimeout(() => {
+                window.location.href = '/carrinho/checkout';
+            }, 1000);
+        } else {
+            mostrarNotificacao('Erro ao sincronizar carrinho. Tente novamente.', 'warning');
+        }
+    } catch (error) {
+        console.error('Erro ao sincronizar carrinho:', error);
+        mostrarNotificacao('Erro ao sincronizar carrinho. Tente novamente.', 'warning');
+    }
 }
 
 // Função para atualizar contador do carrinho no header
