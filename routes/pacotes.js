@@ -158,6 +158,104 @@ router.get('/:slug', (req, res) => {
       categoria: 'nacional',
       avaliacao: 4.9,
       disponivel: true
+    },
+    {
+      id: 4,
+      destino: 'Paris',
+      periodo: '15 de Jan - 22 de Jan',
+      preco: '3.850',
+      precoOriginal: '4.500',
+      descricao: 'Conheça a Cidade Luz neste pacote especial com hospedagem no centro e principais atrações incluídas.',
+      descricaoCompleta: 'Viva a magia de Paris, a Cidade Luz, em um pacote completo que combina história, arte, gastronomia e romance. Hospede-se em hotéis selecionados no coração de Paris, próximo aos principais monumentos. Este pacote exclusivo inclui visitas guiadas aos marcos mais icônicos da capital francesa, degustações gastronômicas e experiências culturais únicas. Perfeito para casais, famílias ou amigos que desejam descobrir todos os encantos parisienses com conforto e sofisticação.',
+      inclusos: [
+        'Hospedagem por 7 noites em hotel 4 estrelas no centro de Paris',
+        'Café da manhã continental francês',
+        'Ingresso prioritário para a Torre Eiffel com subida ao topo',
+        'Entrada para o Museu do Louvre com audio-guia em português',
+        'Cruzeiro romântico pelo Rio Sena com jantar',
+        'Tour guiado por Montmartre e Sacré-Cœur',
+        'Visita aos Champs-Élysées e Arc de Triomphe',
+        'Degustação em bistrô típico parisiense',
+        'Transfer aeroporto/hotel/aeroporto',
+        'Seguro viagem internacional'
+      ],
+      naoInclusos: [
+        'Passagem aérea internacional',
+        'Refeições não especificadas',
+        'Bebidas alcoólicas (exceto no jantar do cruzeiro)',
+        'Compras pessoais e souvenirs',
+        'Gorjetas para guias',
+        'Atividades opcionais não mencionadas'
+      ],
+      imagens: [
+        '/imagens/paris.png',
+        'https://images.unsplash.com/photo-1502602898536-47ad22581b52?auto=format&fit=crop&w=800&q=60',
+        'https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&w=800&q=60'
+      ],
+      bgClass: 'bg-paris',
+      slug: 'paris',
+      categoria: 'internacional',
+      avaliacao: 4.9,
+      disponivel: true,
+      destaque: true,
+      diferenciais: [
+        '🗼 Acesso prioritário aos principais monumentos',
+        '🎨 Tours com guias especializados em arte e história',
+        '🍷 Experiências gastronômicas autênticas',
+        '🛳️ Cruzeiro romântico pelo Sena incluído',
+        '🏛️ Hotéis no coração histórico de Paris',
+        '🚇 Passe de metrô incluso para toda a estadia'
+      ]
+    },
+    {
+      id: 5,
+      destino: 'Gramado',
+      periodo: '10 de Dez - 14 de Dez',
+      preco: '1.290',
+      precoOriginal: '1.600',
+      descricao: 'Magia do Natal Luz em Gramado com hospedagem aconchegante e roteiro completo pela Serra Gaúcha.',
+      descricaoCompleta: 'Experimente a magia do Natal em Gramado, a cidade mais charmosa da Serra Gaúcha. Este pacote especial coincide com o famoso Natal Luz, oferecendo uma experiência única de inverno brasileiro com arquitetura alemã, gastronomia refinada e paisagens de montanha deslumbrantes. Inclui hospedagem em hotéis boutique, roteiros pelos pontos turísticos mais icônicos e experiências gastronômicas que fazem de Gramado um destino inesquecível para toda a família.',
+      inclusos: [
+        'Hospedagem por 4 noites em hotel boutique temático',
+        'Café da manhã serrano completo',
+        'Ingresso para o espetáculo do Natal Luz',
+        'Visita ao Mini Mundo com entrada incluída',
+        'Passeio ao Lago Negro com pedalinho',
+        'Tour pela Rua Coberta e centro de Gramado',
+        'Excursão à Cascata do Caracol em Canela',
+        'Visita ao Snowland com atividades na neve',
+        'Degustação em chocolateria artesanal Gramado',
+        'Tour por vinícola da Serra Gaúcha com degustação',
+        'Transfer rodoviário de Porto Alegre',
+        'Seguro viagem nacional'
+      ],
+      naoInclusos: [
+        'Passagem aérea até Porto Alegre',
+        'Almoços e jantares (exceto café da manhã)',
+        'Bebidas alcoólicas nas refeições',
+        'Atividades opcionais no Snowland',
+        'Compras em chocolaterias e lojas',
+        'Gorjetas para guias e motoristas'
+      ],
+      imagens: [
+        '/imagens/gramado.png',
+        'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=60',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=60'
+      ],
+      bgClass: 'bg-gramado',
+      slug: 'gramado',
+      categoria: 'nacional',
+      avaliacao: 4.8,
+      disponivel: true,
+      destaque: true,
+      diferenciais: [
+        '🎄 Experiência completa do Natal Luz',
+        '🍫 Degustações em chocolaterias renomadas',
+        '🏔️ Paisagens de montanha da Serra Gaúcha',
+        '🎬 Visita aos cenários do Festival de Cinema',
+        '🍷 Tour exclusivo por vinícolas premiadas',
+        '❄️ Diversão na neve no Snowland'
+      ]
     }
   ];
   
