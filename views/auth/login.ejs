@@ -1,44 +1,44 @@
 <%- include('../partials/head') %>
 
-<div class="auth-container">
-  <div class="auth-card">
+<section class="auth-container">
+  <section class="auth-card">
     <!-- Botão Voltar -->
-    <div class="auth-back">
+    <section class="auth-back">
       <a href="/" class="back-btn">
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg>
         Voltar ao início
       </a>
-    </div>
+    </section>
 
     <!-- Logo -->
-    <div class="auth-header">
-      <div class="auth-logo">
+    <section class="auth-header">
+      <section class="auth-logo">
         <img src="/imagens/logo.png" alt="Eco Companion Logo" width="60" height="60">
         <h1>Eco Companion</h1>
-      </div>
+      </section>
       <p class="auth-subtitle">Entre na sua conta para continuar</p>
-    </div>
+    </section>
 
     <!-- Mensagens -->
     <% if (typeof error !== 'undefined' && error) { %>
-      <div class="alert alert-error">
+      <section class="alert alert-error">
         <span class="alert-icon">⚠️</span>
         <%= error %>
-      </div>
+      </section>
     <% } %>
     
     <% if (typeof success !== 'undefined' && success) { %>
-      <div class="alert alert-success">
+      <section class="alert alert-success">
         <span class="alert-icon">✅</span>
         <%= success %>
-      </div>
+      </section>
     <% } %>
 
     <!-- Formulário de Login -->
     <form method="POST" action="/auth" class="auth-form">
-      <div class="form-group">
+      <section class="form-group">
         <label for="email">Email</label>
         <input 
           type="email" 
@@ -48,11 +48,11 @@
           placeholder="seu@email.com"
           required
         >
-      </div>
+      </section>
 
-      <div class="form-group">
+      <section class="form-group">
         <label for="senha">Senha</label>
-        <div class="password-field">
+        <section class="password-field">
           <input 
             type="password" 
             id="senha" 
@@ -64,17 +64,17 @@
             <span class="show-password">👁️</span>
             <span class="hide-password" style="display: none;">🙈</span>
           </button>
-        </div>
-      </div>
+        </section>
+      </section>
 
-      <div class="form-options">
+      <section class="form-options">
         <label class="checkbox-label">
           <input type="checkbox" name="lembrar" value="1">
           <span class="checkmark"></span>
           Lembrar de mim
         </label>
         <a href="/auth/esqueceu-senha" class="forgot-password">Esqueceu a senha?</a>
-      </div>
+      </section>
 
       <button type="submit" class="btn btn-primary btn-full">
         Entrar
@@ -83,12 +83,12 @@
     </form>
 
     <!-- Divisor -->
-    <div class="auth-divider">
+    <section class="auth-divider">
       <span>ou</span>
-    </div>
+    </section>
 
     <!-- Login Social (Placeholder) -->
-    <div class="social-login">
+    <section class="social-login">
       <button type="button" class="btn btn-google">
         <span class="social-icon">🔵</span>
         Continuar com Google
@@ -97,49 +97,49 @@
         <span class="social-icon">📘</span>
         Continuar com Facebook
       </button>
-    </div>
+    </section>
 
     <!-- Link para Registro -->
-    <div class="auth-footer">
+    <section class="auth-footer">
       <p>Não tem uma conta? 
         <a href="/auth/registro" class="auth-link">Criar conta gratuita</a>
       </p>
-    </div>
-  </div>
+    </section>
+  </section>
 
   <!-- Informações Laterais -->
-  <div class="auth-info">
-    <div class="info-content">
+  <section class="auth-info">
+    <section class="info-content">
       <h2>🌟 Bem-vindo de volta!</h2>
       <p>Acesse sua conta e continue descobrindo experiências incríveis de viagem sustentável.</p>
       
-      <div class="features">
-        <div class="feature">
+      <section class="features">
+        <section class="feature">
           <span class="feature-icon">💰</span>
-          <div>
+          <section>
             <h3>Programa Cashback</h3>
             <p>Ganhe pontos em cada compra e troque por recompensas</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="feature">
+        <section class="feature">
           <span class="feature-icon">🎯</span>
-          <div>
+          <section>
             <h3>Ofertas Personalizadas</h3>
             <p>Receba sugestões baseadas no seu perfil</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="feature">
+        <section class="feature">
           <span class="feature-icon">📱</span>
-          <div>
+          <section>
             <h3>Acompanhe suas Viagens</h3>
             <p>Gerencie seus pacotes e histórico em um só lugar</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
 
 <%- include('../partials/scripts') %>

@@ -21,17 +21,17 @@
 
   <!-- Seção hero com pacotes -->
   <section class="home-hero">
-    <div class="home-hero-content">
+    <section class="home-hero-content">
       <h2 class="hero-title">
         <%= heroTitle || 'Mais que viagens,' %>
       </h2>
       <p class="hero-subtitle">
         <%= heroSubtitle || 'experiências de vida !' %>
       </p>
-    </div>
+    </section>
 
-    <div class="packages-section">
-      <div class="packages-header">
+    <section class="packages-section">
+      <section class="packages-header">
         <h3 class="packages-title">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.2" />
@@ -39,17 +39,17 @@
           Pacotes em Destaque
         </h3>
         <span>Experiências incríveis</span>
-      </div>
+      </section>
 
-      <div class="packages-grid">
+      <section class="packages-grid">
         <% if (typeof pacotes !== 'undefined' && pacotes.length > 0) { %>
           <% pacotes.forEach(function(pacote) { %>
             <article class="package-card">
-              <div class="package-image <%= pacote.bgClass %>"></div>
-              <div class="package-content">
+              <section class="package-image <%= pacote.bgClass %>"></section>
+              <section class="package-content">
                 <h4 class="package-title"><%= pacote.destino %></h4>
                 <p class="package-description"><%= pacote.periodo %></p>
-                <div class="package-price">R$ <%= pacote.preco %></div>
+                <section class="package-price">R$ <%= pacote.preco %></section>
                 <ul class="package-features">
                   <li class="package-feature">
                     <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -67,17 +67,17 @@
                 <a href="/pacotes/<%= pacote.slug %>" class="btn btn-primary">
                   Ver detalhes
                 </a>
-              </div>
+              </section>
             </article>
           <% }); %>
         <% } else { %>
           <!-- Pacotes padrão caso não sejam fornecidos via controller -->
           <article class="package-card">
-            <div class="package-image bg-rio"></div>
-            <div class="package-content">
+            <section class="package-image bg-rio"></section>
+            <section class="package-content">
               <h4 class="package-title">Rio de Janeiro</h4>
               <p class="package-description">17 de Nov - 21 de Nov • 5 dias</p>
-              <div class="package-price">R$ 870</div>
+              <section class="package-price">R$ 870</section>
               <ul class="package-features">
                 <li class="package-feature">
                   <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -95,15 +95,15 @@
               <a href="/pacotes/rio-de-janeiro" class="btn btn-primary">
                 Ver detalhes
               </a>
-            </div>
+            </section>
           </article>
 
           <article class="package-card">
-            <div class="package-image bg-florianopolis"></div>
-            <div class="package-content">
+            <section class="package-image bg-florianopolis"></section>
+            <section class="package-content">
               <h4 class="package-title">Florianópolis</h4>
               <p class="package-description">03 de Nov - 07 de Nov • 4 dias</p>
-              <div class="package-price">R$ 841</div>
+              <section class="package-price">R$ 841</section>
               <ul class="package-features">
                 <li class="package-feature">
                   <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -121,15 +121,15 @@
               <a href="/pacotes/florianopolis" class="btn btn-primary">
                 Ver detalhes
               </a>
-            </div>
+            </section>
           </article>
 
           <article class="package-card">
-            <div class="package-image bg-porto-seguro"></div>
-            <div class="package-content">
+            <section class="package-image bg-porto-seguro"></section>
+            <section class="package-content">
               <h4 class="package-title">Porto Seguro</h4>
               <p class="package-description">17 de Dez - 21 de Dez • 5 dias</p>
-              <div class="package-price">R$ 1.828</div>
+              <section class="package-price">R$ 1.828</section>
               <ul class="package-features">
                 <li class="package-feature">
                   <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -147,208 +147,208 @@
               <a href="/pacotes/porto-seguro" class="btn btn-primary">
                 Ver detalhes
               </a>
-            </div>
+            </section>
           </article>
         <% } %>
-      </div>
-    </div>
+      </section>
+    </section>
   </section>
 
   <!-- Seção destinos nacionais -->
   <section class="destinos-nacionais-section">
-    <div class="container">
-      <div class="destinos-header">
+    <section class="container">
+      <section class="destinos-header">
         <h3 class="destinos-title">
           <span class="destinos-label">DESTINOS</span>
           <span class="destinos-highlight">NACIONAIS</span>
         </h3>
         <p class="destinos-subtitle">Conheça as belezas naturais e culturais do Brasil</p>
-      </div>
+      </section>
 
-      <div class="destinos-card">
-        <div class="destinos-image bg-destinos-nacionais">
-          <div class="destinos-overlay">
-            <div class="destinos-content">
-              <div class="destinos-badge">
+      <section class="destinos-card">
+        <section class="destinos-image bg-destinos-nacionais">
+          <section class="destinos-overlay">
+            <section class="destinos-content">
+              <section class="destinos-badge">
                 <span class="badge-icon">🇧🇷</span>
                 <span class="badge-text">Brasil</span>
-              </div>
+              </section>
               <h4 class="destinos-main-title">Explore o Brasil</h4>
               <p class="destinos-description">Descubra as maravilhas do nosso país</p>
-              <div class="destinos-stats">
-                <div class="stat-item">
+              <section class="destinos-stats">
+                <section class="stat-item">
                   <span class="stat-number">500+</span>
                   <span class="stat-label">Destinos</span>
-                </div>
-                <div class="stat-item">
+                </section>
+                <section class="stat-item">
                   <span class="stat-number">26</span>
                   <span class="stat-label">Estados</span>
-                </div>
-                <div class="stat-item">
+                </section>
+                <section class="stat-item">
                   <span class="stat-number">5</span>
                   <span class="stat-label">Regiões</span>
-                </div>
-              </div>
+                </section>
+              </section>
               <a href="/destinos" class="btn-destinos">
                 <span class="btn-icon">🗺️</span>
                 Ver todos os destinos
               </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
   </section>
 
   <!-- Reviews em Tempo Real - Design Limpo -->
   <section class="reviews-section-clean">
-    <div class="container">
-      <div class="reviews-clean-header">
-        <div class="reviews-badge-minimal">
+    <section class="container">
+      <section class="reviews-clean-header">
+        <section class="reviews-badge-minimal">
           <span class="pulse-dot"></span>
           <span>AO VIVO</span>
-        </div>
+        </section>
         <h2 class="reviews-clean-title">Avaliações Recentes</h2>
         <p class="reviews-clean-subtitle">Veja o que nossos clientes estão dizendo agora mesmo</p>
-      </div>
+      </section>
 
-      <div class="reviews-live-stream">
-        <div class="reviews-column left-column">
-          <div class="review-minimal active">
-            <div class="review-avatar">
+      <section class="reviews-live-stream">
+        <section class="reviews-column left-column">
+          <section class="review-minimal active">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=1" alt="Maria">
-              <div class="online-dot"></div>
-            </div>
-            <div class="review-bubble">
-              <div class="review-content">
-                <div class="review-meta">
+              <section class="online-dot"></section>
+            </section>
+            <section class="review-bubble">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">Felipe P.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">agora</span>
-                </div>
+                </section>
                 <p>"Viagem incrível para o Rio! Tudo perfeito, recomendo muito!"</p>
-              </div>
-              <div class="bubble-tail"></div>
-            </div>
-          </div>
+              </section>
+              <section class="bubble-tail"></section>
+            </section>
+          </section>
 
-          <div class="review-minimal">
-            <div class="review-avatar">
+          <section class="review-minimal">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=2" alt="João">
-            </div>
-            <div class="review-bubble">
-              <div class="review-content">
-                <div class="review-meta">
+            </section>
+            <section class="review-bubble">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">João P.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">2 min</span>
-                </div>
+                </section>
                 <p>"Lua de mel dos sonhos em Gramado! Obrigado Eco Companion ❤️"</p>
-              </div>
-              <div class="bubble-tail"></div>
-            </div>
-          </div>
+              </section>
+              <section class="bubble-tail"></section>
+            </section>
+          </section>
 
-          <div class="review-minimal">
-            <div class="review-avatar">
+          <section class="review-minimal">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=3" alt="Ana">
-            </div>
-            <div class="review-bubble">
-              <div class="review-content">
-                <div class="review-meta">
+            </section>
+            <section class="review-bubble">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">Eduardo J.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">5 min</span>
-                </div>
+                </section>
                 <p>"Fernando de Noronha foi espetacular! Já quero voltar!"</p>
-              </div>
-              <div class="bubble-tail"></div>
-            </div>
-          </div>
-        </div>
+              </section>
+              <section class="bubble-tail"></section>
+            </section>
+          </section>
+        </section>
 
-        <div class="reviews-center-stats">
-          <div class="main-rating">
-            <div class="rating-number">4.9</div>
-            <div class="rating-stars-large">★★★★★</div>
-            <div class="rating-text">Baseado em 2,847 avaliações</div>
-          </div>
+        <section class="reviews-center-stats">
+          <section class="main-rating">
+            <section class="rating-number">4.9</section>
+            <section class="rating-stars-large">★★★★★</section>
+            <section class="rating-text">Baseado em 2,847 avaliações</section>
+          </section>
           
-          <div class="live-counter">
-            <div class="counter-item">
-              <div class="counter-number" id="reviews-today">127</div>
-              <div class="counter-label">Hoje</div>
-            </div>
-            <div class="counter-item">
-              <div class="counter-number" id="reviews-week">892</div>
-              <div class="counter-label">Esta semana</div>
-            </div>
-            <div class="counter-item">
-              <div class="counter-number">98%</div>
-              <div class="counter-label">Satisfação</div>
-            </div>
-          </div>
-        </div>
+          <section class="live-counter">
+            <section class="counter-item">
+              <section class="counter-number" id="reviews-today">127</section>
+              <section class="counter-label">Hoje</section>
+            </section>
+            <section class="counter-item">
+              <section class="counter-number" id="reviews-week">892</section>
+              <section class="counter-label">Esta semana</section>
+            </section>
+            <section class="counter-item">
+              <section class="counter-number">98%</section>
+              <section class="counter-label">Satisfação</section>
+            </section>
+          </section>
+        </section>
 
-        <div class="reviews-column right-column">
-          <div class="review-minimal">
-            <div class="review-avatar">
+        <section class="reviews-column right-column">
+          <section class="review-minimal">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=4" alt="Carlos">
-            </div>
-            <div class="review-bubble right">
-              <div class="review-content">
-                <div class="review-meta">
+            </section>
+            <section class="review-bubble right">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">Carlos L.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">1 min</span>
-                </div>
+                </section>
                 <p>"Família toda amou Porto Seguro! Atendimento nota 10!"</p>
-              </div>
-              <div class="bubble-tail right"></div>
-            </div>
-          </div>
+              </section>
+              <section class="bubble-tail right"></section>
+            </section>
+          </section>
 
-          <div class="review-minimal">
-            <div class="review-avatar">
+          <section class="review-minimal">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=5" alt="Lucia">
-            </div>
-            <div class="review-bubble right">
-              <div class="review-content">
-                <div class="review-meta">
+            </section>
+            <section class="review-bubble right">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">Lucia F.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">3 min</span>
-                </div>
+                </section>
                 <p>"Paris foi um sonho realizado! Cada detalhe foi perfeito!"</p>
-              </div>
-              <div class="bubble-tail right"></div>
-            </div>
-          </div>
+              </section>
+              <section class="bubble-tail right"></section>
+            </section>
+          </section>
 
-          <div class="review-minimal">
-            <div class="review-avatar">
+          <section class="review-minimal">
+            <section class="review-avatar">
               <img src="https://i.pravatar.cc/48?img=6" alt="Pedro">
-            </div>
-            <div class="review-bubble right">
-              <div class="review-content">
-                <div class="review-meta">
+            </section>
+            <section class="review-bubble right">
+              <section class="review-content">
+                <section class="review-meta">
                   <span class="reviewer-name">Pedro A.</span>
-                  <div class="rating-stars">★★★★★</div>
+                  <section class="rating-stars">★★★★★</section>
                   <span class="review-time">4 min</span>
-                </div>
+                </section>
                 <p>"Floripa superou expectativas! Praias lindas e hotel top!"</p>
-              </div>
-              <div class="bubble-tail right"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </section>
+              <section class="bubble-tail right"></section>
+            </section>
+          </section>
+        </section>
+      </section>
 
-      <div class="reviews-bottom-cta">
+      <section class="reviews-bottom-cta">
         <p>Seja o próximo a compartilhar sua experiência!</p>
         <a href="/contato" class="btn-review-cta">Deixar Avaliação</a>
-      </div>
-    </div>
+      </section>
+    </section>
   </section>
 </main>
 

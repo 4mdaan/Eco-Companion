@@ -22,87 +22,87 @@
 </head>
 <body class="chat-page">
     <!-- Header específico do chat -->
-    <div class="chat-page-header">
+    <section class="chat-page-header">
         <a href="/" class="back-link">
             <i class="fas fa-arrow-left"></i>
             Voltar ao site
         </a>
         <h1 class="chat-title">Chat de Atendimento</h1>
-        <div class="chat-status">
+        <section class="chat-status">
             <span class="status-dot online"></span>
             Assistente Online
-        </div>
-    </div>
+        </section>
+    </section>
     
     <main class="chat-container">
         <!-- Cabeçalho do Chat -->
-        <div class="chat-header">
-            <div class="chat-header-info">
-                <div class="agent-avatar">
+        <section class="chat-header">
+            <section class="chat-header-info">
+                <section class="agent-avatar">
                     <i class="fas fa-robot"></i>
-                </div>
-                <div class="agent-info">
+                </section>
+                <section class="agent-info">
                     <h2 class="agent-name">Assistente Virtual</h2>
                     <span class="agent-status online">
                         <i class="fas fa-circle"></i>
                         Online 24/7
                     </span>
-                </div>
-            </div>
-            <div class="chat-actions">
+                </section>
+            </section>
+            <section class="chat-actions">
                 <button class="btn-chat-action" id="limparChat" title="Limpar conversa">
                     <i class="fas fa-trash"></i>
                 </button>
                 <button class="btn-chat-action" id="transferirHumano" title="Falar com humano">
                     <i class="fas fa-user"></i>
                 </button>
-            </div>
-        </div>
+            </section>
+        </section>
         
         <!-- Área de Mensagens -->
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message welcome-message">
-                <div class="message-avatar">
+        <section class="chat-messages" id="chatMessages">
+            <section class="message bot-message welcome-message">
+                <section class="message-avatar">
                     <i class="fas fa-robot"></i>
-                </div>
-                <div class="message-content">
-                    <div class="message-bubble">
+                </section>
+                <section class="message-content">
+                    <section class="message-bubble">
                         <p><strong>👋 Olá! Bem-vindo ao atendimento da Eco Companion!</strong></p>
                         <p>Sou seu assistente virtual inteligente e estou aqui 24/7 para te ajudar! ✨</p>
                         
                         <p><strong>🎯 Posso te ajudar com:</strong></p>
-                        <div class="help-topics">
+                        <section class="help-topics">
                             <span class="topic-tag">🌍 Destinos</span>
                             <span class="topic-tag">📦 Pacotes</span>
                             <span class="topic-tag">💰 Preços</span>
                             <span class="topic-tag">📄 Documentos</span>
                             <span class="topic-tag">�️ Seguro Viagem</span>
                             <span class="topic-tag">� Pagamentos</span>
-                        </div>
+                        </section>
                         
                         <p><strong>💬 Digite sua dúvida ou clique em uma das sugestões abaixo!</strong></p>
-                    </div>
+                    </section>
                     <span class="message-time" data-time="<%= new Date().toISOString() %>"></span>
-                </div>
-            </div>
-        </div>
+                </section>
+            </section>
+        </section>
         
         <!-- Indicador de digitação -->
-        <div class="typing-indicator" id="typingIndicator" style="display: none;">
-            <div class="message-avatar">
+        <section class="typing-indicator" id="typingIndicator" style="display: none;">
+            <section class="message-avatar">
                 <i class="fas fa-robot"></i>
-            </div>
-            <div class="typing-dots">
+            </section>
+            <section class="typing-dots">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
-        </div>
+            </section>
+        </section>
         
         <!-- Área de Input -->
-        <div class="chat-input-container">
+        <section class="chat-input-container">
             <!-- Sugestões Rápidas -->
-            <div class="quick-suggestions" id="quickSuggestions">
+            <section class="quick-suggestions" id="quickSuggestions">
                 <button class="suggestion-chip popular" data-message="Quais destinos vocês oferecem?">
                     🌍 Destinos Disponíveis
                 </button>
@@ -121,11 +121,11 @@
                 <button class="suggestion-chip" data-message="Qual a melhor época para viajar?">
                     🗓️ Melhor Época
                 </button>
-            </div>
+            </section>
             
             <!-- Input de Mensagem -->
-            <div class="chat-input-wrapper">
-                <div class="input-group">
+            <section class="chat-input-wrapper">
+                <section class="input-group">
                     <textarea 
                         id="messageInput" 
                         class="chat-input" 
@@ -136,24 +136,24 @@
                     <button id="sendButton" class="btn-send" disabled>
                         <i class="fas fa-paper-plane"></i>
                     </button>
-                </div>
-                <div class="input-footer">
+                </section>
+                <section class="input-footer">
                     <span class="char-counter" id="charCounter">0/1000</span>
                     <span class="powered-by">Powered by Eco Companion AI</span>
-                </div>
-            </div>
-        </div>
+                </section>
+            </section>
+        </section>
         
         <!-- Modal de Transferência -->
-        <div class="modal" id="transferModal">
-            <div class="modal-content">
-                <div class="modal-header">
+        <section class="modal" id="transferModal">
+            <section class="modal-content">
+                <section class="modal-header">
                     <h3>Falar com Consultor Humano</h3>
                     <button class="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
+                </section>
+                <section class="modal-body">
                     <p>Você será transferido para um de nossos consultores especializados.</p>
-                    <div class="form-group">
+                    <section class="form-group">
                         <label for="transferReason">Motivo da transferência:</label>
                         <select id="transferReason" class="form-select">
                             <option value="">Selecione um motivo</option>
@@ -162,18 +162,18 @@
                             <option value="reclamacao">Reclamação</option>
                             <option value="outro">Outro motivo</option>
                         </select>
-                    </div>
-                    <div class="transfer-info">
+                    </section>
+                    <section class="transfer-info">
                         <i class="fas fa-clock"></i>
                         <span>Tempo estimado de espera: 2-5 minutos</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
+                    </section>
+                </section>
+                <section class="modal-footer">
                     <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
                     <button class="btn btn-primary" onclick="confirmarTransferencia()">Confirmar</button>
-                </div>
-            </div>
-        </div>
+                </section>
+            </section>
+        </section>
     </main>
     
     <!-- Scripts -->

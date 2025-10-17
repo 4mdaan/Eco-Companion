@@ -1,12 +1,12 @@
 <%- include('partials/head', { pageCSS: 'error' }) %>
 
-<div class="error-container">
-  <div class="error-card">
+<section class="error-container">
+  <section class="error-card">
     <svg class="error-icon" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
     </svg>
 
-    <div class="error-code">500</div>
+    <section class="error-code">500</section>
     <h1 class="error-title">
       <%= typeof title !== 'undefined' ? title : 'Erro interno do servidor' %>
     </h1>
@@ -14,21 +14,21 @@
       <%= typeof message !== 'undefined' ? message : 'Algo deu errado! Nossa equipe já foi notificada e está trabalhando para resolver o problema.' %>
     </p>
 
-    <div class="error-actions">
+    <section class="error-actions">
       <a href="/" class="btn-home">Voltar para o Início</a>
       <button onclick="location.reload()" class="btn-back">Tentar Novamente</button>
-    </div>
+    </section>
 
     <!-- Informações técnicas (apenas em desenvolvimento) -->
     <% if (process.env.NODE_ENV !== 'production') { %>
-      <div style="margin-top: 2rem; padding: 1rem; background: #fef2f2; border-radius: 0.5rem; text-align: left; font-size: 0.875rem;">
+      <section style="margin-top: 2rem; padding: 1rem; background: #fef2f2; border-radius: 0.5rem; text-align: left; font-size: 0.875rem;">
         <h3 style="font-weight: 600; color: #991b1b; margin-bottom: 0.5rem;">Informações de Debug:</h3>
         <p style="color: #dc2626; font-family: monospace; font-size: 0.75rem;">
           Se você é um desenvolvedor, verifique o console do servidor para mais detalhes.
         </p>
-      </div>
+      </section>
     <% } %>
-  </div>
-</div>
+  </section>
+</section>
 
 <%- include('partials/scripts') %>

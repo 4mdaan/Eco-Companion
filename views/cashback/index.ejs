@@ -3,110 +3,110 @@
 <%- include('../partials/header', { currentPage: 'cashback' }) %>
 
 <!-- Hero do Cashback -->
-<div class="cashback-hero">
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-info">
+<section class="cashback-hero">
+  <section class="container">
+    <section class="hero-content">
+      <section class="hero-info">
         <h1 class="hero-title">Programa Eco Cashback</h1>
         <p class="hero-subtitle">Ganhe pontos a cada compra e troque por descontos incríveis!</p>
-      </div>
+      </section>
       
-      <div class="pontos-card">
-        <div class="pontos-header">
-          <div class="nivel-badge nivel-<%= usuario.nivelCashback.toLowerCase() %>">
+      <section class="pontos-card">
+        <section class="pontos-header">
+          <section class="nivel-badge nivel-<%= usuario.nivelCashback.toLowerCase() %>">
             <span class="nivel-icon">
               <%= usuario.nivelCashback === 'Bronze' ? '🥉' : usuario.nivelCashback === 'Silver' ? '🥈' : usuario.nivelCashback === 'Gold' ? '🥇' : usuario.nivelCashback === 'Platinum' ? '💎' : '👑' %>
             </span>
             <span class="nivel-texto">Nível <%= usuario.nivelCashback %></span>
-          </div>
-          <div class="cashback-percentual"><%= usuario.porcentagemCashback %>% de Cashback</div>
-        </div>
+          </section>
+          <section class="cashback-percentual"><%= usuario.porcentagemCashback %>% de Cashback</section>
+        </section>
         
-        <div class="pontos-principal">
-          <div class="pontos-valor"><%= usuario.pontosTotal.toLocaleString('pt-BR') %></div>
-          <div class="pontos-label">pontos disponíveis</div>
-        </div>
+        <section class="pontos-principal">
+          <section class="pontos-valor"><%= usuario.pontosTotal.toLocaleString('pt-BR') %></section>
+          <section class="pontos-label">pontos disponíveis</section>
+        </section>
         
         <% if (usuario.pontosPendentes > 0) { %>
-          <div class="pontos-pendentes">
+          <section class="pontos-pendentes">
             <span class="pendentes-icon">⏳</span>
             <span><%= usuario.pontosPendentes %> pontos pendentes</span>
-          </div>
+          </section>
         <% } %>
         
-        <div class="progresso-nivel">
-          <div class="progresso-header">
+        <section class="progresso-nivel">
+          <section class="progresso-header">
             <span>Próximo nível: <%= usuario.proximoNivel || 'Máximo alcançado' %></span>
             <% if (usuario.proximoNivel) { %>
               <span><%= usuario.pontosTotal %>/<%= usuario.pontosProximoNivel %></span>
             <% } %>
-          </div>
+          </section>
           <% if (usuario.proximoNivel) { %>
-            <div class="progresso-barra">
-              <div class="progresso-fill" data-width="<%= Math.min(100, (usuario.pontosTotal / usuario.pontosProximoNivel) * 100) %>"></div>
-            </div>
+            <section class="progresso-barra">
+              <section class="progresso-fill" data-width="<%= Math.min(100, (usuario.pontosTotal / usuario.pontosProximoNivel) * 100) %>"></section>
+            </section>
           <% } %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
 
 <!-- Dashboard -->
-<div class="cashback-dashboard">
-  <div class="container">
+<section class="cashback-dashboard">
+  <section class="container">
     <!-- Estatísticas -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">💰</div>
-        <div class="stat-info">
-          <div class="stat-valor">R$ <%= estatisticas.totalGasto.toLocaleString('pt-BR') %></div>
-          <div class="stat-label">Total gasto</div>
-        </div>
-      </div>
+    <section class="stats-grid">
+      <section class="stat-card">
+        <section class="stat-icon">💰</section>
+        <section class="stat-info">
+          <section class="stat-valor">R$ <%= estatisticas.totalGasto.toLocaleString('pt-BR') %></section>
+          <section class="stat-label">Total gasto</section>
+        </section>
+      </section>
       
-      <div class="stat-card">
-        <div class="stat-icon">⭐</div>
-        <div class="stat-info">
-          <div class="stat-valor"><%= estatisticas.pontosGanhos.toLocaleString('pt-BR') %></div>
-          <div class="stat-label">Pontos ganhos</div>
-        </div>
-      </div>
+      <section class="stat-card">
+        <section class="stat-icon">⭐</section>
+        <section class="stat-info">
+          <section class="stat-valor"><%= estatisticas.pontosGanhos.toLocaleString('pt-BR') %></section>
+          <section class="stat-label">Pontos ganhos</section>
+        </section>
+      </section>
       
-      <div class="stat-card">
-        <div class="stat-icon">🎁</div>
-        <div class="stat-info">
-          <div class="stat-valor"><%= estatisticas.pontosUsados.toLocaleString('pt-BR') %></div>
-          <div class="stat-label">Pontos utilizados</div>
-        </div>
-      </div>
+      <section class="stat-card">
+        <section class="stat-icon">🎁</section>
+        <section class="stat-info">
+          <section class="stat-valor"><%= estatisticas.pontosUsados.toLocaleString('pt-BR') %></section>
+          <section class="stat-label">Pontos utilizados</section>
+        </section>
+      </section>
       
-      <div class="stat-card">
-        <div class="stat-icon">🚀</div>
-        <div class="stat-info">
-          <div class="stat-valor"><%= usuario.porcentagemCashback %>%</div>
-          <div class="stat-label">Taxa atual</div>
-        </div>
-      </div>
-    </div>
+      <section class="stat-card">
+        <section class="stat-icon">🚀</section>
+        <section class="stat-info">
+          <section class="stat-valor"><%= usuario.porcentagemCashback %>%</section>
+          <section class="stat-label">Taxa atual</section>
+        </section>
+      </section>
+    </section>
     
     <!-- Conteúdo principal -->
-    <div class="dashboard-grid">
+    <section class="dashboard-grid">
       <!-- Recompensas em destaque -->
-      <div class="section">
-        <div class="section-header">
+      <section class="section">
+        <section class="section-header">
           <h2 class="section-title">Recompensas em Destaque</h2>
           <a href="/cashback/recompensas" class="ver-todas">Ver todas</a>
-        </div>
+        </section>
         
-        <div class="recompensas-grid">
+        <section class="recompensas-grid">
           <% recompensasDestaque.forEach(function(recompensa) { %>
-            <div class="recompensa-card <%= recompensa.pontosNecessarios <= usuario.pontosTotal ? 'disponivel' : 'indisponivel' %>">
-              <div class="recompensa-icon"><%= recompensa.icon %></div>
-              <div class="recompensa-info">
+            <section class="recompensa-card <%= recompensa.pontosNecessarios <= usuario.pontosTotal ? 'disponivel' : 'indisponivel' %>">
+              <section class="recompensa-icon"><%= recompensa.icon %></section>
+              <section class="recompensa-info">
                 <h3 class="recompensa-titulo"><%= recompensa.titulo %></h3>
                 <p class="recompensa-descricao"><%= recompensa.descricao %></p>
-                <div class="recompensa-pontos">
+                <section class="recompensa-pontos">
                   <span class="pontos-necessarios"><%= recompensa.pontosNecessarios %> pontos</span>
                   <% if (recompensa.pontosNecessarios <= usuario.pontosTotal) { %>
                     <button class="btn-resgatar" data-recompensa-id="<%= recompensa.id %>" data-pontos="<%= recompensa.pontosNecessarios %>">
@@ -117,145 +117,145 @@
                       Faltam <%= (recompensa.pontosNecessarios - usuario.pontosTotal).toLocaleString('pt-BR') %> pontos
                     </span>
                   <% } %>
-                </div>
-              </div>
-            </div>
+                </section>
+              </section>
+            </section>
           <% }); %>
-        </div>
+        </section>
         
         <% if (recompensasDestaque.length === 0) { %>
-          <div class="empty-state">
-            <div class="empty-icon">🎯</div>
+          <section class="empty-state">
+            <section class="empty-icon">🎯</section>
             <p>Continue comprando para desbloquear mais recompensas!</p>
-          </div>
+          </section>
         <% } %>
-      </div>
+      </section>
       
       <!-- Histórico recente -->
-      <div class="section">
-        <div class="section-header">
+      <section class="section">
+        <section class="section-header">
           <h2 class="section-title">Atividade Recente</h2>
           <a href="/cashback/historico" class="ver-todas">Ver histórico completo</a>
-        </div>
+        </section>
         
-        <div class="historico-lista">
+        <section class="historico-lista">
           <% historicoRecente.forEach(function(transacao) { %>
-            <div class="transacao-item">
-              <div class="transacao-icon">
+            <section class="transacao-item">
+              <section class="transacao-icon">
                 <%= transacao.tipo === 'compra' ? '🛒' : transacao.tipo === 'resgate' ? '🎁' : '⭐' %>
-              </div>
+              </section>
               
-              <div class="transacao-info">
-                <div class="transacao-titulo"><%= transacao.descricao %></div>
-                <div class="transacao-data"><%= transacao.data.toLocaleDateString('pt-BR') %></div>
-              </div>
+              <section class="transacao-info">
+                <section class="transacao-titulo"><%= transacao.descricao %></section>
+                <section class="transacao-data"><%= transacao.data.toLocaleDateString('pt-BR') %></section>
+              </section>
               
-              <div class="transacao-pontos">
+              <section class="transacao-pontos">
                 <span class="pontos-valor <%= transacao.pontos > 0 ? 'positivos' : 'negativos' %>">
                   <%= transacao.pontos > 0 ? '+' : '' %><%= transacao.pontos %> pts
                 </span>
                 <% if (transacao.valor > 0) { %>
                   <span class="transacao-valor">R$ <%= transacao.valor.toLocaleString('pt-BR') %></span>
                 <% } %>
-              </div>
-            </div>
+              </section>
+            </section>
           <% }); %>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
     
     <!-- Como funciona -->
-    <div class="como-funciona">
+    <section class="como-funciona">
       <h2 class="section-title">Como Funciona o Eco Cashback</h2>
       
-      <div class="funciona-grid">
-        <div class="funciona-step">
-          <div class="step-numero">1</div>
-          <div class="step-content">
+      <section class="funciona-grid">
+        <section class="funciona-step">
+          <section class="step-numero">1</section>
+          <section class="step-content">
             <h3>Faça suas compras</h3>
             <p>A cada pacote comprado, você ganha pontos proporcionais ao valor gasto.</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="funciona-step">
-          <div class="step-numero">2</div>
-          <div class="step-content">
+        <section class="funciona-step">
+          <section class="step-numero">2</section>
+          <section class="step-content">
             <h3>Acumule pontos</h3>
             <p>Seus pontos ficam disponíveis imediatamente após a confirmação da compra.</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="funciona-step">
-          <div class="step-numero">3</div>
-          <div class="step-content">
+        <section class="funciona-step">
+          <section class="step-numero">3</section>
+          <section class="step-content">
             <h3>Troque por recompensas</h3>
             <p>Use seus pontos para resgatar descontos, upgrades e vantagens exclusivas.</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="funciona-step">
-          <div class="step-numero">4</div>
-          <div class="step-content">
+        <section class="funciona-step">
+          <section class="step-numero">4</section>
+          <section class="step-content">
             <h3>Suba de nível</h3>
             <p>Quanto mais pontos acumular, maior sua taxa de cashback nas próximas compras.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </section>
+        </section>
+      </section>
+    </section>
     
     <!-- Níveis do programa -->
-    <div class="niveis-programa">
+    <section class="niveis-programa">
       <h2 class="section-title">Níveis do Programa</h2>
       
-      <div class="niveis-grid">
-        <div class="nivel-card <%= usuario.nivelCashback === 'Bronze' ? 'atual' : '' %>">
-          <div class="nivel-header">
+      <section class="niveis-grid">
+        <section class="nivel-card <%= usuario.nivelCashback === 'Bronze' ? 'atual' : '' %>">
+          <section class="nivel-header">
             <span class="nivel-icon">🥉</span>
             <span class="nivel-nome">Bronze</span>
-          </div>
-          <div class="nivel-cashback">3% de cashback</div>
-          <div class="nivel-requisito">0+ pontos</div>
-        </div>
+          </section>
+          <section class="nivel-cashback">3% de cashback</section>
+          <section class="nivel-requisito">0+ pontos</section>
+        </section>
         
-        <div class="nivel-card <%= usuario.nivelCashback === 'Silver' ? 'atual' : '' %>">
-          <div class="nivel-header">
+        <section class="nivel-card <%= usuario.nivelCashback === 'Silver' ? 'atual' : '' %>">
+          <section class="nivel-header">
             <span class="nivel-icon">🥈</span>
             <span class="nivel-nome">Silver</span>
-          </div>
-          <div class="nivel-cashback">5% de cashback</div>
-          <div class="nivel-requisito">1.000+ pontos</div>
-        </div>
+          </section>
+          <section class="nivel-cashback">5% de cashback</section>
+          <section class="nivel-requisito">1.000+ pontos</section>
+        </section>
         
-        <div class="nivel-card <%= usuario.nivelCashback === 'Gold' ? 'atual' : '' %>">
-          <div class="nivel-header">
+        <section class="nivel-card <%= usuario.nivelCashback === 'Gold' ? 'atual' : '' %>">
+          <section class="nivel-header">
             <span class="nivel-icon">🥇</span>
             <span class="nivel-nome">Gold</span>
-          </div>
-          <div class="nivel-cashback">8% de cashback</div>
-          <div class="nivel-requisito">2.500+ pontos</div>
-        </div>
+          </section>
+          <section class="nivel-cashback">8% de cashback</section>
+          <section class="nivel-requisito">2.500+ pontos</section>
+        </section>
         
-        <div class="nivel-card <%= usuario.nivelCashback === 'Platinum' ? 'atual' : '' %>">
-          <div class="nivel-header">
+        <section class="nivel-card <%= usuario.nivelCashback === 'Platinum' ? 'atual' : '' %>">
+          <section class="nivel-header">
             <span class="nivel-icon">💎</span>
             <span class="nivel-nome">Platinum</span>
-          </div>
-          <div class="nivel-cashback">12% de cashback</div>
-          <div class="nivel-requisito">5.000+ pontos</div>
-        </div>
+          </section>
+          <section class="nivel-cashback">12% de cashback</section>
+          <section class="nivel-requisito">5.000+ pontos</section>
+        </section>
         
-        <div class="nivel-card <%= usuario.nivelCashback === 'Diamond' ? 'atual' : '' %>">
-          <div class="nivel-header">
+        <section class="nivel-card <%= usuario.nivelCashback === 'Diamond' ? 'atual' : '' %>">
+          <section class="nivel-header">
             <span class="nivel-icon">👑</span>
             <span class="nivel-nome">Diamond</span>
-          </div>
-          <div class="nivel-cashback">15% de cashback</div>
-          <div class="nivel-requisito">10.000+ pontos</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          </section>
+          <section class="nivel-cashback">15% de cashback</section>
+          <section class="nivel-requisito">10.000+ pontos</section>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
 
 <%- include('../partials/footer') %>
 <%- include('../partials/scripts') %>

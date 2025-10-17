@@ -16,75 +16,75 @@
 
     <!-- Dashboard de Agenda Moderna -->
     <section class="agenda-dashboard">
-        <div class="dashboard-container">
+        <section class="dashboard-container">
             <!-- Header do Dashboard -->
-            <div class="dashboard-header">
-                <div class="header-content">
-                    <div class="title-section">
+            <section class="dashboard-header">
+                <section class="header-content">
+                    <section class="title-section">
                         <h1 class="dashboard-title">
                             <span class="title-icon">🗓️</span>
                             Agenda de Viagens
                         </h1>
                         <p class="dashboard-subtitle">Gerencie suas experiências de forma inteligente</p>
-                    </div>
-                    <div class="header-actions">
+                    </section>
+                    <section class="header-actions">
                         <button class="action-btn primary" id="newTripBtn">
                             <i class="fas fa-plus"></i>
                             Nova Viagem
                         </button>
-                        <div class="search-container">
+                        <section class="search-container">
                             <i class="fas fa-search search-icon"></i>
                             <input type="text" class="search-input" placeholder="Buscar destino..." id="searchInput">
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    </section>
+                </section>
 
                 <!-- Métricas Rápidas -->
-                <div class="metrics-bar">
-                    <div class="metric-card">
-                        <div class="metric-icon">📈</div>
-                        <div class="metric-content">
+                <section class="metrics-bar">
+                    <section class="metric-card">
+                        <section class="metric-icon">📈</section>
+                        <section class="metric-content">
                             <span class="metric-number" id="totalTrips">6</span>
                             <span class="metric-label">Total de Viagens</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon">✅</div>
-                        <div class="metric-content">
+                        </section>
+                    </section>
+                    <section class="metric-card">
+                        <section class="metric-icon">✅</section>
+                        <section class="metric-content">
                             <span class="metric-number" id="confirmedTrips">4</span>
                             <span class="metric-label">Confirmadas</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon">⏰</div>
-                        <div class="metric-content">
+                        </section>
+                    </section>
+                    <section class="metric-card">
+                        <section class="metric-icon">⏰</section>
+                        <section class="metric-content">
                             <span class="metric-number" id="pendingTrips">2</span>
                             <span class="metric-label">Pendentes</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-icon">💰</div>
-                        <div class="metric-content">
+                        </section>
+                    </section>
+                    <section class="metric-card">
+                        <section class="metric-icon">💰</section>
+                        <section class="metric-content">
                             <span class="metric-number" id="totalRevenue">R$ 156k</span>
                             <span class="metric-label">Receita Total</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
 
             <!-- Filtros e Visualização -->
-            <div class="control-panel">
-                <div class="filter-section">
-                    <div class="filter-group">
+            <section class="control-panel">
+                <section class="filter-section">
+                    <section class="filter-group">
                         <label class="filter-label">Período:</label>
-                        <div class="date-range">
+                        <section class="date-range">
                             <input type="date" class="date-input" id="startDate">
                             <span class="date-separator">até</span>
                             <input type="date" class="date-input" id="endDate">
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                     
-                    <div class="filter-group">
+                    <section class="filter-group">
                         <label class="filter-label">Categoria:</label>
                         <select class="select-input" id="categoryFilter">
                             <option value="all">Todas as categorias</option>
@@ -94,21 +94,21 @@
                             <option value="aventura">🎯 Aventura</option>
                             <option value="relax">🧘 Relaxamento</option>
                         </select>
-                    </div>
+                    </section>
 
-                    <div class="filter-group">
+                    <section class="filter-group">
                         <label class="filter-label">Status:</label>
-                        <div class="status-chips">
+                        <section class="status-chips">
                             <button class="status-chip active" data-status="all">Todos</button>
                             <button class="status-chip" data-status="confirmed">Confirmado</button>
                             <button class="status-chip" data-status="pending">Pendente</button>
                             <button class="status-chip" data-status="cancelled">Cancelado</button>
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    </section>
+                </section>
 
-                <div class="view-controls">
-                    <div class="view-switcher">
+                <section class="view-controls">
+                    <section class="view-switcher">
                         <button class="view-btn active" data-view="cards">
                             <i class="fas fa-th-large"></i>
                             Cards
@@ -125,31 +125,31 @@
                             <i class="fas fa-map"></i>
                             Mapa
                         </button>
-                    </div>
+                    </section>
                     
-                    <div class="sort-controls">
+                    <section class="sort-controls">
                         <select class="sort-select" id="sortBy">
                             <option value="date">Ordenar por Data</option>
                             <option value="price">Ordenar por Preço</option>
                             <option value="destination">Ordenar por Destino</option>
                             <option value="status">Ordenar por Status</option>
                         </select>
-                    </div>
-                </div>
-            </div>
+                    </section>
+                </section>
+            </section>
 
             <!-- Conteúdo Principal -->
-            <div class="main-content">
+            <section class="main-content">
                 <!-- Vista Cards (Ativa por Padrão) -->
-                <div class="view-container active" id="cardsView">
-                    <div class="trips-grid">
+                <section class="view-container active" id="cardsView">
+                    <section class="trips-grid">
                         <!-- Cards serão gerados dinamicamente pelo JavaScript -->
-                    </div>
-                </div>
+                    </section>
+                </section>
 
                 <!-- Vista Calendário -->
-                <div class="view-container" id="calendarView">
-                    <div class="calendar-header">
+                <section class="view-container" id="calendarView">
+                    <section class="calendar-header">
                         <button class="calendar-nav-btn" id="prevMonth">
                             <i class="fas fa-chevron-left"></i>
                         </button>
@@ -157,98 +157,98 @@
                         <button class="calendar-nav-btn" id="nextMonth">
                             <i class="fas fa-chevron-right"></i>
                         </button>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-weekdays">
-                            <div class="weekday">Dom</div>
-                            <div class="weekday">Seg</div>
-                            <div class="weekday">Ter</div>
-                            <div class="weekday">Qua</div>
-                            <div class="weekday">Qui</div>
-                            <div class="weekday">Sex</div>
-                            <div class="weekday">Sáb</div>
-                        </div>
-                        <div class="calendar-days" id="calendarDays">
+                    </section>
+                    <section class="calendar-grid">
+                        <section class="calendar-weekdays">
+                            <section class="weekday">Dom</section>
+                            <section class="weekday">Seg</section>
+                            <section class="weekday">Ter</section>
+                            <section class="weekday">Qua</section>
+                            <section class="weekday">Qui</section>
+                            <section class="weekday">Sex</section>
+                            <section class="weekday">Sáb</section>
+                        </section>
+                        <section class="calendar-days" id="calendarDays">
                             <!-- Dias serão gerados pelo JavaScript -->
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    </section>
+                </section>
 
                 <!-- Vista Timeline -->
-                <div class="view-container" id="timelineView">
-                    <div class="timeline-container">
+                <section class="view-container" id="timelineView">
+                    <section class="timeline-container">
                         <!-- Timeline será gerada pelo JavaScript -->
-                    </div>
-                </div>
+                    </section>
+                </section>
 
                 <!-- Vista Mapa -->
-                <div class="view-container" id="mapView">
-                    <div class="map-container">
-                        <div class="map-controls">
-                            <div class="map-legend">
+                <section class="view-container" id="mapView">
+                    <section class="map-container">
+                        <section class="map-controls">
+                            <section class="map-legend">
                                 <h4>Legenda</h4>
-                                <div class="legend-item">
+                                <section class="legend-item">
                                     <span class="legend-marker confirmed"></span>
                                     <span>Confirmada</span>
-                                </div>
-                                <div class="legend-item">
+                                </section>
+                                <section class="legend-item">
                                     <span class="legend-marker pending"></span>
                                     <span>Pendente</span>
-                                </div>
-                                <div class="legend-item">
+                                </section>
+                                <section class="legend-item">
                                     <span class="legend-marker cancelled"></span>
                                     <span>Cancelada</span>
-                                </div>
-                            </div>
-                            <div class="map-filters">
+                                </section>
+                            </section>
+                            <section class="map-filters">
                                 <button class="map-filter-btn active" data-filter="all">Todas</button>
                                 <button class="map-filter-btn" data-filter="confirmed">Confirmadas</button>
                                 <button class="map-filter-btn" data-filter="pending">Pendentes</button>
-                            </div>
-                        </div>
-                        <div id="map" class="interactive-map"></div>
-                        <div class="map-info">
-                            <div class="selected-trip-info" id="selectedTripInfo" style="display: none;">
+                            </section>
+                        </section>
+                        <section id="map" class="interactive-map"></section>
+                        <section class="map-info">
+                            <section class="selected-trip-info" id="selectedTripInfo" style="display: none;">
                                 <!-- Informações da viagem selecionada aparecerão aqui -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
     </section>
 
     <!-- Modal Nova Viagem -->
-    <div class="modal-overlay" id="newTripModal">
-        <div class="modal-content">
-            <div class="modal-header">
+    <section class="modal-overlay" id="newTripModal">
+        <section class="modal-content">
+            <section class="modal-header">
                 <h3>Nova Viagem</h3>
                 <button class="modal-close" id="closeModal">
                     <i class="fas fa-times"></i>
                 </button>
-            </div>
-            <div class="modal-body">
+            </section>
+            <section class="modal-body">
                 <form class="trip-form" id="tripForm">
-                    <div class="form-group">
+                    <section class="form-group">
                         <label for="tripDestination">Destino</label>
                         <input type="text" id="tripDestination" placeholder="Ex: Fernando de Noronha" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
+                    </section>
+                    <section class="form-row">
+                        <section class="form-group">
                             <label for="tripStartDate">Data de Início</label>
                             <input type="date" id="tripStartDate" required>
-                        </div>
-                        <div class="form-group">
+                        </section>
+                        <section class="form-group">
                             <label for="tripEndDate">Data de Término</label>
                             <input type="date" id="tripEndDate" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
+                        </section>
+                    </section>
+                    <section class="form-row">
+                        <section class="form-group">
                             <label for="tripPrice">Preço (R$)</label>
                             <input type="number" id="tripPrice" placeholder="2500" required>
-                        </div>
-                        <div class="form-group">
+                        </section>
+                        <section class="form-group">
                             <label for="tripCategory">Categoria</label>
                             <select id="tripCategory" required>
                                 <option value="">Selecionar</option>
@@ -258,37 +258,37 @@
                                 <option value="aventura">🎯 Aventura</option>
                                 <option value="relax">🧘 Relaxamento</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
+                        </section>
+                    </section>
+                    <section class="form-group">
                         <label for="tripDescription">Descrição</label>
                         <textarea id="tripDescription" placeholder="Descreva os detalhes da viagem..." rows="3"></textarea>
-                    </div>
+                    </section>
                 </form>
-            </div>
-            <div class="modal-footer">
+            </section>
+            <section class="modal-footer">
                 <button type="button" class="btn secondary" id="cancelTrip">Cancelar</button>
                 <button type="submit" form="tripForm" class="btn primary">Criar Viagem</button>
-            </div>
-        </div>
-    </div>
+            </section>
+        </section>
+    </section>
 
     <!-- Modal Detalhes da Viagem -->
-    <div class="modal-overlay" id="tripDetailsModal">
-        <div class="modal-content large">
-            <div class="modal-header">
+    <section class="modal-overlay" id="tripDetailsModal">
+        <section class="modal-content large">
+            <section class="modal-header">
                 <h3 id="detailsTitle">Detalhes da Viagem</h3>
                 <button class="modal-close" id="closeTripDetails">
                     <i class="fas fa-times"></i>
                 </button>
-            </div>
-            <div class="modal-body">
-                <div class="trip-details" id="tripDetailsContent">
+            </section>
+            <section class="modal-body">
+                <section class="trip-details" id="tripDetailsContent">
                     <!-- Conteúdo será preenchido pelo JavaScript -->
-                </div>
-            </div>
-        </div>
-    </div>
+                </section>
+            </section>
+        </section>
+    </section>
 
     <%- include('partials/footer') %>
     <%- include('partials/scripts') %>

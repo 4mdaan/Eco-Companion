@@ -5,11 +5,11 @@
 <main class="destino-detalhes">
   <!-- Hero Section -->
   <section class="destino-hero <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-hero' : '' %>">
-    <div class="hero-image" style="background-image: url('<%= destino.imagem %>');">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
+    <section class="hero-image" style="background-image: url('<%= destino.imagem %>');">
+      <section class="hero-overlay"></section>
+      <section class="hero-content">
         <% if (destino.categoria === 'Ultra Luxury') { %>
-          <div class="luxury-crown">👑</div>
+          <section class="luxury-crown">👑</section>
         <% } %>
         <h1 class="destino-title"><%= destino.nome %></h1>
         <p class="destino-location">
@@ -18,142 +18,142 @@
           </svg>
           <%= destino.estado || destino.pais %>, <%= destino.regiao === 'Internacional' ? destino.pais : destino.regiao %>
         </p>
-        <div class="destino-category <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-category' : '' %>">
+        <section class="destino-category <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-category' : '' %>">
           <%= destino.categoria %>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
   </section>
 
   <!-- Botão Voltar -->
-  <div class="container">
-    <div class="back-button-container">
+  <section class="container">
+    <section class="back-button-container">
       <a href="/destinos" class="btn-back">
         <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
         </svg>
         Voltar aos Destinos
       </a>
-    </div>
-  </div>
+    </section>
+  </section>
 
-  <div class="container">
-    <div class="destino-content-grid">
+  <section class="container">
+    <section class="destino-content-grid">
       <!-- Coluna Principal -->
-      <div class="main-content">
+      <section class="main-content">
         <!-- Descrição -->
         <section class="destino-description">
           <h2>Sobre o Destino</h2>
           <p><%= destino.descricaoCompleta || destino.descricao %></p>
           
           <% if (destino.exclusividade) { %>
-            <div class="exclusivity-info">
+            <section class="exclusivity-info">
               <h3>✨ Exclusividade</h3>
               <p><%= destino.exclusividade %></p>
-            </div>
+            </section>
           <% } %>
         </section>
 
         <!-- Atrações -->
         <section class="destino-atracoes">
           <h2>🌟 Principais Atrações</h2>
-          <div class="atracoes-grid">
+          <section class="atracoes-grid">
             <% destino.atrações.forEach(function(atracao, index) { %>
-              <div class="atracao-item">
-                <div class="atracao-number"><%= index + 1 %></div>
-                <div class="atracao-name"><%= atracao %></div>
-              </div>
+              <section class="atracao-item">
+                <section class="atracao-number"><%= index + 1 %></section>
+                <section class="atracao-name"><%= atracao %></section>
+              </section>
             <% }); %>
-          </div>
+          </section>
         </section>
 
 
-      </div>
+      </section>
 
       <!-- Sidebar -->
-      <div class="sidebar">
+      <section class="sidebar">
         <!-- Informações do Destino -->
-        <div class="destino-info-card">
+        <section class="destino-info-card">
           <h3>📋 Informações Essenciais</h3>
           
-          <div class="info-item">
+          <section class="info-item">
             <strong>Melhor época:</strong>
             <span><%= destino.melhorEpoca %></span>
-          </div>
+          </section>
           
           <% if (destino.clima) { %>
-            <div class="info-item">
+            <section class="info-item">
               <strong>Clima:</strong>
               <span><%= destino.clima %></span>
-            </div>
+            </section>
           <% } %>
           
           <% if (destino.temperatura) { %>
-            <div class="info-item">
+            <section class="info-item">
               <strong>Temperatura:</strong>
               <span><%= destino.temperatura %></span>
-            </div>
+            </section>
           <% } %>
           
           <% if (destino.avaliacaoMedia) { %>
-            <div class="info-item">
+            <section class="info-item">
               <strong>Avaliação:</strong>
-              <div class="rating">
+              <section class="rating">
                 <% for(let i = 1; i <= 5; i++) { %>
                   <span class="star <%= i <= destino.avaliacaoMedia ? 'filled' : '' %>">⭐</span>
                 <% } %>
                 <span class="rating-number">(<%= destino.avaliacaoMedia %>)</span>
-              </div>
-            </div>
+              </section>
+            </section>
           <% } %>
-        </div>
+        </section>
 
         <!-- Preço e Reserva -->
-        <div class="booking-card <%= destino.categoria === 'Ultra Luxury' ? 'luxury-booking' : '' %>">
+        <section class="booking-card <%= destino.categoria === 'Ultra Luxury' ? 'luxury-booking' : '' %>">>
           <% if (destino.preco) { %>
-            <div class="price-section">
-              <div class="price-label">
+            <section class="price-section">
+              <section class="price-label">
                 <%= destino.categoria === 'Ultra Luxury' ? 'Experiência Completa' : 'A partir de' %>
-              </div>
-              <div class="price-main <%= destino.categoria === 'Ultra Luxury' ? 'luxury-price' : '' %>">
+              </section>
+              <section class="price-main <%= destino.categoria === 'Ultra Luxury' ? 'luxury-price' : '' %>">
                 R$ <%= destino.preco.toLocaleString('pt-BR') %>
-              </div>
+              </section>
               <% if (destino.categoria === 'Ultra Luxury') { %>
-                <div class="price-details">
+                <section class="price-details">
                   <small>*Por casal, 7 dias, tudo incluído</small>
-                </div>
+                </section>
               <% } %>
-            </div>
+            </section>
           <% } %>
           
           <a href="/destinos/<%= destino.slug %>/comprar" class="btn-reservar <%= destino.categoria === 'Ultra Luxury' ? 'luxury-btn' : '' %>">
             <%= destino.categoria === 'Ultra Luxury' ? '👑 Solicitar Consultoria VIP' : '🛒 Comprar' %>
           </a>
           
-          <div class="booking-benefits">
-            <div class="benefit-item">✅ Cancelamento flexível</div>
-            <div class="benefit-item">✅ Pagamento parcelado</div>
+          <section class="booking-benefits">
+            <section class="benefit-item">✅ Cancelamento flexível</section>
+            <section class="benefit-item">✅ Pagamento parcelado</section>
             <% if (destino.categoria === 'Ultra Luxury') { %>
-              <div class="benefit-item luxury-benefit">👑 Consultoria personalizada</div>
-              <div class="benefit-item luxury-benefit">💎 Concierge 24/7</div>
+              <section class="benefit-item luxury-benefit">👑 Consultoria personalizada</section>
+              <section class="benefit-item luxury-benefit">💎 Concierge 24/7</section>
             <% } else { %>
-              <div class="benefit-item">✅ Suporte 24/7</div>
+              <section class="benefit-item">✅ Suporte 24/7</section>
             <% } %>
-          </div>
-        </div>
+          </section>
+        </section>
 
         <!-- Compartilhar -->
-        <div class="share-card">
+        <section class="share-card">
           <h4>Compartilhar</h4>
-          <div class="share-buttons">
+          <section class="share-buttons">
             <button class="share-btn facebook">📘 Facebook</button>
             <button class="share-btn whatsapp">💬 WhatsApp</button>
             <button class="share-btn copy">📋 Copiar Link</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>

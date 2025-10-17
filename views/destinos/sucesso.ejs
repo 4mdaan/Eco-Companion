@@ -3,56 +3,56 @@
 <%- include('../partials/header', { currentPage: 'destinos' }) %>
 
 <!-- Hero de Sucesso -->
-<div class="sucesso-hero">
-  <div class="container">
-    <div class="sucesso-icon">
-      <div class="check-circle">
+<section class="sucesso-hero">
+  <section class="container">
+    <section class="sucesso-icon">
+      <section class="check-circle">
         <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
           <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
         </svg>
-      </div>
-    </div>
+      </section>
+    </section>
     <h1 class="sucesso-title">🎉 Reserva Confirmada!</h1>
     <p class="sucesso-subtitle">Sua viagem para <strong><%= pedido.destino %></strong> foi reservada com sucesso</p>
-    <div class="numero-reserva">
+    <section class="numero-reserva">
       <span class="numero-label">Número da Reserva:</span>
       <span class="numero-valor"># <%= pedido.numeroReserva %></span>
-    </div>
-  </div>
-</div>
+    </section>
+  </section>
+</section>
 
 <!-- Detalhes da Reserva -->
-<div class="sucesso-content">
-  <div class="container">
-    <div class="sucesso-grid">
+<section class="sucesso-content">
+  <section class="container">
+    <section class="sucesso-grid">
       <!-- Detalhes da Viagem -->
-      <div class="detalhes-card">
+      <section class="detalhes-card">
         <h2 class="card-title">📋 Detalhes da Reserva</h2>
         
-        <div class="detalhe-item">
-          <div class="detalhe-label">🏖️ Destino:</div>
-          <div class="detalhe-valor"><%= pedido.destino %></div>
-        </div>
+        <section class="detalhe-item">
+          <section class="detalhe-label">🏖️ Destino:</section>
+          <section class="detalhe-valor"><%= pedido.destino %></section>
+        </section>
         
-        <div class="detalhe-item">
-          <div class="detalhe-label">👥 Pessoas:</div>
-          <div class="detalhe-valor"><%= pedido.pessoas %> <%= pedido.pessoas === 1 ? 'pessoa' : 'pessoas' %></div>
-        </div>
+        <section class="detalhe-item">
+          <section class="detalhe-label">👥 Pessoas:</section>
+          <section class="detalhe-valor"><%= pedido.pessoas %> <%= pedido.pessoas === 1 ? 'pessoa' : 'pessoas' %></section>
+        </section>
         
-        <div class="detalhe-item">
-          <div class="detalhe-label">💰 Valor por pessoa:</div>
-          <div class="detalhe-valor">R$ <%= pedido.valorUnitario.toLocaleString('pt-BR') %></div>
-        </div>
+        <section class="detalhe-item">
+          <section class="detalhe-label">💰 Valor por pessoa:</section>
+          <section class="detalhe-valor">R$ <%= pedido.valorUnitario.toLocaleString('pt-BR') %></section>
+        </section>
         
-        <div class="detalhe-item total">
-          <div class="detalhe-label">💳 Valor Total:</div>
-          <div class="detalhe-valor">R$ <%= pedido.valorTotal.toLocaleString('pt-BR') %></div>
-        </div>
+        <section class="detalhe-item total">
+          <section class="detalhe-label">💳 Valor Total:</section>
+          <section class="detalhe-valor">R$ <%= pedido.valorTotal.toLocaleString('pt-BR') %></section>
+        </section>
         
-        <div class="detalhe-item">
-          <div class="detalhe-label">💳 Pagamento:</div>
-          <div class="detalhe-valor">
+        <section class="detalhe-item">
+          <section class="detalhe-label">💳 Pagamento:</section>
+          <section class="detalhe-valor">
             <% if (pedido.metodoPagamento === 'pix') { %>
               📱 PIX
             <% } else if (pedido.metodoPagamento === 'cartao') { %>
@@ -60,78 +60,78 @@
             <% } else { %>
               🧾 Boleto Bancário
             <% } %>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="detalhe-item">
-          <div class="detalhe-label">📅 Data da Reserva:</div>
-          <div class="detalhe-valor"><%= pedido.dataReserva.toLocaleDateString('pt-BR') %></div>
-        </div>
-      </div>
+        <section class="detalhe-item">
+          <section class="detalhe-label">📅 Data da Reserva:</section>
+          <section class="detalhe-valor"><%= pedido.dataReserva.toLocaleDateString('pt-BR') %></section>
+        </section>
+      </section>
       
       <!-- Dados do Cliente -->
-      <div class="cliente-card">
+      <section class="cliente-card">
         <h2 class="card-title">👤 Dados do Cliente</h2>
         
-        <div class="cliente-info">
-          <div class="info-item">
+        <section class="cliente-info">
+          <section class="info-item">
             <strong>Nome:</strong> <%= pedido.cliente.nome %>
-          </div>
-          <div class="info-item">
+          </section>
+          <section class="info-item">
             <strong>E-mail:</strong> <%= pedido.cliente.email %>
-          </div>
-          <div class="info-item">
+          </section>
+          <section class="info-item">
             <strong>Telefone:</strong> <%= pedido.cliente.telefone %>
-          </div>
-          <div class="info-item">
+          </section>
+          <section class="info-item">
             <strong>CPF:</strong> <%= pedido.cliente.cpf %>
-          </div>
-        </div>
-      </div>
-    </div>
+          </section>
+        </section>
+      </section>
+    </section>
     
     <!-- Próximos Passos -->
-    <div class="proximos-passos">
+    <section class="proximos-passos">
       <h2 class="passos-title">📝 Próximos Passos</h2>
       
-      <div class="passos-grid">
-        <div class="passo-item">
-          <div class="passo-numero">1</div>
-          <div class="passo-content">
+      <section class="passos-grid">
+        <section class="passo-item">
+          <section class="passo-numero">1</section>
+          <section class="passo-content">
             <h3>📧 Confirmação por E-mail</h3>
             <p>Você receberá um e-mail com todos os detalhes da sua reserva em até 10 minutos.</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="passo-item">
-          <div class="passo-numero">2</div>
-          <div class="passo-content">
+        <section class="passo-item">
+          <section class="passo-numero">2</section>
+          <section class="passo-content">
             <h3>📄 Documentação</h3>
             <p>Prepare seus documentos: RG, CPF e passaporte (se necessário).</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="passo-item">
-          <div class="passo-numero">3</div>
-          <div class="passo-content">
+        <section class="passo-item">
+          <section class="passo-numero">3</section>
+          <section class="passo-content">
             <h3>📞 Contato Especializado</h3>
             <p>Nossa equipe entrará em contato em até 24h para finalizar os detalhes.</p>
-          </div>
-        </div>
+          </section>
+        </section>
         
-        <div class="passo-item">
-          <div class="passo-numero">4</div>
-          <div class="passo-content">
+        <section class="passo-item">
+          <section class="passo-numero">4</section>
+          <section class="passo-content">
             <h3>🧳 Prepare-se!</h3>
             <p>Sua aventura incrível está prestes a começar. Boa viagem!</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </section>
+        </section>
+      </section>
+    </section>
     
     <!-- Ações -->
-    <div class="sucesso-actions">
-      <div class="actions-grid">
+    <section class="sucesso-actions">
+      <section class="actions-grid">
         <a href="/destinos" class="btn-explorar">
           🌍 Explorar Mais Destinos
         </a>
@@ -147,44 +147,44 @@
         <a href="mailto:<%= pedido.cliente.email %>?subject=Reserva <%= pedido.numeroReserva %>&body=Sua reserva para <%= pedido.destino %> foi confirmada!" class="btn-email">
           📧 Enviar por E-mail
         </a>
-      </div>
-    </div>
+      </section>
+    </section>
     
     <!-- Dúvidas -->
-    <div class="ajuda-section">
-      <div class="ajuda-card">
+    <section class="ajuda-section">
+      <section class="ajuda-card">
         <h3>❓ Precisa de Ajuda?</h3>
         <p>Nossa equipe está aqui para ajudar você a ter a melhor experiência de viagem.</p>
         
-        <div class="contatos">
-          <div class="contato-item">
+        <section class="contatos">
+          <section class="contato-item">
             <span class="contato-icon">📞</span>
-            <div>
+            <section>
               <strong>Central de Atendimento</strong><br>
               <span>(11) 99999-9999</span>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="contato-item">
+          <section class="contato-item">
             <span class="contato-icon">📧</span>
-            <div>
+            <section>
               <strong>E-mail de Suporte</strong><br>
               <span>suporte@ecocompanion.com</span>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="contato-item">
+          <section class="contato-item">
             <span class="contato-icon">💬</span>
-            <div>
+            <section>
               <strong>WhatsApp</strong><br>
               <span>(11) 99999-9999</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
 
 <%- include('../partials/footer') %>
 

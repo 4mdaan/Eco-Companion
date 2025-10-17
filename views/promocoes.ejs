@@ -8,251 +8,251 @@
 
     <!-- Hero Section -->
     <section class="promocoes-hero">
-        <div class="hero-content">
-            <div class="hero-text">
+        <section class="hero-content">
+            <section class="hero-text">
                 <h1>🔥 Promoções Imperdíveis</h1>
                 <p>Descontos exclusivos e ofertas limitadas para os destinos mais incríveis</p>
-                <div class="hero-badge">
+                <section class="hero-badge">
                     <span class="badge-text">Até 30% OFF</span>
                     <span class="badge-subtitle">Em destinos selecionados</span>
-                </div>
-            </div>
-            <div class="countdown-container">
+                </section>
+            </section>
+            <section class="countdown-container">
                 <h3>⏰ Oferta termina em:</h3>
-                <div class="countdown" id="countdown">
-                    <div class="countdown-item">
+                <section class="countdown" id="countdown">
+                    <section class="countdown-item">
                         <span class="countdown-number" id="days">00</span>
                         <span class="countdown-label">Dias</span>
-                    </div>
-                    <div class="countdown-item">
+                    </section>
+                    <section class="countdown-item">
                         <span class="countdown-number" id="hours">00</span>
                         <span class="countdown-label">Horas</span>
-                    </div>
-                    <div class="countdown-item">
+                    </section>
+                    <section class="countdown-item">
                         <span class="countdown-number" id="minutes">00</span>
                         <span class="countdown-label">Minutos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
     </section>
 
     <!-- Promoções Destacadas -->
     <section class="promocoes-destacadas">
-        <div class="container">
-            <div class="section-header">
+        <section class="container">
+            <section class="section-header">
                 <h2>⭐ Ofertas em Destaque</h2>
                 <p>As melhores promoções com descontos especiais</p>
-            </div>
+            </section>
             
-            <div class="promocoes-grid">
+            <section class="promocoes-grid">
                 <% promocoes.destacadas.forEach(function(promo) { %>
-                <div class="promo-card <%= promo.tipo %>">
-                    <div class="promo-badge">
+                <section class="promo-card <%= promo.tipo %>">
+                    <section class="promo-badge">
                         <span class="discount-percent">-<%= promo.desconto %>%</span>
-                    </div>
+                    </section>
                     
-                    <div class="promo-header">
+                    <section class="promo-header">
                         <h3 class="promo-title"><%= promo.titulo %></h3>
                         <p class="promo-destino">📍 <%= promo.destino %></p>
-                    </div>
+                    </section>
 
-                    <div class="promo-pricing">
-                        <div class="price-comparison">
+                    <section class="promo-pricing">
+                        <section class="price-comparison">
                             <span class="original-price">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
                             <span class="promo-price">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
-                        </div>
-                        <div class="savings">
+                        </section>
+                        <section class="savings">
                             Economia de R$ <%= (promo.precoOriginal - promo.precoPromocional).toLocaleString('pt-BR') %>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
 
-                    <div class="promo-benefits">
+                    <section class="promo-benefits">
                         <h4>✨ Incluso na promoção:</h4>
                         <ul>
                             <% promo.beneficios.forEach(function(beneficio) { %>
                             <li>✓ <%= beneficio %></li>
                             <% }); %>
                         </ul>
-                    </div>
+                    </section>
 
-                    <div class="promo-availability">
-                        <div class="availability-info">
+                    <section class="promo-availability">
+                        <section class="availability-info">
                             <span class="vagas-count">👥 <%= promo.vagas %> vagas disponíveis</span>
                             <span class="validade">📅 Válido até <%= new Date(promo.validadeFim).toLocaleDateString('pt-BR') %></span>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
 
-                    <div class="promo-conditions">
+                    <section class="promo-conditions">
                         <small>⚠️ <%= promo.condicoes %></small>
-                    </div>
+                    </section>
 
-                    <div class="promo-actions">
+                    <section class="promo-actions">
                         <a href="/destinos/<%= promo.slug %>" class="btn-outline">Ver Detalhes</a>
                         <a href="/destinos/<%= promo.slug %>/comprar" class="btn-primary promo-btn">
                             🔥 Garantir Oferta
                         </a>
-                    </div>
-                </div>
+                    </section>
+                </section>
                 <% }); %>
-            </div>
-        </div>
+            </section>
+        </section>
     </section>
 
     <!-- Promoções por Categoria -->
     <section class="promocoes-categorias">
-        <div class="container">
-            <div class="section-header">
+        <section class="container">
+            <section class="section-header">
                 <h2>🎯 Promoções por Categoria</h2>
                 <p>Encontre a oferta ideal para seu perfil de viagem</p>
-            </div>
+            </section>
 
             <!-- Tabs -->
-            <div class="category-tabs">
+            <section class="category-tabs">
                 <button class="tab-btn active" data-category="nacionais">🇧🇷 Nacionais</button>
                 <button class="tab-btn" data-category="internacionais">🌍 Internacionais</button>
                 <button class="tab-btn" data-category="ecoturismo">🌿 Ecoturismo</button>
-            </div>
+            </section>
 
             <!-- Nacionais -->
-            <div class="category-content active" data-category="nacionais">
-                <div class="promo-list">
+            <section class="category-content active" data-category="nacionais">
+                <section class="promo-list">
                     <% promocoes.categorias.nacionais.forEach(function(promo) { %>
-                    <div class="promo-item">
-                        <div class="item-info">
+                    <section class="promo-item">
+                        <section class="item-info">
                             <h4><%= promo.titulo %></h4>
                             <p class="destination">📍 <%= promo.destino %></p>
                             <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
-                        </div>
-                        <div class="item-pricing">
-                            <div class="discount-badge">-<%= promo.desconto %>%</div>
-                            <div class="prices">
+                        </section>
+                        <section class="item-pricing">
+                            <section class="discount-badge">-<%= promo.desconto %>%</section>
+                            <section class="prices">
                                 <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
                                 <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="item-actions">
+                            </section>
+                        </section>
+                        <section class="item-actions">
                             <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                     <% }); %>
-                </div>
-            </div>
+                </section>
+            </section>
 
             <!-- Internacionais -->
-            <div class="category-content" data-category="internacionais">
-                <div class="promo-list">
+            <section class="category-content" data-category="internacionais">
+                <section class="promo-list">
                     <% promocoes.categorias.internacionais.forEach(function(promo) { %>
-                    <div class="promo-item">
-                        <div class="item-info">
+                    <section class="promo-item">
+                        <section class="item-info">
                             <h4><%= promo.titulo %></h4>
                             <p class="destination">📍 <%= promo.destino %></p>
                             <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
-                        </div>
-                        <div class="item-pricing">
-                            <div class="discount-badge">-<%= promo.desconto %>%</div>
-                            <div class="prices">
+                        </section>
+                        <section class="item-pricing">
+                            <section class="discount-badge">-<%= promo.desconto %>%</section>
+                            <section class="prices">
                                 <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
                                 <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="item-actions">
+                            </section>
+                        </section>
+                        <section class="item-actions">
                             <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                     <% }); %>
-                </div>
-            </div>
+                </section>
+            </section>
 
             <!-- Ecoturismo -->
-            <div class="category-content" data-category="ecoturismo">
-                <div class="promo-list">
+            <section class="category-content" data-category="ecoturismo">
+                <section class="promo-list">
                     <% promocoes.categorias.ecoturismo.forEach(function(promo) { %>
-                    <div class="promo-item">
-                        <div class="item-info">
+                    <section class="promo-item">
+                        <section class="item-info">
                             <h4><%= promo.titulo %></h4>
                             <p class="destination">📍 <%= promo.destino %></p>
                             <span class="validade">📅 Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
-                        </div>
-                        <div class="item-pricing">
-                            <div class="discount-badge">-<%= promo.desconto %>%</div>
-                            <div class="prices">
+                        </section>
+                        <section class="item-pricing">
+                            <section class="discount-badge">-<%= promo.desconto %>%</section>
+                            <section class="prices">
                                 <span class="original">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
                                 <span class="promotional">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
-                            </div>
-                        </div>
-                        <div class="item-actions">
+                            </section>
+                        </section>
+                        <section class="item-actions">
                             <a href="/destinos/<%= promo.slug %>/comprar" class="btn-small">Reservar</a>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                     <% }); %>
-                </div>
-            </div>
-        </div>
+                </section>
+            </section>
+        </section>
     </section>
 
     <!-- Última Chance -->
     <section class="ultima-chance">
-        <div class="container">
-            <div class="section-header urgente">
+        <section class="container">
+            <section class="section-header urgente">
                 <h2>⚡ Última Chance</h2>
                 <p>Ofertas com prazo limitado - Não perca!</p>
-            </div>
+            </section>
             
-            <div class="urgente-grid">
+            <section class="urgente-grid">
                 <% promocoes.ultimaChance.forEach(function(promo) { %>
-                <div class="urgente-card">
-                    <div class="urgencia-badge">
+                <section class="urgente-card">
+                    <section class="urgencia-badge">
                         <span>🚨 URGENTE</span>
-                    </div>
+                    </section>
                     
-                    <div class="urgente-content">
+                    <section class="urgente-content">
                         <h3><%= promo.titulo %></h3>
                         <p class="urgencia-text"><%= promo.urgencia %></p>
                         
-                        <div class="urgente-pricing">
+                        <section class="urgente-pricing">
                             <span class="original-price">R$ <%= promo.precoOriginal.toLocaleString('pt-BR') %></span>
                             <span class="promo-price">R$ <%= promo.precoPromocional.toLocaleString('pt-BR') %></span>
                             <span class="discount">-<%= promo.desconto %>%</span>
-                        </div>
+                        </section>
                         
-                        <div class="urgente-info">
+                        <section class="urgente-info">
                             <span class="vagas">👥 Apenas <%= promo.vagas %> vagas</span>
                             <span class="prazo">⏰ Até <%= new Date(promo.validade).toLocaleDateString('pt-BR') %></span>
-                        </div>
+                        </section>
                         
                         <a href="/destinos/<%= promo.slug %>/comprar" class="btn-urgente">
                             ⚡ Reservar Agora
                         </a>
-                    </div>
-                </div>
+                    </section>
+                </section>
                 <% }); %>
-            </div>
-        </div>
+            </section>
+        </section>
     </section>
 
     <!-- Newsletter Promoções -->
     <section class="newsletter-promocoes">
-        <div class="container">
-            <div class="newsletter-content">
+        <section class="container">
+            <section class="newsletter-content">
                 <h2>🎯 Não Perca Nenhuma Oferta!</h2>
                 <p>Cadastre-se e receba as melhores promoções em primeira mão</p>
                 
                 <form class="newsletter-form" id="newsletter-promo-form">
-                    <div class="form-group">
+                    <section class="form-group">
                         <input type="email" placeholder="Seu melhor e-mail" required>
                         <button type="submit" class="btn-newsletter">
                             📧 Quero as Ofertas
                         </button>
-                    </div>
-                    <div class="newsletter-benefits">
+                    </section>
+                    <section class="newsletter-benefits">
                         <span>✓ Promoções exclusivas</span>
                         <span>✓ Descontos de até 40%</span>
                         <span>✓ Acesso antecipado</span>
-                    </div>
+                    </section>
                 </form>
-            </div>
-        </div>
+            </section>
+        </section>
     </section>
 
     <%- include('partials/footer') %>

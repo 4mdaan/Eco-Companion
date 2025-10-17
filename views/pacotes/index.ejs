@@ -2,45 +2,45 @@
 
 <%- include('../partials/header', { currentPage: 'pacotes' }) %>
 
-<div class="packages-hero">
+<section class="packages-hero">
   <h1>Nossos Pacotes de Viagem</h1>
   <p>Descubra ofertas especiais para os destinos mais incríveis do Brasil e do mundo</p>
-</div>
+</section>
 
 <main class="packages-container">
   <!-- Filtros -->
-  <div class="packages-filters">
+  <section class="packages-filters">
     <a href="/pacotes" class="filter-chip <%= categoriaAtiva === 'todos' ? 'active' : '' %>">Todos</a>
     <a href="/pacotes?categoria=nacional" class="filter-chip <%= categoriaAtiva === 'nacional' ? 'active' : '' %>">Nacional</a>
     <a href="/pacotes?categoria=internacional" class="filter-chip <%= categoriaAtiva === 'internacional' ? 'active' : '' %>">Internacional</a>
     <a href="/pacotes?categoria=promocoes" class="filter-chip <%= categoriaAtiva === 'promocoes' ? 'active' : '' %>">Promoções</a>
-  </div>
+  </section>
 
   <!-- Grid de Pacotes -->
-  <div class="packages-grid">
+  <section class="packages-grid">
     <% pacotes.forEach(function(pacote) { %>
       <article class="package-card-detailed">
-        <div class="package-image-large <%= pacote.bgClass %>">
+        <section class="package-image-large <%= pacote.bgClass %>">
           <% if (pacote.precoOriginal) { %>
-            <div class="discount-badge">
+            <section class="discount-badge">
               <%= Math.round(((parseFloat(pacote.precoOriginal) - parseFloat(pacote.preco)) / parseFloat(pacote.precoOriginal)) * 100) %>% OFF
-            </div>
+            </section>
           <% } %>
           <% if (pacote.disponivel === false) { %>
-            <div class="sold-out-overlay">
+            <section class="sold-out-overlay">
               <span class="sold-out-text">Esgotado</span>
-            </div>
+            </section>
           <% } %>
-        </div>
+        </section>
         
-        <div class="package-content-detailed">
+        <section class="package-content-detailed">
           <h3 class="package-title-large"><%= pacote.destino %></h3>
           <p class="package-period"><%= pacote.periodo %></p>
           <p class="package-description-detailed"><%= pacote.descricao %></p>
           
           <!-- Avaliação -->
-          <div class="package-rating">
-            <div class="rating-stars">
+          <section class="package-rating">
+            <section class="rating-stars">
               <% for(let i = 1; i <= 5; i++) { %>
                 <% if (i <= Math.floor(pacote.avaliacao)) { %>
                   <span class="star filled">★</span>
@@ -50,22 +50,22 @@
                   <span class="star empty">☆</span>
                 <% } %>
               <% } %>
-            </div>
+            </section>
             <span class="rating-score">(<%= pacote.avaliacao %>/5)</span>
-          </div>
+          </section>
           
           <!-- Preços -->
-          <div class="package-pricing">
-            <div class="price-info">
+          <section class="package-pricing">
+            <section class="price-info">
               <% if (pacote.precoOriginal) { %>
                 <span class="price-original">R$ <%= pacote.precoOriginal %></span>
               <% } %>
-              <div class="price-current">R$ <%= pacote.preco %></div>
+              <section class="price-current">R$ <%= pacote.preco %></section>
               <span class="price-note">por pessoa</span>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="package-actions">
+          <section class="package-actions">
             <a href="/pacotes/<%= pacote.slug %>" class="btn-package-details">
               <span class="btn-icon">👁️</span>
               Ver Detalhes Completos
@@ -80,20 +80,20 @@
               <span class="btn-icon">🛒</span>
               Adicionar ao Carrinho
             </button>
-          </div>
-        </div>
+          </section>
+        </section>
       </article>
     <% }); %>
-  </div>
+  </section>
 
   <!-- CTA Section -->
-  <div class="packages-cta">
+  <section class="packages-cta">
     <h2 class="cta-title">Não encontrou o que procurava?</h2>
     <p class="cta-description">Entre em contato conosco e criaremos um pacote personalizado especialmente para você!</p>
     <a href="/contato" class="btn-cta">
       Falar com um Especialista
     </a>
-  </div>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>

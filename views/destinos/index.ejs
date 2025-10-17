@@ -2,80 +2,80 @@
 
 <%- include('../partials/header', { currentPage: 'destinos' }) %>
 
-<div class="packages-hero">
+<section class="packages-hero">
   <h1>Nossos Destinos</h1>
   <p>Descubra lugares incríveis para sua próxima aventura</p>
-</div>
+</section>
 
 <main class="packages-container">
   <!-- Grid de Destinos -->
-  <div class="packages-grid">
+  <section class="packages-grid">
     <% destinos.forEach(function(destino) { %>
       <article class="package-card-detailed <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-card' : '' %>">
-        <div class="package-image-large" style="background-image: url('<%= destino.imagem %>');">
+        <section class="package-image-large" style="background-image: url('<%= destino.imagem %>');">
           <% if (destino.categoria === 'Ultra Luxury') { %>
-            <div class="package-badge ultra-luxury-badge">
+            <section class="package-badge ultra-luxury-badge">
               <span class="crown-icon">👑</span>
               ULTRA LUXURY
-            </div>
+            </section>
           <% } else if (destino.destaque) { %>
-            <div class="package-badge">Destaque</div>
+            <section class="package-badge">Destaque</section>
           <% } %>
           <% if (destino.exclusividade) { %>
-            <div class="exclusivity-badge">✨ <%= destino.exclusividade %></div>
+            <section class="exclusivity-badge">✨ <%= destino.exclusividade %></section>
           <% } %>
-        </div>
+        </section>
         
-        <div class="package-content-detailed">
-          <div class="package-header">
+        <section class="package-content-detailed">
+          <section class="package-header">
             <h3 class="package-title-large"><%= destino.nome %></h3>
-            <div class="package-location">
+            <section class="package-location">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
               </svg>
               <%= destino.regiao %>
-            </div>
-          </div>
+            </section>
+          </section>
           
           <p class="package-description-detailed"><%= destino.descricao %></p>
           
           <!-- Atrações principais -->
-          <div class="package-highlights">
+          <section class="package-highlights">
             <% destino.atrações.slice(0, 4).forEach(function(atracao) { %>
-              <div class="highlight-item">
+              <section class="highlight-item">
                 <svg class="highlight-icon" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
                 <%= atracao %>
-              </div>
+              </section>
             <% }); %>
-          </div>
+          </section>
           
           
-          <div class="package-pricing">
-            <div class="price-info">
+          <section class="package-pricing">
+            <section class="price-info">
               <% if (destino.preco) { %>
-                <div class="price-label">Experiência completa a partir de</div>
-                <div class="price-value <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-price' : '' %>">
+                <section class="price-label">Experiência completa a partir de</section>
+                <section class="price-value <%= destino.categoria === 'Ultra Luxury' ? 'ultra-luxury-price' : '' %>">
                   R$ <%= destino.preco ? destino.preco.toLocaleString('pt-BR') : destino.precoMinimo %>
-                </div>
+                </section>
                 <% if (destino.categoria === 'Ultra Luxury') { %>
-                  <div class="price-note">*Valor por casal, 7 dias</div>
+                  <section class="price-note">*Valor por casal, 7 dias</section>
                 <% } %>
               <% } else { %>
-                <div class="price-label">Experiência completa a partir de</div>
-                <div class="price-value">R$ <%= destino.precoMinimo || '1.200' %></div>
+                <section class="price-label">Experiência completa a partir de</section>
+                <section class="price-value">R$ <%= destino.precoMinimo || '1.200' %></section>
               <% } %>
-            </div>
-            <div style="margin-bottom: 1.2rem;"></div>
+            </section>
+            <section style="margin-bottom: 1.2rem;"></section>
             <a href="/destinos/<%= destino.slug %>" class="btn-view-details">
               Ver Detalhes
             </a>
-          </div>
-        </div>
+          </section>
+        </section>
       </article>
     <% }); %>
-  </div>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>

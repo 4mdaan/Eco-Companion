@@ -3,78 +3,78 @@
 <%- include('partials/header', { currentPage: 'contato' }) %>
 
 <!-- Hero Contato -->
-<div class="contato-hero">
-  <div class="container">
-    <div class="hero-content">
+<section class="contato-hero">
+  <section class="container">
+    <section class="hero-content">
       <h1 class="hero-title">Entre em Contato</h1>
       <p class="hero-subtitle">Estamos aqui para transformar seus sonhos de viagem em realidade. Fale conosco!</p>
-    </div>
-  </div>
-</div>
+    </section>
+  </section>
+</section>
 
 <!-- Informações de Contato -->
 <section class="info-contato">
-  <div class="container">
-    <div class="contato-grid">
+  <section class="container">
+    <section class="contato-grid">
       <!-- Informações -->
-      <div class="contato-info">
+      <section class="contato-info">
         <h2>📞 Fale Conosco</h2>
         <p>Nossa equipe está sempre pronta para ajudar você a planejar a viagem dos seus sonhos.</p>
         
-        <div class="info-cards">
-          <div class="info-card">
-            <div class="info-icon">📍</div>
-            <div class="info-content">
+        <section class="info-cards">
+          <section class="info-card">
+            <section class="info-icon">📍</section>
+            <section class="info-content">
               <h4>Endereço</h4>
               <p>
                 Rua das Palmeiras, 1.234<br>
                 Jardim Botânico, Rio de Janeiro - RJ<br>
                 CEP: 22461-000
               </p>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="info-card">
-            <div class="info-icon">📞</div>
-            <div class="info-content">
+          <section class="info-card">
+            <section class="info-icon">📞</section>
+            <section class="info-content">
               <h4>Telefones</h4>
               <p>
                 <strong>Central:</strong> (21) 3333-4444<br>
                 <strong>WhatsApp:</strong> (21) 99999-8888<br>
                 <strong>Emergência 24h:</strong> (21) 99999-7777
               </p>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="info-card">
-            <div class="info-icon">📧</div>
-            <div class="info-content">
+          <section class="info-card">
+            <section class="info-icon">📧</section>
+            <section class="info-content">
               <h4>E-mails</h4>
               <p>
                 <strong>Geral:</strong> contato@ecocompanion.com<br>
                 <strong>Reservas:</strong> reservas@ecocompanion.com<br>
                 <strong>Suporte:</strong> suporte@ecocompanion.com
               </p>
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div class="info-card">
-            <div class="info-icon">⏰</div>
-            <div class="info-content">
+          <section class="info-card">
+            <section class="info-icon">⏰</section>
+            <section class="info-content">
               <h4>Horários</h4>
               <p>
                 <strong>Segunda à Sexta:</strong> 8h às 18h<br>
                 <strong>Sábados:</strong> 9h às 15h<br>
                 <strong>Domingos:</strong> Plantão via WhatsApp
               </p>
-            </div>
-          </div>
-        </div>
+            </section>
+          </section>
+        </section>
         
         <!-- Redes Sociais -->
-        <div class="redes-sociais">
+        <section class="redes-sociais">
           <h4>🌐 Siga-nos</h4>
-          <div class="social-links">
+          <section class="social-links">
             <a href="#" class="social-link instagram">
               <span>📷</span> Instagram
             </a>
@@ -87,19 +87,19 @@
             <a href="#" class="social-link linkedin">
               <span>💼</span> LinkedIn
             </a>
-          </div>
-        </div>
-      </div>
+          </section>
+        </section>
+      </section>
       
       <!-- Formulário -->
-      <div class="contato-form">
-        <div class="form-container">
+      <section class="contato-form">
+        <section class="form-container">
           <h3>✉️ Envie sua Mensagem</h3>
           <p>Preencha o formulário abaixo e entraremos em contato em até 2 horas úteis.</p>
           
           <form method="POST" action="/contato" class="form-contato">
             <!-- Tipo de Solicitação -->
-            <div class="form-group">
+            <section class="form-group">
               <label for="tipo" class="form-label">Tipo de Solicitação *</label>
               <select id="tipo" name="tipo" class="form-input" required>
                 <option value="">Selecione...</option>
@@ -112,35 +112,35 @@
                 <option value="parceria">🤝 Parceria Comercial</option>
                 <option value="outro">📝 Outros Assuntos</option>
               </select>
-            </div>
+            </section>
             
             <!-- Dados Pessoais -->
-            <div class="form-row">
-              <div class="form-group">
+            <section class="form-row">
+              <section class="form-group">
                 <label for="nome" class="form-label">Nome Completo *</label>
                 <input type="text" id="nome" name="nome" class="form-input" required>
-              </div>
+              </section>
               
-              <div class="form-group">
+              <section class="form-group">
                 <label for="email" class="form-label">E-mail *</label>
                 <input type="email" id="email" name="email" class="form-input" required>
-              </div>
-            </div>
+              </section>
+            </section>
             
-            <div class="form-row">
-              <div class="form-group">
+            <section class="form-row">
+              <section class="form-group">
                 <label for="telefone" class="form-label">Telefone *</label>
                 <input type="tel" id="telefone" name="telefone" class="form-input" required>
-              </div>
+              </section>
               
-              <div class="form-group">
+              <section class="form-group">
                 <label for="cidade" class="form-label">Cidade</label>
                 <input type="text" id="cidade" name="cidade" class="form-input" placeholder="Ex: São Paulo - SP">
-              </div>
-            </div>
+              </section>
+            </section>
             
             <!-- Preferências de Viagem -->
-            <div class="form-group">
+            <section class="form-group">
               <label for="destino-interesse" class="form-label">Destino de Interesse</label>
               <select id="destino-interesse" name="destinoInteresse" class="form-input">
                 <option value="">Não tenho preferência</option>
@@ -152,10 +152,10 @@
                 <option value="foz-iguacu">💦 Foz do Iguaçu</option>
                 <option value="personalizado">✨ Destino Personalizado</option>
               </select>
-            </div>
+            </section>
             
-            <div class="form-row">
-              <div class="form-group">
+            <section class="form-row">
+              <section class="form-group">
                 <label for="orcamento" class="form-label">Orçamento Aproximado</label>
                 <select id="orcamento" name="orcamento" class="form-input">
                   <option value="">Prefiro não informar</option>
@@ -166,25 +166,25 @@
                   <option value="acima-25000">Acima de R$ 25.000 por pessoa</option>
                   <option value="ultra-luxury">💎 Experiências Ultra Luxury</option>
                 </select>
-              </div>
+              </section>
               
-              <div class="form-group">
+              <section class="form-group">
                 <label for="pessoas" class="form-label">Número de Pessoas</label>
                 <input type="number" id="pessoas" name="pessoas" class="form-input" min="1" placeholder="Ex: 2">
-              </div>
-            </div>
+              </section>
+            </section>
             
             <!-- Mensagem -->
-            <div class="form-group">
+            <section class="form-group">
               <label for="mensagem" class="form-label">Mensagem *</label>
               <textarea id="mensagem" name="mensagem" class="form-textarea" rows="5" 
                         placeholder="Conte-nos sobre seus planos de viagem, dúvidas ou necessidades..." required></textarea>
-            </div>
+            </section>
             
             <!-- Preferências de Contato -->
-            <div class="form-group">
+            <section class="form-group">
               <label class="form-label">Preferência de Contato</label>
-              <div class="checkbox-group">
+              <section class="checkbox-group">
                 <label class="checkbox-label">
                   <input type="checkbox" name="preferenciaContato[]" value="email" checked>
                   <span class="checkbox-custom"></span>
@@ -200,17 +200,17 @@
                   <span class="checkbox-custom"></span>
                   💬 WhatsApp
                 </label>
-              </div>
-            </div>
+              </section>
+            </section>
             
             <!-- Política de Privacidade -->
-            <div class="form-group">
+            <section class="form-group">
               <label class="checkbox-label">
                 <input type="checkbox" name="politica" required>
                 <span class="checkbox-custom"></span>
                 Concordo com a <a href="#" class="link-politica">Política de Privacidade</a> e autorizo o uso dos meus dados para contato *
               </label>
-            </div>
+            </section>
             
             <!-- Botão de Envio -->
             <button type="submit" class="btn-enviar">
@@ -218,106 +218,106 @@
               <span class="btn-loader" style="display: none;">⏳ Enviando...</span>
             </button>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
+        </section>
+      </section>
+    </section>
+  </section>
 </section>
 
 <!-- Mapa e Localização -->
 <section class="localizacao">
-  <div class="container">
+  <section class="container">
     <h2 class="section-title center">📍 Nossa Localização</h2>
     <p class="localizacao-intro">
       Venha nos visitar! Estamos localizados no coração do Rio de Janeiro, 
       em um ambiente aconchegante e inspirador.
     </p>
     
-    <div class="mapa-container">
-      <div class="mapa-placeholder">
-        <div class="mapa-content">
+    <section class="mapa-container">
+      <section class="mapa-placeholder">
+        <section class="mapa-content">
           <h3>🗺️ Mapa Interativo</h3>
           <p>Rua das Palmeiras, 1.234<br>Jardim Botânico, Rio de Janeiro - RJ</p>
-          <div class="mapa-buttons">
+          <section class="mapa-buttons">
             <a href="https://maps.google.com/maps?q=Rio+de+Janeiro+Jardim+Botanico" target="_blank" class="btn-mapa">
               📍 Ver no Google Maps
             </a>
             <a href="https://waze.com/ul?q=Rio+de+Janeiro+Jardim+Botanico" target="_blank" class="btn-mapa">
               🚗 Abrir no Waze
             </a>
-          </div>
-        </div>
-      </div>
+          </section>
+        </section>
+      </section>
       
-      <div class="transporte-info">
+      <section class="transporte-info">
         <h4>🚌 Como Chegar</h4>
-        <div class="transporte-opcoes">
-          <div class="transporte-item">
+        <section class="transporte-opcoes">
+          <section class="transporte-item">
             <strong>🚇 Metrô:</strong> Estação Jardim Botânico (Linha 1) - 5 min caminhando
-          </div>
-          <div class="transporte-item">
+          </section>
+          <section class="transporte-item">
             <strong>🚌 Ônibus:</strong> Linhas 583, 584, 591 - Ponto em frente
-          </div>
-          <div class="transporte-item">
+          </section>
+          <section class="transporte-item">
             <strong>🚕 Taxi/Uber:</strong> Ponto de referência: Jardim Botânico
-          </div>
-          <div class="transporte-item">
+          </section>
+          <section class="transporte-item">
             <strong>🚗 Carro:</strong> Estacionamento gratuito para clientes
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
 </section>
 
 <!-- FAQ Rápido -->
 <section class="faq-contato">
-  <div class="container">
+  <section class="container">
     <h2 class="section-title center">❓ Perguntas Frequentes</h2>
     
-    <div class="faq-grid">
-      <div class="faq-item">
+    <section class="faq-grid">
+      <section class="faq-item">
         <h4>⏰ Quanto tempo para resposta?</h4>
         <p>Respondemos todas as mensagens em até 2 horas úteis. Para urgências, use nosso WhatsApp!</p>
-      </div>
+      </section>
       
-      <div class="faq-item">
+      <section class="faq-item">
         <h4>💳 Formas de pagamento?</h4>
         <p>Cartão de crédito (até 12x), PIX com desconto, boleto bancário e financiamento próprio.</p>
-      </div>
+      </section>
       
-      <div class="faq-item">
+      <section class="faq-item">
         <h4>📋 Preciso de documentos?</h4>
         <p>Para orçamentos, apenas dados básicos. Para reservas, RG, CPF e passaporte se internacional.</p>
-      </div>
+      </section>
       
-      <div class="faq-item">
+      <section class="faq-item">
         <h4>🔄 Posso cancelar/alterar?</h4>
         <p>Sim! Temos política flexível de cancelamento e alterações conforme condições de cada pacote.</p>
-      </div>
-    </div>
-  </div>
+      </section>
+    </section>
+  </section>
 </section>
 
 <!-- CTA Urgente -->
 <section class="cta-urgente">
-  <div class="container">
-    <div class="urgente-content">
-      <div class="urgente-icon">🚨</div>
-      <div class="urgente-text">
+  <section class="container">
+    <section class="urgente-content">
+      <section class="urgente-icon">🚨</section>
+      <section class="urgente-text">
         <h3>Precisa Falar Urgente?</h3>
         <p>Para emergências durante viagens ou questões urgentes, entre em contato:</p>
-      </div>
-      <div class="urgente-contatos">
+      </section>
+      <section class="urgente-contatos">
         <a href="tel:+5521999997777" class="btn-urgente telefone">
           📞 (21) 99999-7777
         </a>
         <a href="https://wa.me/5521999998888" target="_blank" class="btn-urgente whatsapp">
           💬 WhatsApp 24h
         </a>
-      </div>
-    </div>
-  </div>
+      </section>
+    </section>
+  </section>
 </section>
 
 <%- include('partials/footer') %>
