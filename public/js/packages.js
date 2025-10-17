@@ -56,16 +56,16 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
     }
     
     // Criar nova notificação
-    const notificacao = document.createElement('div');
+    const notificacao = document.createElement('section');
     notificacao.className = `notification notification-${tipo}`;
     notificacao.innerHTML = `
-        <div class="notification-content">
+        <section class="notification-content">
             <span class="notification-icon">
                 ${tipo === 'success' ? '✅' : tipo === 'info' ? 'ℹ️' : '⚠️'}
             </span>
             <span class="notification-message">${mensagem}</span>
             <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
+        </section>
     `;
     
     // Adicionar ao body

@@ -328,10 +328,10 @@ class ModernAgendaManager {
     }
 
     createCalendarDay(day, isPrevMonth, isNextMonth) {
-        const dayDiv = document.createElement('div');
+        const dayDiv = document.createElement('section');
         dayDiv.className = `calendar-day ${isPrevMonth || isNextMonth ? 'other-month' : ''}`;
         
-        const dayNumber = document.createElement('div');
+        const dayNumber = document.createElement('section');
         dayNumber.className = 'day-number';
         dayNumber.textContent = day;
         dayDiv.appendChild(dayNumber);
@@ -343,11 +343,11 @@ class ModernAgendaManager {
             
             if (tripsOnDay.length > 0) {
                 dayDiv.classList.add('has-events');
-                const eventsDiv = document.createElement('div');
+                const eventsDiv = document.createElement('section');
                 eventsDiv.className = 'day-events';
                 
                 tripsOnDay.slice(0, 3).forEach(() => {
-                    const indicator = document.createElement('div');
+                    const indicator = document.createElement('section');
                     indicator.className = 'event-indicator';
                     eventsDiv.appendChild(indicator);
                 });

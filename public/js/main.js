@@ -121,7 +121,7 @@ function addLoadingToButtons() {
 
 // Função para notificações toast simples
 function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
+    const toast = document.createElement('section');
     toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white ${
         type === 'success' ? 'bg-green-500' : 
         type === 'error' ? 'bg-red-500' : 

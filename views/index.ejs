@@ -41,115 +41,191 @@
         <span>Experiências incríveis</span>
       </section>
 
-      <section class="packages-grid">
-        <% if (typeof pacotes !== 'undefined' && pacotes.length > 0) { %>
-          <% pacotes.forEach(function(pacote) { %>
-            <article class="package-card">
-              <section class="package-image <%= pacote.bgClass %>"></section>
-              <section class="package-content">
-                <h4 class="package-title"><%= pacote.destino %></h4>
-                <p class="package-description"><%= pacote.periodo %></p>
-                <section class="package-price">R$ <%= pacote.preco %></section>
-                <ul class="package-features">
-                  <li class="package-feature">
-                    <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Hospedagem incluída
-                  </li>
-                  <li class="package-feature">
-                    <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Guia especializado
-                  </li>
-                </ul>
-                <a href="/pacotes/<%= pacote.slug %>" class="btn btn-primary">
-                  Ver detalhes
-                </a>
-              </section>
-            </article>
-          <% }); %>
-        <% } else { %>
-          <!-- Pacotes padrão caso não sejam fornecidos via controller -->
-          <article class="package-card">
-            <section class="package-image bg-rio"></section>
-            <section class="package-content">
-              <h4 class="package-title">Rio de Janeiro</h4>
-              <p class="package-description">17 de Nov - 21 de Nov • 5 dias</p>
-              <section class="package-price">R$ 870</section>
-              <ul class="package-features">
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Hotel 4 estrelas
-                </li>
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  City tour incluído
-                </li>
-              </ul>
-              <a href="/pacotes/rio-de-janeiro" class="btn btn-primary">
-                Ver detalhes
-              </a>
-            </section>
-          </article>
+      <!-- Carrossel de Pacotes -->
+      <section class="packages-carousel">
+        <section class="carousel-container">
+          <button class="carousel-btn carousel-prev" id="carousel-prev">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>
+          </button>
+          
+          <section class="carousel-track-container">
+            <section class="carousel-track" id="carousel-track">
+              <% if (typeof pacotes !== 'undefined' && pacotes.length > 0) { %>
+                <% pacotes.forEach(function(pacote) { %>
+                  <article class="package-card carousel-slide">
+                    <section class="package-image <%= pacote.bgClass %>"></section>
+                    <section class="package-content">
+                      <h4 class="package-title"><%= pacote.destino %></h4>
+                      <p class="package-description"><%= pacote.periodo %></p>
+                      <section class="package-price">R$ <%= pacote.preco %></section>
+                      <ul class="package-features">
+                        <li class="package-feature">
+                          <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                          </svg>
+                          Hospedagem incluída
+                        </li>
+                        <li class="package-feature">
+                          <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                          </svg>
+                          Guia especializado
+                        </li>
+                      </ul>
+                      <a href="/pacotes/<%= pacote.slug %>" class="btn btn-primary">
+                        Ver detalhes
+                      </a>
+                    </section>
+                  </article>
+                <% }); %>
+              <% } else { %>
+                <!-- Pacotes padrão caso não sejam fornecidos via controller -->
+                <article class="package-card carousel-slide">
+                  <section class="package-image bg-rio"></section>
+                  <section class="package-content">
+                    <h4 class="package-title">Rio de Janeiro</h4>
+                    <p class="package-description">17 de Nov - 21 de Nov • 5 dias</p>
+                    <section class="package-price">R$ 870</section>
+                    <ul class="package-features">
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Hotel 4 estrelas
+                      </li>
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        City tour incluído
+                      </li>
+                    </ul>
+                    <a href="/pacotes/rio-de-janeiro" class="btn btn-primary">
+                      Ver detalhes
+                    </a>
+                  </section>
+                </article>
 
-          <article class="package-card">
-            <section class="package-image bg-florianopolis"></section>
-            <section class="package-content">
-              <h4 class="package-title">Florianópolis</h4>
-              <p class="package-description">03 de Nov - 07 de Nov • 4 dias</p>
-              <section class="package-price">R$ 841</section>
-              <ul class="package-features">
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Praias paradisíacas
-                </li>
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Transfer incluso
-                </li>
-              </ul>
-              <a href="/pacotes/florianopolis" class="btn btn-primary">
-                Ver detalhes
-              </a>
-            </section>
-          </article>
+                <article class="package-card carousel-slide">
+                  <section class="package-image bg-florianopolis"></section>
+                  <section class="package-content">
+                    <h4 class="package-title">Florianópolis</h4>
+                    <p class="package-description">03 de Nov - 07 de Nov • 4 dias</p>
+                    <section class="package-price">R$ 841</section>
+                    <ul class="package-features">
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Praias paradisíacas
+                      </li>
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Transfer incluso
+                      </li>
+                    </ul>
+                    <a href="/pacotes/florianopolis" class="btn btn-primary">
+                      Ver detalhes
+                    </a>
+                  </section>
+                </article>
 
-          <article class="package-card">
-            <section class="package-image bg-porto-seguro"></section>
-            <section class="package-content">
-              <h4 class="package-title">Porto Seguro</h4>
-              <p class="package-description">17 de Dez - 21 de Dez • 5 dias</p>
-              <section class="package-price">R$ 1.828</section>
-              <ul class="package-features">
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Resort all inclusive
-                </li>
-                <li class="package-feature">
-                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Passeios incluídos
-                </li>
-              </ul>
-              <a href="/pacotes/porto-seguro" class="btn btn-primary">
-                Ver detalhes
-              </a>
+                <article class="package-card carousel-slide">
+                  <section class="package-image bg-porto-seguro"></section>
+                  <section class="package-content">
+                    <h4 class="package-title">Porto Seguro</h4>
+                    <p class="package-description">17 de Dez - 21 de Dez • 5 dias</p>
+                    <section class="package-price">R$ 1.828</section>
+                    <ul class="package-features">
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Resort all inclusive
+                      </li>
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Passeios incluídos
+                      </li>
+                    </ul>
+                    <a href="/pacotes/porto-seguro" class="btn btn-primary">
+                      Ver detalhes
+                    </a>
+                  </section>
+                </article>
+
+                <article class="package-card carousel-slide">
+                  <section class="package-image bg-natal"></section>
+                  <section class="package-content">
+                    <h4 class="package-title">Natal</h4>
+                    <p class="package-description">15 de Mar - 20 de Mar • 5 dias</p>
+                    <section class="package-price">R$ 1.380</section>
+                    <ul class="package-features">
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Dunas de Genipabu
+                      </li>
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Passeios de buggy
+                      </li>
+                    </ul>
+                    <a href="/pacotes/natal" class="btn btn-primary">
+                      Ver detalhes
+                    </a>
+                  </section>
+                </article>
+
+                <article class="package-card carousel-slide">
+                  <section class="package-image bg-maceio"></section>
+                  <section class="package-content">
+                    <h4 class="package-title">Maceió</h4>
+                    <p class="package-description">08 de Abr - 13 de Abr • 5 dias</p>
+                    <section class="package-price">R$ 1.295</section>
+                    <ul class="package-features">
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Piscinas naturais
+                      </li>
+                      <li class="package-feature">
+                        <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Passeio de jangada
+                      </li>
+                    </ul>
+                    <a href="/pacotes/maceio" class="btn btn-primary">
+                      Ver detalhes
+                    </a>
+                  </section>
+                </article>
+              <% } %>
             </section>
-          </article>
-        <% } %>
+          </section>
+
+          <button class="carousel-btn carousel-next" id="carousel-next">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </button>
+        </section>
+
+        <!-- Indicadores do carrossel -->
+        <section class="carousel-indicators" id="carousel-indicators">
+          <!-- Indicadores serão gerados dinamicamente pelo JavaScript -->
+        </section>
       </section>
     </section>
   </section>

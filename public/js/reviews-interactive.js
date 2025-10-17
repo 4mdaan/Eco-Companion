@@ -81,35 +81,35 @@ class ReviewsSystem {
     }
     
     createReviewCard(review, isFeatured = false) {
-        const card = document.createElement('div');
+        const card = document.createElement('section');
         card.className = `review-card ${isFeatured ? 'featured' : ''}`;
         
         const stars = '★'.repeat(review.rating);
         const liveIndicator = review.isLive ? '<span class="live-indicator">🔴 AO VIVO</span>' : '';
         
         card.innerHTML = `
-            <div class="review-header">
-                <div class="reviewer-avatar">
+            <section class="review-header">
+                <section class="reviewer-avatar">
                     <img src="${review.avatar}" alt="${review.name}" loading="lazy">
-                </div>
-                <div class="reviewer-info">
+                </section>
+                <section class="reviewer-info">
                     <h4 class="reviewer-name">${review.name}</h4>
-                    <div class="review-rating">
+                    <section class="review-rating">
                         <span class="stars">${stars}</span>
                         <span class="rating-text">${review.rating}.0</span>
-                    </div>
+                    </section>
                     <p class="review-date">Há ${review.time} • ${review.location}</p>
-                </div>
-                <div class="review-status">
+                </section>
+                <section class="review-status">
                     ${liveIndicator}
-                </div>
-            </div>
-            <div class="review-content">
+                </section>
+            </section>
+            <section class="review-content">
                 <p class="review-text">"${review.text}"</p>
-                <div class="review-tags">
+                <section class="review-tags">
                     ${review.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                </div>
-            </div>
+                </section>
+            </section>
         `;
         
         return card;
@@ -317,7 +317,7 @@ class ReviewsSystem {
     
     showNewReviewNotification() {
         // Cria uma notificação sutil de novo review
-        const notification = document.createElement('div');
+        const notification = document.createElement('section');
         notification.style.cssText = `
             position: fixed;
             top: 20px;

@@ -160,14 +160,14 @@ function showPasswordStrength(field, text, color) {
     let indicator = field.parentElement.parentElement.querySelector('.password-strength');
     
     if (!indicator) {
-        indicator = document.createElement('div');
+        indicator = document.createElement('section');
         indicator.className = 'password-strength';
         field.parentElement.parentElement.appendChild(indicator);
     }
     
     indicator.innerHTML = `
-        <div class="strength-bar">
-            <div class="strength-fill" style="width: ${(text === 'Muito fraca' ? 20 : text === 'Fraca' ? 40 : text === 'Regular' ? 60 : text === 'Boa' ? 80 : 100)}%; background: ${color}"></div>
+        <section class="strength-bar">
+            <section class="strength-fill" style="width: ${(text === 'Muito fraca' ? 20 : text === 'Fraca' ? 40 : text === 'Regular' ? 60 : text === 'Boa' ? 80 : 100)}%; background: ${color}"></section>
         </div>
         <span style="color: ${color}; font-size: 0.75rem; font-weight: 500;">${text}</span>
     `;
@@ -208,7 +208,7 @@ function showFieldError(field, message) {
     
     field.style.borderColor = '#ef4444';
     
-    const error = document.createElement('div');
+    const error = document.createElement('section');
     error.className = 'field-error';
     error.textContent = message;
     error.style.cssText = `
@@ -327,14 +327,14 @@ function autoHideAlerts() {
  * Sistema de notificações
  */
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
+    const notification = document.createElement('section');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
-        <div class="notification-content">
+        <section class="notification-content">
             <span class="notification-icon">${getNotificationIcon(type)}</span>
             <span class="notification-message">${message}</span>
             <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
+        </section>
     `;
     
     // Adicionar estilos se não existirem

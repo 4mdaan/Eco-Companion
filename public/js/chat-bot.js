@@ -194,19 +194,19 @@ class ChatBot {
     }
     
     criarElementoMensagem(mensagem) {
-        const messageDiv = document.createElement('div');
+        const messageDiv = document.createElement('section');
         messageDiv.className = `message ${mensagem.tipo}-message${mensagem.erro ? ' error' : ''}`;
         
-        const avatar = document.createElement('div');
+        const avatar = document.createElement('section');
         avatar.className = 'message-avatar';
         avatar.innerHTML = mensagem.tipo === 'usuario' ? 
             '<i class="fas fa-user"></i>' : 
             '<i class="fas fa-robot"></i>';
         
-        const content = document.createElement('div');
+        const content = document.createElement('section');
         content.className = 'message-content';
         
-        const bubble = document.createElement('div');
+        const bubble = document.createElement('section');
         bubble.className = 'message-bubble';
         
         // Processar texto com formatação básica
@@ -417,7 +417,7 @@ class ChatBot {
     
     mostrarNotificacao(mensagem, tipo = 'info') {
         // Criar elemento de notificação
-        const notification = document.createElement('div');
+        const notification = document.createElement('section');
         notification.className = `notification ${tipo}`;
         notification.innerHTML = `
             <i class="fas fa-${tipo === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>

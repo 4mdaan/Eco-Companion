@@ -595,6 +595,18 @@
     background-image: url('/imagens/paris.png');
 }
 
+.bg-fernando-noronha {
+    background-image: url('/imagens/fernandodenoronha.png');
+}
+
+.bg-natal {
+    background-image: url('https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg');
+}
+
+.bg-maceio {
+    background-image: url('https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg');
+}
+
 /* Galeria de Imagens */
 .image-gallery {
     display: grid;

@@ -4,7 +4,6 @@
 
 class ChatFloat {
     constructor() {
-        this.isPreviewOpen = false;
         this.notificationCount = 0;
         
         this.init();
@@ -20,48 +19,19 @@ class ChatFloat {
     
     createFloatButton() {
         // Criar container principal
-        const container = document.createElement('div');
+        const container = document.createElement('section');
         container.className = 'chat-float-container';
         container.innerHTML = `
             <!-- Tooltip -->
-            <div class="chat-float-tooltip">
-                💬 Precisa de ajuda? Fale conosco!
-            </div>
-            
-            <!-- Prévia rápida -->
-            <div class="chat-quick-preview" id="chatQuickPreview">
-                <div class="chat-preview-header">
-                    <div class="chat-preview-title">
-                        <i class="fas fa-robot"></i>
-                        Assistente Virtual
-                    </div>
-                    <button class="chat-preview-close" onclick="chatFloat.closePreview()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="chat-preview-body">
-                    <div class="chat-preview-message">
-                        <div class="chat-preview-avatar">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="chat-preview-text">
-                            👋 Olá! Como posso te ajudar hoje? Estou aqui para esclarecer dúvidas sobre viagens, pacotes e muito mais!
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-preview-footer">
-                    <button class="chat-preview-cta" onclick="chatFloat.openFullChat()">
-                        <i class="fas fa-comments"></i>
-                        Iniciar Conversa
-                    </button>
-                </div>
-            </div>
+            <section class="chat-float-tooltip">
+                
+            </section>
             
             <!-- Botão principal -->
             <button class="chat-float-button" id="chatFloatButton">
                 <i class="fas fa-comments" id="chatFloatIcon"></i>
                 <span class="chat-notification-badge" id="chatNotificationBadge" style="display: none;">0</span>
-                <div class="chat-status-indicator"></div>
+                <section class="chat-status-indicator"></section>
             </button>
         `;
         
@@ -73,34 +43,14 @@ class ChatFloat {
             container: container,
             button: container.querySelector('#chatFloatButton'),
             icon: container.querySelector('#chatFloatIcon'),
-            badge: container.querySelector('#chatNotificationBadge'),
-            preview: container.querySelector('#chatQuickPreview')
+            badge: container.querySelector('#chatNotificationBadge')
         };
     }
     
     bindEvents() {
-        // Click no botão principal
+        // Click no botão principal - abre chat diretamente
         this.elements.button.addEventListener('click', () => {
-            if (this.isPreviewOpen) {
-                this.closePreview();
-            } else {
-                this.openPreview();
-            }
-        });
-        
-        // Fechar prévia ao clicar fora
-        document.addEventListener('click', (e) => {
-            if (this.isPreviewOpen && 
-                !this.elements.container.contains(e.target)) {
-                this.closePreview();
-            }
-        });
-        
-        // ESC para fechar prévia
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isPreviewOpen) {
-                this.closePreview();
-            }
+            this.openFullChat();
         });
         
         // Animação de entrada após carregamento da página
@@ -109,25 +59,9 @@ class ChatFloat {
         }, 1000);
     }
     
-    openPreview() {
-        this.isPreviewOpen = true;
-        this.elements.preview.classList.add('active');
-        this.elements.icon.className = 'fas fa-times';
-        
-        // Analytics (opcional)
-        this.trackEvent('chat_preview_opened');
-    }
-    
-    closePreview() {
-        this.isPreviewOpen = false;
-        this.elements.preview.classList.remove('active');
-        this.elements.icon.className = 'fas fa-comments';
-    }
-    
     openFullChat() {
         // Redirecionar para página completa do chat
         window.open('/chat', '_blank');
-        this.closePreview();
         
         // Analytics
         this.trackEvent('chat_full_opened');
@@ -159,34 +93,13 @@ class ChatFloat {
         }
     }
     
-    // Status do assistente
-    setStatus(status) {
-        this.elements.button.className = `chat-float-button ${status}`;
-        
-        const statusMessages = {
-            online: '💚 Online - Resposta imediata',
-            away: '🟡 Ocupado - Resposta em alguns minutos',
-            busy: '🔴 Indisponível - Deixe sua mensagem',
-            offline: '⚫ Offline - Voltamos em breve'
-        };
-        
-        const tooltip = this.elements.container.querySelector('.chat-float-tooltip');
-        tooltip.textContent = statusMessages[status] || statusMessages.online;
-    }
-    
     checkOnlineStatus() {
         // Simular verificação de status
         // Em produção, isso viria de uma API real
         const isOnline = navigator.onLine;
         const currentHour = new Date().getHours();
         
-        if (!isOnline) {
-            this.setStatus('offline');
-        } else if (currentHour >= 8 && currentHour <= 22) {
-            this.setStatus('online');
-        } else {
-            this.setStatus('away');
-        }
+        // Status removido - chat sempre disponível
         
         // Verificar status a cada 5 minutos
         setTimeout(() => this.checkOnlineStatus(), 5 * 60 * 1000);
@@ -194,7 +107,7 @@ class ChatFloat {
     
     // Animações especiais
     celebrate() {
-        const confetti = document.createElement('div');
+        const confetti = document.createElement('section');
         confetti.innerHTML = '🎉';
         confetti.style.cssText = `
             position: fixed;

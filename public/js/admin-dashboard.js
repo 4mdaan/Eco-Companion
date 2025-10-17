@@ -27,7 +27,7 @@ function updateLastRefresh() {
     const timeString = now.toLocaleTimeString('pt-BR');
     
     // Adicionar indicador de última atualização
-    const refreshIndicator = document.createElement('div');
+    const refreshIndicator = document.createElement('section');
     refreshIndicator.id = 'last-refresh';
     refreshIndicator.style.cssText = `
         position: fixed;
@@ -73,7 +73,7 @@ function loadInitialData() {
 }
 
 function createLoadingOverlay() {
-    const overlay = document.createElement('div');
+    const overlay = document.createElement('section');
     overlay.style.cssText = `
         position: fixed;
         top: 0;
@@ -256,7 +256,7 @@ function addNewReviewToPanel(review) {
     const reviewsContainer = document.querySelector('.recent-reviews');
     if (!reviewsContainer) return;
     
-    const reviewItem = document.createElement('div');
+    const reviewItem = document.createElement('section');
     reviewItem.className = 'review-item new-review';
     reviewItem.innerHTML = `
         <div class="review-content">
@@ -427,7 +427,7 @@ function showTooltip(e) {
     const text = e.target.dataset.tooltip;
     if (!text) return;
     
-    const tooltip = document.createElement('div');
+    const tooltip = document.createElement('section');
     tooltip.className = 'tooltip';
     tooltip.textContent = text;
     tooltip.style.cssText = `
@@ -539,7 +539,7 @@ function updateTrend(trendElement, trend) {
 }
 
 function showEventNotification(event) {
-    const notification = document.createElement('div');
+    const notification = document.createElement('section');
     notification.className = `event-notification ${event.severity}`;
     notification.innerHTML = `
         <div class="event-icon">
@@ -578,7 +578,7 @@ function showEventNotification(event) {
 }
 
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
+    const notification = document.createElement('section');
     notification.className = `admin-notification notification-${type}`;
     notification.textContent = message;
     

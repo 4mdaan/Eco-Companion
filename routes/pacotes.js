@@ -80,6 +80,51 @@ router.get('/', (req, res) => {
       categoria: 'nacional',
       avaliacao: 4.6,
       disponivel: true
+    },
+    {
+      id: 6,
+      destino: 'Fernando de Noronha',
+      periodo: '10 de Jan - 15 de Jan',
+      preco: '2.450',
+      precoOriginal: '2.850',
+      descricao: 'Paraíso ecológico com mergulhos inesquecíveis e paisagens únicas no arquipélago mais bonito do Brasil.',
+      inclusos: ['Hospedagem por 5 noites', 'Café da manhã', 'Mergulho incluído', 'Passeio de barco', 'Guia marinho'],
+      imagem: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60',
+      bgClass: 'bg-fernando-noronha',
+      slug: 'fernando-noronha',
+      categoria: 'nacional',
+      avaliacao: 4.9,
+      disponivel: true
+    },
+    {
+      id: 7,
+      destino: 'Natal',
+      periodo: '15 de Mar - 20 de Mar',
+      preco: '1.380',
+      precoOriginal: '1.650',
+      descricao: 'Explore as dunas de Genipabu e as belas praias do Rio Grande do Norte neste pacote aventura.',
+      inclusos: ['Hospedagem por 5 noites', 'Café da manhã', 'Passeio de buggy', 'Dunas de Genipabu', 'Transfer aeroporto'],
+      imagem: 'https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg',
+      bgClass: 'bg-natal',
+      slug: 'natal',
+      categoria: 'nacional',
+      avaliacao: 4.7,
+      disponivel: true
+    },
+    {
+      id: 8,
+      destino: 'Maceió',
+      periodo: '08 de Abr - 13 de Abr',
+      preco: '1.295',
+      precoOriginal: '1.580',
+      descricao: 'Relaxe nas piscinas naturais de Maragogi e curta as praias paradisíacas de Alagoas.',
+      inclusos: ['Hospedagem por 5 noites', 'Café da manhã', 'Passeio de jangada', 'Piscinas naturais', 'Praia de Pajuçara'],
+      imagem: 'https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg',
+      bgClass: 'bg-maceio',
+      slug: 'maceio',
+      categoria: 'nacional',
+      avaliacao: 4.8,
+      disponivel: true
     }
   ];
 
@@ -255,6 +300,143 @@ router.get('/:slug', (req, res) => {
         '🎬 Visita aos cenários do Festival de Cinema',
         '🍷 Tour exclusivo por vinícolas premiadas',
         '❄️ Diversão na neve no Snowland'
+      ]
+    },
+    {
+      id: 6,
+      destino: 'Fernando de Noronha',
+      periodo: '10 de Jan - 15 de Jan',
+      preco: '2.450',
+      precoOriginal: '2.850',
+      descricao: 'Paraíso ecológico com mergulhos inesquecíveis e paisagens únicas no arquipélago mais bonito do Brasil.',
+      descricaoCompleta: 'Fernando de Noronha é um dos destinos mais exclusivos e preservados do Brasil. Este arquipélago paradisíaco oferece uma experiência única com suas águas cristalinas, vida marinha exuberante e paisagens de tirar o fôlego. Perfeito para quem busca contato com a natureza, mergulhos inesquecíveis e momentos de pura contemplação em um dos poucos santuários ecológicos do mundo.',
+      inclusos: [
+        'Hospedagem por 5 noites em pousada ecológica',
+        'Café da manhã orgânico completo',
+        'Mergulho com cilindro e equipamentos incluídos',
+        'Passeio de barco pelas principais praias',
+        'Trilha do Piquinho com guia especializado',
+        'Visita ao Projeto Tamar',
+        'Taxa de preservação ambiental incluída',
+        'Guia marinho especializado',
+        'Transfer aeroporto/pousada/aeroporto',
+        'Seguro viagem e mergulho'
+      ],
+      naoInclusos: [
+        'Passagem aérea (consulte valores especiais)',
+        'Almoços e jantares',
+        'Bebidas alcoólicas',
+        'Mergulhos extras ou cursos de certificação',
+        'Passeios opcionais não mencionados',
+        'Gastos pessoais e lembranças'
+      ],
+      imagens: [
+        '/imagens/fernandodenoronha.png',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60'
+      ],
+      bgClass: 'bg-fernando-noronha',
+      slug: 'fernando-noronha',
+      categoria: 'nacional',
+      avaliacao: 4.9,
+      disponivel: true,
+      destaque: true,
+      diferenciais: [
+        '🐢 Santuário ecológico preservado',
+        '🏊 Mergulhos em águas cristalinas',
+        '🐠 Rica vida marinha tropical',
+        '🏝️ Praias paradisíacas exclusivas',
+        '📸 Paisagens únicas no mundo',
+        '🌅 Pôr do sol mais bonito do Brasil'
+      ]
+    },
+    {
+      id: 7,
+      destino: 'Natal',
+      periodo: '15 de Mar - 20 de Mar',
+      preco: '1.380',
+      precoOriginal: '1.650',
+      descricao: 'Explore as dunas de Genipabu e as belas praias do Rio Grande do Norte neste pacote aventura.',
+      descricaoCompleta: 'Descubra Natal, a cidade do sol, onde as dunas encontram o mar e a aventura é constante. Este pacote especial oferece uma experiência completa pelo Rio Grande do Norte, incluindo os famosos passeios de buggy pelas dunas de Genipabu, banhos de mar nas praias urbanas e a rica cultura potiguar. Ideal para quem busca diversão, aventura e paisagens naturais únicas do Nordeste brasileiro.',
+      inclusos: [
+        'Hospedagem por 5 noites em hotel 4 estrelas na Ponta Negra',
+        'Café da manhã regional completo',
+        'Passeio de buggy pelas dunas de Genipabu',
+        'Visita à Lagoa de Pitangui com opção de esquibunda',
+        'City tour histórico pelo centro de Natal',
+        'Passeio à praia de Pipa com tempo livre',
+        'Visita ao Cajueiro de Pirangi',
+        'Transfer aeroporto/hotel/aeroporto',
+        'Seguro viagem nacional'
+      ],
+      naoInclusos: [
+        'Passagens aéreas',
+        'Almoços e jantares',
+        'Bebidas durante os passeios',
+        'Atividades opcionais como voo de parapente',
+        'Gastos pessoais e compras',
+        'Gorjetas'
+      ],
+      imagens: [
+        'https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60'
+      ],
+      bgClass: 'bg-natal',
+      slug: 'natal',
+      categoria: 'nacional',
+      avaliacao: 4.7,
+      disponivel: true,
+      diferenciais: [
+        '🏜️ Aventura pelas dunas de Genipabu',
+        '🏖️ Praias paradisíacas de Pipa',
+        '🌳 Maior cajueiro do mundo',
+        '🚗 Passeios de buggy emocionantes',
+        '🏛️ Rica história colonial potiguar',
+        '☀️ Clima tropical o ano todo'
+      ]
+    },
+    {
+      id: 8,
+      destino: 'Maceió',
+      periodo: '08 de Abr - 13 de Abr',
+      preco: '1.295',
+      precoOriginal: '1.580',
+      descricao: 'Relaxe nas piscinas naturais de Maragogi e curta as praias paradisíacas de Alagoas.',
+      descricaoCompleta: 'Experimente o paraíso tropical de Maceió, capital de Alagoas, famosa por suas águas cristalinas e piscinas naturais. Este pacote completo inclui os melhores passeios pela costa alagoana, desde as praias urbanas até os recifes de coral de Maragogi. Uma experiência perfeita para quem busca relaxamento, belezas naturais e a hospitalidade única do povo alagoano.',
+      inclusos: [
+        'Hospedagem por 5 noites em resort na Pajuçara',
+        'Café da manhã tropical completo',
+        'Passeio de jangada às piscinas naturais',
+        'Excursão a Maragogi com day use',
+        'City tour por Maceió e praias urbanas',
+        'Visita à praia de Paripueira',
+        'Passeio ao Saco da Pedra',
+        'Transfer aeroporto/hotel/aeroporto',
+        'Seguro viagem nacional'
+      ],
+      naoInclusos: [
+        'Passagens aéreas',
+        'Almoços e jantares',
+        'Bebidas alcoólicas',
+        'Equipamentos de mergulho',
+        'Passeios opcionais',
+        'Gastos pessoais'
+      ],
+      imagens: [
+        'https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg',
+        'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=60'
+      ],
+      bgClass: 'bg-maceio',
+      slug: 'maceio',
+      categoria: 'nacional',
+      avaliacao: 4.8,
+      disponivel: true,
+      diferenciais: [
+        '🏊 Piscinas naturais cristalinas',
+        '🐠 Rica vida marinha nos recifes',
+        '🏖️ Praias de águas mornas',
+        '🛶 Passeios tradicionais de jangada',
+        '🥥 Gastronomia tropical típica',
+        '🌺 Hospitalidade alagoana autêntica'
       ]
     }
   ];

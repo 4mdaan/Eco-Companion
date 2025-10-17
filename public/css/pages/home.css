@@ -121,6 +121,22 @@
     background-image: url('/imagens/fernandodenoronha.png');
 }
 
+.bg-fernando-noronha {
+    background-image: url('/imagens/fernandodenoronha.png');
+}
+
+.bg-chapada-diamantina {
+    background-image: url('/imagens/gramado.png');
+}
+
+.bg-natal {
+    background-image: url('https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg');
+}
+
+.bg-maceio {
+    background-image: url('https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg');
+}
+
 .bg-gramado {
     background-image: url('/imagens/gramado.png');
 }
@@ -771,5 +787,156 @@
     
     .destinos-main-title {
         font-size: 1.75rem;
+    }
+}
+
+/* Estilos do Carrossel de Pacotes */
+.packages-carousel {
+    position: relative;
+    overflow: hidden;
+    margin: 2rem 0;
+    border-radius: 1rem;
+}
+
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    flex: 1;
+    max-width: calc(100% - 120px);
+    border-radius: 1rem;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.carousel-slide {
+    flex: 0 0 auto;
+    width: 350px;
+    scroll-snap-align: center;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--slate-200);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: var(--slate-600);
+}
+
+.carousel-btn:hover {
+    background: white;
+    color: var(--ocean);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    scale: 1.05;
+}
+
+.carousel-btn:active {
+    scale: 0.95;
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--slate-300);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.carousel-indicator.active {
+    background: var(--ocean);
+    scale: 1.2;
+}
+
+.carousel-indicator:hover {
+    background: var(--ocean-600);
+    scale: 1.1;
+}
+
+/* Adaptações para mobile */
+@media (max-width: 768px) {
+    .carousel-track-container {
+        max-width: calc(100% - 80px);
+    }
+    
+    .carousel-slide {
+        width: 300px;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-prev {
+        left: 5px;
+    }
+    
+    .carousel-next {
+        right: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-track-container {
+        max-width: calc(100% - 60px);
+    }
+    
+    .carousel-slide {
+        width: 280px;
+    }
+    
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-track {
+        gap: 1rem;
     }
 }

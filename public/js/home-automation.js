@@ -122,29 +122,29 @@ function startLiveReviewsFeed(container, reviews) {
 }
 
 function addReviewCard(container, review, isInitial = false, isNew = false) {
-    const reviewCard = document.createElement('div');
+    const reviewCard = document.createElement('section');
     reviewCard.className = `review-card ${isNew ? 'new-review' : ''}`;
     
     const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
     
     reviewCard.innerHTML = `
-        <div class="review-header">
-            <div class="review-avatar">${review.avatar}</div>
-            <div class="review-info">
+        <section class="review-header">
+            <section class="review-avatar">${review.avatar}</section>
+            <section class="review-info">
                 <h4>${review.name}</h4>
-                <div class="review-rating">
+                <section class="review-rating">
                     ${stars.split('').map(star => `<span class="star">${star}</span>`).join('')}
-                </div>
-            </div>
-            ${isNew ? '<div class="live-indicator"><div class="live-dot"></div>Novo</div>' : ''}
-        </div>
+                </section>
+            </section>
+            ${isNew ? '<section class="live-indicator"><section class="live-dot"></section>Novo</section>' : ''}
+        </section>
         
         <p class="review-text">"${review.text}"</p>
         
-        <div class="review-meta">
+        <section class="review-meta">
             <span class="review-destination">${review.destination}</span>
             <span class="review-time">${review.time}</span>
-        </div>
+        </section>
     `;
     
     if (isNew) {
@@ -456,7 +456,7 @@ function showIntegrationDetails(service) {
 }
 
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
+    const notification = document.createElement('section');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     

@@ -54,12 +54,12 @@ function startSecurityMonitoring() {
 }
 
 function showSecurityAlert(message) {
-    const alert = document.createElement('div');
+    const alert = document.createElement('section');
     alert.className = 'security-alert';
     alert.innerHTML = `
-        <div class="alert-content">
+        <section class="alert-content">
             🛡️ ${message}
-        </div>
+        </section>
     `;
     alert.style.cssText = `
         position: fixed;
@@ -137,14 +137,14 @@ function initSmartNotifications() {
 }
 
 function showSmartNotification(notification) {
-    const notif = document.createElement('div');
+    const notif = document.createElement('section');
     notif.className = `smart-notification notification-${notification.type}`;
     notif.innerHTML = `
-        <div class="notification-content">
+        <section class="notification-content">
             <span class="notification-icon">${notification.icon}</span>
             <span class="notification-text">${notification.message}</span>
             <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
+        </section>
     `;
     
     notif.style.cssText = `
@@ -302,12 +302,12 @@ function loadSocialProof() {
 }
 
 function showSocialProof() {
-    const proof = document.createElement('div');
+    const proof = document.createElement('section');
     proof.className = 'social-proof';
     proof.innerHTML = `
-        <div class="proof-content">
+        <section class="proof-content">
             👥 <strong>127 pessoas</strong> visualizaram esta página nas últimas 24h
-        </div>
+        </section>
     `;
     
     proof.style.cssText = `
@@ -380,12 +380,12 @@ function initAPIIntegrations() {
 function loadWeatherAPI() {
     // Simular carregamento de dados de clima
     setTimeout(() => {
-        const weatherWidget = document.createElement('div');
+        const weatherWidget = document.createElement('section');
         weatherWidget.className = 'weather-widget';
         weatherWidget.innerHTML = `
-            <div class="weather-content">
+            <section class="weather-content">
                 🌤️ Rio de Janeiro: 28°C
-            </div>
+            </section>
         `;
         
         weatherWidget.style.cssText = `
@@ -413,7 +413,7 @@ function initSupportFeatures() {
 
 // === UTILITY FUNCTIONS ===
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
+    const notification = document.createElement('section');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     

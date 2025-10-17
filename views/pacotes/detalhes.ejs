@@ -55,7 +55,15 @@
       <% } %>
       <section class="current-price">R$ <%= pacote.preco %></section>
       <section class="price-label">por pessoa</section>
-      <button class="btn-quick-book" onclick="adicionarAoCarrinho('<%= pacote.slug %>')">Adicionar ao Carrinho</button>
+      <button class="btn-quick-book" 
+              data-pacote-id="<%= pacote.id %>"
+              data-pacote-nome="<%= pacote.destino %>"
+              data-pacote-preco="<%= pacote.preco %>"
+              data-pacote-periodo="<%= pacote.periodo %>"
+              data-pacote-imagem="<%= pacote.imagem || '/imagens/default.jpg' %>"
+              onclick="adicionarAoCarrinho(this)">
+        Adicionar ao Carrinho
+      </button>
     </section>
   </section>
 </section>
@@ -197,4 +205,5 @@
 <%- include('../partials/scripts') %>
 
 <script src="/js/carrinho.js"></script>
+<script src="/js/packages.js"></script>
 <script>

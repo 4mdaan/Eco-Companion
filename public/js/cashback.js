@@ -265,16 +265,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Criar nova notificação
-        const notification = document.createElement('div');
+        const notification = document.createElement('section');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
-            <div class="notification-content">
-                <div class="notification-icon">
+            <section class="notification-content">
+                <section class="notification-icon">
                     ${getNotificationIcon(type)}
-                </div>
-                <div class="notification-message">${message}</div>
+                </section>
+                <section class="notification-message">${message}</section>
                 <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-            </div>
+            </section>
         `;
         
         // Adicionar estilos se não existirem

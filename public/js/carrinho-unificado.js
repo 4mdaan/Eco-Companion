@@ -263,7 +263,7 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
         notificacaoAnterior.remove();
     }
     
-    const notificacao = document.createElement('div');
+    const notificacao = document.createElement('section');
     notificacao.className = `notification notification-${tipo}`;
     notificacao.innerHTML = `
         <div class="notification-content">

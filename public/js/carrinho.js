@@ -16,15 +16,15 @@ function carregarCarrinho() {
 // Função para mostrar carrinho vazio
 function mostrarCarrinhoVazio(container) {
     container.innerHTML = `
-        <div class="carrinho-vazio">
-            <div class="vazio-icon">🛒</div>
+        <section class="carrinho-vazio">
+            <section class="vazio-icon">🛒</section>
             <h2 class="vazio-title">Seu carrinho está vazio</h2>
             <p class="vazio-description">Adicione alguns pacotes incríveis para começar sua jornada!</p>
             <a href="/pacotes" class="btn-continuar-compras">
                 <span class="btn-icon">🏖️</span>
                 Ver Pacotes Disponíveis
             </a>
-        </div>
+        </section>
     `;
 }
 
@@ -33,29 +33,29 @@ function mostrarItensCarrinho(carrinho, container) {
     const totais = calcularTotais(carrinho);
     
     container.innerHTML = `
-        <div class="carrinho-grid">
-            <div class="carrinho-items">
+        <section class="carrinho-grid">
+            <section class="carrinho-items">
                 <h2 class="section-title">Seus Pacotes (${carrinho.length})</h2>
                 ${carrinho.map(item => criarItemHTML(item)).join('')}
-            </div>
+            </section>
             
-            <div class="carrinho-resumo">
-                <div class="resumo-card">
+            <section class="carrinho-resumo">
+                <section class="resumo-card">
                     <h3 class="resumo-title">Resumo do Pedido</h3>
                     
-                    <div class="resumo-linha">
+                    <section class="resumo-linha">
                         <span class="resumo-label">Subtotal (${totais.quantidade} ${totais.quantidade === 1 ? 'pessoa' : 'pessoas'}):</span>
                         <span class="resumo-valor">R$ ${totais.subtotal.toLocaleString('pt-BR')}</span>
-                    </div>
+                    </section>
                     
-                    <div class="resumo-divider"></div>
+                    <section class="resumo-divider"></section>
                     
-                    <div class="resumo-total">
+                    <section class="resumo-total">
                         <span class="total-label">Total:</span>
                         <span class="total-valor">R$ ${totais.total.toLocaleString('pt-BR')}</span>
-                    </div>
+                    </section>
                     
-                    <div class="resumo-actions">
+                    <section class="resumo-actions">
                         <button class="btn-checkout" onclick="finalizarCompra()">
                             <span class="btn-icon">💳</span>
                             Finalizar Compra
@@ -70,10 +70,10 @@ function mostrarItensCarrinho(carrinho, container) {
                             <span class="btn-icon">🗑️</span>
                             Limpar Carrinho
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
     `;
     
     atualizarContadorCarrinho();
@@ -85,33 +85,33 @@ function criarItemHTML(item) {
     const totalItem = precoNum * item.quantidade;
     
     return `
-        <div class="carrinho-item" data-item-id="${item.id}">
-            <div class="item-image ${item.imagem}"></div>
+        <section class="carrinho-item" data-item-id="${item.id}">
+            <section class="item-image" style="background-image: url('${item.imagem}'); background-size: cover; background-position: center;"></section>
             
-            <div class="item-info">
+            <section class="item-info">
                 <h3 class="item-title">${item.nome}</h3>
                 <p class="item-periodo">${item.periodo}</p>
                 
-                <div class="item-precos">
+                <section class="item-precos">
                     <span class="preco-atual">R$ ${item.preco.toLocaleString('pt-BR')}</span>
                     <span class="preco-label">por pessoa</span>
-                </div>
-            </div>
+                </section>
+            </section>
             
-            <div class="item-actions">
-                <div class="quantidade-control">
+            <section class="item-actions">
+                <section class="quantidade-control">
                     <label class="quantidade-label">Pessoas:</label>
-                    <div class="quantidade-input">
+                    <section class="quantidade-input">
                         <button type="button" class="btn-menos" onclick="alterarQuantidade('${item.id}', -1)">-</button>
                         <input type="number" value="${item.quantidade}" min="1" max="10" class="input-quantidade" onchange="atualizarQuantidade('${item.id}', this.value)">
                         <button type="button" class="btn-mais" onclick="alterarQuantidade('${item.id}', 1)">+</button>
-                    </div>
-                </div>
+                    </section>
+                </section>
                 
-                <div class="item-total">
+                <section class="item-total">
                     <span class="total-label">Total:</span>
                     <span class="total-valor">R$ ${totalItem.toLocaleString('pt-BR')}</span>
-                </div>
+                </section>
                 
                 <button type="button" class="btn-remover" onclick="removerItem('${item.id}')">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -120,8 +120,8 @@ function criarItemHTML(item) {
                     </svg>
                     Remover
                 </button>
-            </div>
-        </div>
+            </section>
+        </section>
     `;
 }
 
@@ -247,16 +247,16 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
         notificacaoAnterior.remove();
     }
     
-    const notificacao = document.createElement('div');
+    const notificacao = document.createElement('section');
     notificacao.className = `notification notification-${tipo}`;
     notificacao.innerHTML = `
-        <div class="notification-content">
+        <section class="notification-content">
             <span class="notification-icon">
                 ${tipo === 'success' ? '✅' : tipo === 'info' ? 'ℹ️' : '⚠️'}
             </span>
             <span class="notification-message">${mensagem}</span>
             <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
+        </section>
     `;
     
     document.body.appendChild(notificacao);

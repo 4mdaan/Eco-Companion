@@ -180,28 +180,28 @@ class CleanReviewsSystem {
     }
     
     createReviewElement(reviewData, isActive = false) {
-        const reviewDiv = document.createElement('div');
+        const reviewDiv = document.createElement('section');
         reviewDiv.className = `review-minimal ${isActive ? 'active' : ''}`;
         
         const stars = '★'.repeat(reviewData.rating);
-        const onlineDot = isActive ? '<div class="online-dot"></div>' : '';
+        const onlineDot = isActive ? '<section class="online-dot"></section>' : '';
         
         reviewDiv.innerHTML = `
-            <div class="review-avatar">
+            <section class="review-avatar">
                 <img src="${reviewData.avatar}" alt="${reviewData.name.split(' ')[0]}">
                 ${onlineDot}
-            </div>
-            <div class="review-bubble">
-                <div class="review-content">
-                    <div class="review-meta">
+            </section>
+            <section class="review-bubble">
+                <section class="review-content">
+                    <section class="review-meta">
                         <span class="reviewer-name">${reviewData.name}</span>
-                        <div class="rating-stars">${stars}</div>
+                        <section class="rating-stars">${stars}</section>
                         <span class="review-time">${reviewData.time}</span>
-                    </div>
+                    </section>
                     <p>"${reviewData.text}"</p>
-                </div>
-                <div class="bubble-tail"></div>
-            </div>
+                </section>
+                <section class="bubble-tail"></section>
+            </section>
         `;
         
         return reviewDiv;
@@ -242,7 +242,7 @@ class CleanReviewsSystem {
     
     showNewReviewNotification() {
         // Criar notificação sutil
-        const notification = document.createElement('div');
+        const notification = document.createElement('section');
         notification.style.cssText = `
             position: fixed;
             top: 20px;

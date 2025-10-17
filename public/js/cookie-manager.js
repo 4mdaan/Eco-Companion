@@ -40,18 +40,18 @@ class CookieManager {
         // Verificar se o banner já existe
         if (document.getElementById('cookie-banner')) return;
         
-        const banner = document.createElement('div');
+        const banner = document.createElement('section');
         banner.id = 'cookie-banner';
         banner.innerHTML = `
-            <div class="cookie-banner-container">
-                <div class="cookie-banner-content">
-                    <div class="cookie-icon">🍪</div>
-                    <div class="cookie-text">
+            <section class="cookie-banner-container">
+                <section class="cookie-banner-content">
+                    <section class="cookie-icon">🍪</section>
+                    <section class="cookie-text">
                         <h4>Nós usamos cookies</h4>
                         <p>Este site usa cookies para melhorar sua experiência de navegação, personalizar conteúdo e analisar nosso tráfego. Ao continuar navegando, você concorda com nossa <a href="/cookies" target="_blank">Política de Cookies</a>.</p>
-                    </div>
-                </div>
-                <div class="cookie-actions">
+                    </section>
+                </section>
+                <section class="cookie-actions">
                     <button id="accept-all-cookies" class="btn-accept-all">
                         ✅ Aceitar Todos
                     </button>
@@ -61,8 +61,8 @@ class CookieManager {
                     <button id="reject-optional-cookies" class="btn-reject">
                         ❌ Apenas Essenciais
                     </button>
-                </div>
-            </div>
+                </section>
+            </section>
         `;
         
         document.body.appendChild(banner);
@@ -77,72 +77,72 @@ class CookieManager {
         // Verificar se o modal já existe
         if (document.getElementById('cookie-settings-modal')) return;
         
-        const modal = document.createElement('div');
+        const modal = document.createElement('section');
         modal.id = 'cookie-settings-modal';
         modal.innerHTML = `
-            <div class="cookie-modal-overlay">
-                <div class="cookie-modal-content">
-                    <div class="cookie-modal-header">
+            <section class="cookie-modal-overlay">
+                <section class="cookie-modal-content">
+                    <section class="cookie-modal-header">
                         <h3>⚙️ Configurações de Cookies</h3>
                         <button class="cookie-modal-close" aria-label="Fechar">×</button>
-                    </div>
+                    </section>
                     
-                    <div class="cookie-modal-body">
+                    <section class="cookie-modal-body">
                         <p>Personalize suas preferências de cookies. Você pode alterar essas configurações a qualquer momento.</p>
                         
-                        <div class="cookie-category-settings">
-                            <div class="cookie-category-item">
-                                <div class="cookie-category-header">
+                        <section class="cookie-category-settings">
+                            <section class="cookie-category-item">
+                                <section class="cookie-category-header">
                                     <h4>🔧 Cookies Essenciais</h4>
                                     <label class="cookie-toggle disabled">
                                         <input type="checkbox" checked disabled>
                                         <span class="slider"></span>
                                     </label>
-                                </div>
+                                </section>
                                 <p>Necessários para o funcionamento básico do site. Não podem ser desabilitados.</p>
-                            </div>
+                            </section>
                             
-                            <div class="cookie-category-item">
-                                <div class="cookie-category-header">
+                            <section class="cookie-category-item">
+                                <section class="cookie-category-header">
                                     <h4>📊 Cookies de Performance</h4>
                                     <label class="cookie-toggle">
                                         <input type="checkbox" id="performance-cookies" ${this.cookieSettings.performance ? 'checked' : ''}>
                                         <span class="slider"></span>
                                     </label>
-                                </div>
+                                </section>
                                 <p>Ajudam a entender como os visitantes interagem com o site através de dados anônimos.</p>
-                            </div>
+                            </section>
                             
-                            <div class="cookie-category-item">
-                                <div class="cookie-category-header">
+                            <section class="cookie-category-item">
+                                <section class="cookie-category-header">
                                     <h4>🎯 Cookies de Funcionalidade</h4>
                                     <label class="cookie-toggle">
                                         <input type="checkbox" id="functionality-cookies" ${this.cookieSettings.functionality ? 'checked' : ''}>
                                         <span class="slider"></span>
                                     </label>
-                                </div>
+                                </section>
                                 <p>Permitem funcionalidades aprimoradas e personalizadas baseadas em suas escolhas.</p>
-                            </div>
+                            </section>
                             
-                            <div class="cookie-category-item">
-                                <div class="cookie-category-header">
+                            <section class="cookie-category-item">
+                                <section class="cookie-category-header">
                                     <h4>📢 Cookies de Marketing</h4>
                                     <label class="cookie-toggle">
                                         <input type="checkbox" id="marketing-cookies" ${this.cookieSettings.marketing ? 'checked' : ''}>
                                         <span class="slider"></span>
                                     </label>
-                                </div>
+                                </section>
                                 <p>Utilizados para personalizar anúncios e medir a eficácia das campanhas publicitárias.</p>
-                            </div>
-                        </div>
-                    </div>
+                            </section>
+                        </section>
+                    </section>
                     
-                    <div class="cookie-modal-footer">
+                    <section class="cookie-modal-footer">
                         <button id="save-cookie-preferences" class="btn-save">💾 Salvar Preferências</button>
                         <button id="accept-all-from-modal" class="btn-accept">✅ Aceitar Todos</button>
-                    </div>
-                </div>
-            </div>
+                    </section>
+                </section>
+            </section>
         `;
         
         document.body.appendChild(modal);
@@ -348,13 +348,13 @@ class CookieManager {
     }
     
     showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
+        const notification = document.createElement('section');
         notification.className = `cookie-notification ${type}`;
         notification.innerHTML = `
-            <div class="notification-content">
+            <section class="notification-content">
                 <span>${message}</span>
                 <button onclick="this.parentElement.parentElement.remove()" aria-label="Fechar">×</button>
-            </div>
+            </section>
         `;
         
         document.body.appendChild(notification);

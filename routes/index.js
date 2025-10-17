@@ -25,6 +25,20 @@ router.get('/', (req, res) => {
       preco: '1.828',
       bgClass: 'bg-porto-seguro',
       slug: 'porto-seguro'
+    },
+    {
+      destino: 'Natal',
+      periodo: '15 de Mar - 20 de Mar',
+      preco: '1.380',
+      bgClass: 'bg-natal',
+      slug: 'natal'
+    },
+    {
+      destino: 'Maceió',
+      periodo: '08 de Abr - 13 de Abr',
+      preco: '1.295',
+      bgClass: 'bg-maceio',
+      slug: 'maceio'
     }
   ];
 
