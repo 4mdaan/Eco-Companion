@@ -73,6 +73,8 @@
       </style>
     <% } %>
     
+    <!-- Formulário Principal do Checkout -->
+    <form id="checkout-form" method="POST" action="/carrinho/checkout" novalidate>
     <section class="checkout-grid">
       <!-- Formulário de Dados -->
       <section class="checkout-dados">
@@ -82,23 +84,23 @@
           
           <section class="customer-info">
             <section class="form-group">
-              <label for="customer-name">Nome Completo *</label>
-              <input type="text" id="customer-name" name="customer-name" required>
+              <label for="nome">Nome Completo *</label>
+              <input type="text" id="nome" name="nome" required>
             </section>
             
             <section class="form-group">
-              <label for="customer-email">E-mail *</label>
-              <input type="email" id="customer-email" name="customer-email" required>
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" name="email" required>
             </section>
             
             <section class="form-group">
-              <label for="customer-phone">Telefone *</label>
-              <input type="tel" id="customer-phone" name="customer-phone" required>
+              <label for="telefone">Telefone *</label>
+              <input type="tel" id="telefone" name="telefone" required>
             </section>
             
             <section class="form-group">
-              <label for="customer-document">CPF/CNPJ *</label>
-              <input type="text" id="customer-document" name="customer-document" required>
+              <label for="cpf">CPF/CNPJ *</label>
+              <input type="text" id="cpf" name="cpf" required>
             </section>
           </section>
         </section>
@@ -151,6 +153,9 @@
         </section>
 
         <!-- Total do Pedido -->
+        <!-- Método de Pagamento Selecionado (Hidden) -->
+        <input type="hidden" id="metodoPagamento" name="metodoPagamento" value="cartao">
+        
         <section class="form-section">
           <section id="payment-total" class="payment-total">
             <!-- Total será calculado dinamicamente -->
@@ -207,7 +212,7 @@
             
             <!-- Botões -->
             <section class="checkout-actions">
-              <button type="button" id="checkout-btn" class="btn-payment">
+              <button type="submit" id="checkout-btn" class="btn-payment">
                 Finalizar Compra
               </button>
               
@@ -237,6 +242,7 @@
       </section>
     </section>
   </section>
+  </form> <!-- Fim do formulário principal -->
 </section>
 
 <!-- Modal de Pagamento -->
@@ -279,7 +285,7 @@
 // Máscaras e validações para formulários
 document.addEventListener('DOMContentLoaded', function() {
   // Máscara para CPF/CNPJ
-  const documentInput = document.getElementById('customer-document');
+  const documentInput = document.getElementById('cpf');
   if (documentInput) {
     documentInput.addEventListener('input', function() {
       this.value = PaymentUtils.formatDocument(this.value);
@@ -300,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Máscara para telefone
-  const phoneInput = document.getElementById('customer-phone');
+  const phoneInput = document.getElementById('telefone');
   if (phoneInput) {
     phoneInput.addEventListener('input', function() {
       this.value = PaymentUtils.formatPhone(this.value);
@@ -308,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Validação de email
-  const emailInput = document.getElementById('customer-email');
+  const emailInput = document.getElementById('email');
   if (emailInput) {
     emailInput.addEventListener('blur', function() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -321,6 +327,42 @@ document.addEventListener('DOMContentLoaded', function() {
         formGroup.classList.remove('success');
         formGroup.classList.add('error');
       }
+    });
+  }
+
+  // Validação do formulário principal
+  const checkoutForm = document.getElementById('checkout-form');
+  if (checkoutForm) {
+    checkoutForm.addEventListener('submit', function(e) {
+      // Validar campos obrigatórios
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+      
+      if (!nome || !email || !telefone || !cpf) {
+        e.preventDefault();
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return false;
+      }
+      
+      // Validar email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        e.preventDefault();
+        alert('Por favor, digite um email válido.');
+        return false;
+      }
+      
+      // Validar CPF
+      if (!PaymentUtils.validateCPF(cpf)) {
+        e.preventDefault();
+        alert('Por favor, digite um CPF válido.');
+        return false;
+      }
+      
+      // Se chegou até aqui, o form é válido
+      return true;
     });
   }
 

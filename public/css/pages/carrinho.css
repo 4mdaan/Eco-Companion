@@ -765,6 +765,116 @@
     color: #64748b;
 }
 
+/* Seção de Cashback */
+.cashback-info {
+    margin: 2rem 0;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.cashback-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(30px, -30px);
+}
+
+.cashback-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+}
+
+.cashback-card {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.cashback-pontos {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 0.75rem;
+    min-width: 120px;
+}
+
+.pontos-numero {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.pontos-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cashback-detalhes {
+    flex: 1;
+}
+
+.cashback-texto {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.cashback-nivel {
+    margin-bottom: 0.75rem;
+}
+
+.nivel-atual {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.cashback-percent {
+    opacity: 0.8;
+    font-size: 0.875rem;
+}
+
+.pontos-totais {
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-ver-cashback {
+    display: inline-block;
+    background: white;
+    color: var(--green-600);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.btn-ver-cashback:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* Pacotes reservados */
 .pacote-resumo {
     display: flex;
@@ -940,6 +1050,16 @@
     
     .sucesso-actions {
         flex-direction: column;
+    }
+    
+    .cashback-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .cashback-pontos {
+        min-width: auto;
     }
 }
 

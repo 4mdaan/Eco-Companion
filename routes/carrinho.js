@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+// Importar funções do cashback
+const cashbackRouter = require('./cashback');
+
 // Simulação de sessão de carrinho (em produção, usar sessões reais ou banco de dados)
 let carrinho = [];
 
@@ -228,6 +231,27 @@ router.post('/checkout', (req, res) => {
     return res.redirect('/carrinho/checkout?erro=dados-incompletos');
   }
   
+  // Calcular valor total da compra para cashback
+  let valorTotalCompra = 0;
+  let descricaoCompra = '';
+  
+  carrinho.forEach(item => {
+    const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+    valorTotalCompra += precoNum * item.quantidade;
+    if (descricaoCompra) {
+      descricaoCompra += ', ';
+    }
+    descricaoCompra += item.destino;
+  });
+  
+  // Processar cashback
+  let pontosGanhos = 0;
+  try {
+    pontosGanhos = cashbackRouter.adicionarPontosPorCompra(valorTotalCompra, `Pacote: ${descricaoCompra}`);
+  } catch (error) {
+    console.error('Erro ao processar cashback:', error);
+  }
+  
   // Aqui você processaria o pagamento e salvaria no banco de dados
   // Por enquanto, vamos simular sucesso
   
@@ -242,7 +266,12 @@ router.post('/checkout', (req, res) => {
     description: 'Sua reserva foi confirmada. Você receberá os detalhes por email.',
     numeroReserva: numeroReserva,
     itens: itensPedido,
-    dadosCliente: { nome, email, telefone }
+    dadosCliente: { nome, email, telefone },
+    cashback: {
+      pontosGanhos: pontosGanhos,
+      valorTotal: valorTotalCompra,
+      dadosUsuario: cashbackRouter.dadosUsuario
+    }
   });
 });
 

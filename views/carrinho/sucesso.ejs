@@ -49,6 +49,40 @@
           </section>
         </section>
         
+        <!-- Cashback Ganho -->
+        <% if (cashback && cashback.pontosGanhos > 0) { %>
+        <section class="cashback-info">
+          <h3 class="cashback-title">🎉 Cashback Eco Ganho!</h3>
+          
+          <section class="cashback-card">
+            <section class="cashback-pontos">
+              <span class="pontos-numero">+<%= cashback.pontosGanhos %></span>
+              <span class="pontos-label">pontos</span>
+            </section>
+            
+            <section class="cashback-detalhes">
+              <p class="cashback-texto">
+                Parabéns! Você ganhou <strong><%= cashback.pontosGanhos %> pontos</strong> 
+                com esta compra de <strong>R$ <%= cashback.valorTotal.toLocaleString('pt-BR') %></strong>
+              </p>
+              
+              <section class="cashback-nivel">
+                <span class="nivel-atual">Nível: <%= cashback.dadosUsuario.nivelCashback %></span>
+                <span class="cashback-percent">(<%= cashback.dadosUsuario.porcentagemCashback %>% de cashback)</span>
+              </section>
+              
+              <section class="pontos-totais">
+                Seus pontos totais: <strong><%= cashback.dadosUsuario.pontosTotal %> pontos</strong>
+              </section>
+              
+              <a href="/cashback" class="btn-ver-cashback">
+                Ver Programa Cashback
+              </a>
+            </section>
+          </section>
+        </section>
+        <% } %>
+        
         <!-- Próximos Passos -->
         <section class="proximos-passos">
           <h3 class="passos-title">Próximos Passos</h3>
