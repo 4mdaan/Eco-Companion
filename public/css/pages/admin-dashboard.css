@@ -23,6 +23,38 @@ body {
   align-items: center;
 }
 
+.admin-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-to-home-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.back-to-home-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.back-to-home-btn i {
+  font-size: 14px;
+}
+
 .admin-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -645,6 +677,23 @@ body {
   .admin-nav {
     flex-direction: column;
     gap: 15px;
+  }
+  
+  .admin-nav-left {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .back-to-home-btn {
+    justify-content: center;
+    width: fit-content;
+    align-self: center;
+  }
+  
+  .admin-title {
+    text-align: center;
+    font-size: 1.5rem;
   }
   
   .admin-controls {
