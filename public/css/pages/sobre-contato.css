@@ -189,6 +189,15 @@
 .pilar-icon {
   font-size: 3rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pilar-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .pilar-card h3 {

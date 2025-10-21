@@ -46,7 +46,8 @@ class CleanReviewsSystem {
             },
             {
                 name: "Pedro A.",
-                avatar: "https://i.pravatar.cc/48?img=6",
+                avatar: null,
+                initials: "PA",
                 rating: 5,
                 text: "Floripa superou expectativas! Praias lindas e hotel top!",
                 time: "4 min",
@@ -186,9 +187,13 @@ class CleanReviewsSystem {
         const stars = '★'.repeat(reviewData.rating);
         const onlineDot = isActive ? '<section class="online-dot"></section>' : '';
         
+        const avatarContent = reviewData.avatar ? 
+            `<img src="${reviewData.avatar}" alt="${reviewData.name.split(' ')[0]}">` :
+            `<section class="avatar-initials">${reviewData.initials || reviewData.name.split(' ').map(n => n[0]).join('')}</section>`;
+        
         reviewDiv.innerHTML = `
             <section class="review-avatar">
-                <img src="${reviewData.avatar}" alt="${reviewData.name.split(' ')[0]}">
+                ${avatarContent}
                 ${onlineDot}
             </section>
             <section class="review-bubble">

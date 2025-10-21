@@ -277,9 +277,17 @@
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     transition: all 0.2s ease;
     cursor: pointer;
+}
+
+.topic-logo {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .topic-tag:hover {

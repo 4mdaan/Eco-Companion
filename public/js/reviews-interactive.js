@@ -87,10 +87,14 @@ class ReviewsSystem {
         const stars = '★'.repeat(review.rating);
         const liveIndicator = review.isLive ? '<span class="live-indicator">🔴 AO VIVO</span>' : '';
         
+        const avatarContent = review.avatar ? 
+            `<img src="${review.avatar}" alt="${review.name}" loading="lazy">` :
+            `<section class="avatar-initials">${review.initials || review.name.split(' ').map(n => n[0]).join('')}</section>`;
+        
         card.innerHTML = `
             <section class="review-header">
                 <section class="reviewer-avatar">
-                    <img src="${review.avatar}" alt="${review.name}" loading="lazy">
+                    ${avatarContent}
                 </section>
                 <section class="reviewer-info">
                     <h4 class="reviewer-name">${review.name}</h4>
@@ -277,7 +281,8 @@ class ReviewsSystem {
         const newReviews = [
             {
                 name: "Pedro Almeida",
-                avatar: "https://i.pravatar.cc/60?img=6",
+                avatar: null,
+                initials: "PA",
                 rating: 5,
                 text: "Acabei de voltar de Florianópolis e foi simplesmente perfeito! Recomendo a todos!",
                 tags: ["Floripa Incrível"],

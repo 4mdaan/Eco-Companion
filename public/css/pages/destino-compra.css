@@ -673,6 +673,15 @@
 .btn-explorar {
   background: linear-gradient(135deg, var(--yellow-400), var(--yellow-500));
   color: var(--slate-800);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .btn-home {
