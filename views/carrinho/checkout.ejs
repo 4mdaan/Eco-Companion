@@ -11,7 +11,7 @@
 <!-- Hero do Checkout -->
 <section class="checkout-hero">
   <section class="container">
-    <h1 class="checkout-title">Finalizar Compra</h1>
+    <h1 class="checkout-title inter-font">Finalizar Compra</h1>
     <p class="checkout-subtitle">Complete seus dados e escolha a forma de pagamento</p>
     
     <!-- Progress Steps -->
@@ -80,7 +80,7 @@
       <section class="checkout-dados">
         <!-- Dados do Cliente -->
         <section class="form-section">
-          <h2 class="section-title">Dados do Cliente</h2>
+          <h2 class="section-title inter-font">Dados do Cliente</h2>
           
           <section class="customer-info">
             <section class="form-group">
@@ -106,50 +106,72 @@
         </section>
         <!-- Métodos de Pagamento -->
         <section class="form-section">
-          <h2 class="section-title">Escolha o Método de Pagamento</h2>
+          <h2 class="section-title inter-font">Escolha o Método de Pagamento</h2>
+          <p class="section-subtitle">Selecione uma das opções abaixo para finalizar sua compra</p>
           
-          <!-- Container dos métodos de pagamento -->
-          <section id="payment-methods" class="payment-methods">
-            <!-- Métodos serão carregados dinamicamente via JavaScript -->
+          <!-- Grid dos métodos de pagamento -->
+          <section class="payment-methods-grid">
+            <!-- Cartão de Crédito/Débito -->
+            <a href="/carrinho/pagamento/cartao" class="payment-method-card">
+              <section class="payment-icon">💳</section>
+              <section class="payment-content">
+                <h3 class="payment-title">Cartão de Crédito/Débito</h3>
+                <p class="payment-desc">Pague com segurança usando seu cartão</p>
+                <section class="payment-features">
+                  <span class="feature">✅ Aprovação instantânea</span>
+                  <span class="feature">✅ Parcelamento até 6x</span>
+                  <span class="feature">✅ Todas as bandeiras</span>
+                </section>
+              </section>
+              <section class="payment-arrow">→</section>
+            </a>
+
+            <!-- PIX -->
+            <a href="/carrinho/pagamento/pix" class="payment-method-card destaque">
+              <section class="payment-icon">🔲</section>
+              <section class="payment-content">
+                <h3 class="payment-title">PIX</h3>
+                <p class="payment-desc">Pagamento instantâneo via PIX</p>
+                <section class="payment-features">
+                  <span class="feature popular">🔥 2% de desconto</span>
+                  <span class="feature">✅ Aprovação imediata</span>
+                  <span class="feature">✅ Disponível 24h</span>
+                </section>
+              </section>
+              <section class="payment-arrow">→</section>
+            </a>
+
+            <!-- Boleto Bancário -->
+            <a href="/carrinho/pagamento/boleto" class="payment-method-card">
+              <section class="payment-icon">📄</section>
+              <section class="payment-content">
+                <h3 class="payment-title">Boleto Bancário</h3>
+                <p class="payment-desc">Pague em bancos, lotéricas ou apps</p>
+                <section class="payment-features">
+                  <span class="feature">✅ Sem taxas adicionais</span>
+                  <span class="feature">✅ Vencimento em 3 dias</span>
+                  <span class="feature">✅ Aceito em todo Brasil</span>
+                </section>
+              </section>
+              <section class="payment-arrow">→</section>
+            </a>
           </section>
 
-          <!-- Container para cartão de crédito/débito -->
-          <section id="card-container" class="payment-container">
-            <h4>Dados do Cartão</h4>
-            <section id="card-element">
-              <!-- Stripe Elements será montado aqui -->
-            </section>
-            <section id="card-errors" class="card-errors" role="alert"></section>
-            
-            <!-- Parcelamento para cartão de crédito -->
-            <section id="installments-container" class="installments-container" style="display: none;">
-              <label for="installments">Parcelamento</label>
-              <select id="installments">
-                <option value="1">1x à vista</option>
-              </select>
-              <section id="installment-display"></section>
+          <!-- Informações de Segurança -->
+          <section class="payment-security">
+            <h4 class="security-title">🔒 Seus dados estão protegidos</h4>
+            <section class="security-features">
+              <span class="security-item">🛡️ SSL 256-bit</span>
+              <span class="security-item">🔐 PCI DSS Compliant</span>
+              <span class="security-item">✅ Dados criptografados</span>
             </section>
           </section>
 
-          <!-- Container para PIX -->
-          <section id="pix-container" class="payment-container">
-            <section class="pix-info">
-              <section class="pix-icon">💳</section>
-              <h4>Pagamento via PIX</h4>
-              <p>Você será redirecionado para completar o pagamento</p>
-              <p><strong>Desconto de 5%</strong> para pagamentos via PIX!</p>
-            </section>
-          </section>
 
-          <!-- Container para Boleto -->
-          <section id="boleto-container" class="payment-container">
-            <section class="boleto-info">
-              <section class="boleto-icon">�</section>
-              <h4>Boleto Bancário</h4>
-              <p>Você será redirecionado para imprimir o boleto</p>
-              <p><strong>Vencimento:</strong> 3 dias úteis</p>
-            </section>
-          </section>
+
+
+
+
         </section>
 
         <!-- Total do Pedido -->

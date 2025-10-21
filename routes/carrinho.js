@@ -401,4 +401,147 @@ router.get('/pagamento-pendente', (req, res) => {
   });
 });
 
+// Rotas para métodos de pagamento específicos
+// Página de pagamento com cartão
+router.get('/pagamento/cartao', (req, res) => {
+  if (carrinho.length === 0) {
+    return res.redirect('/carrinho?vazio=true');
+  }
+
+  // Calcular totais
+  let subtotal = 0;
+  carrinho.forEach(item => {
+    const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+    subtotal += precoNum * item.quantidade;
+  });
+
+  res.render('carrinho/pagamento-cartao', {
+    title: 'Pagamento com Cartão - Eco Companion',
+    description: 'Complete o pagamento com segurança usando seu cartão de crédito ou débito.',
+    carrinho: carrinho,
+    total: subtotal,
+    dadosCliente: req.session?.dadosCliente || {}
+  });
+});
+
+// Página de pagamento PIX
+router.get('/pagamento/pix', (req, res) => {
+  if (carrinho.length === 0) {
+    return res.redirect('/carrinho?vazio=true');
+  }
+
+  // Calcular totais
+  let subtotal = 0;
+  carrinho.forEach(item => {
+    const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+    subtotal += precoNum * item.quantidade;
+  });
+
+  // Gerar código PIX simulado
+  const codigoPix = `00020126580014BR.GOV.BCB.PIX0136${Date.now()}520400005303986540${subtotal.toFixed(2)}5802BR5925Eco Companion Turismo6009SAO PAULO62070503***6304`;
+
+  res.render('carrinho/pagamento-pix', {
+    title: 'Pagamento via PIX - Eco Companion', 
+    description: 'Escaneie o QR Code ou copie o código PIX para completar seu pagamento.',
+    carrinho: carrinho,
+    total: subtotal,
+    codigoPix: codigoPix,
+    qrCodeUrl: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(codigoPix)}`,
+    dadosCliente: req.session?.dadosCliente || {}
+  });
+});
+
+// Página de pagamento boleto
+router.get('/pagamento/boleto', (req, res) => {
+  if (carrinho.length === 0) {
+    return res.redirect('/carrinho?vazio=true');
+  }
+
+  // Calcular totais
+  let subtotal = 0;
+  carrinho.forEach(item => {
+    const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+    subtotal += precoNum * item.quantidade;
+  });
+
+  // Gerar dados do boleto simulado
+  const dataVencimento = new Date();
+  dataVencimento.setDate(dataVencimento.getDate() + 3); // Vence em 3 dias
+  
+  const boletoData = {
+    nossoNumero: Date.now().toString().slice(-8),
+    codigoBanco: '341-7',
+    linhaDigitavel: '34191.79001 01234.567890 12345.678901 1 ' + Date.now().toString().slice(-14),
+    codigoBarras: '34191' + Date.now().toString().slice(-39),
+    valor: subtotal,
+    vencimento: dataVencimento.toLocaleDateString('pt-BR'),
+    beneficiario: 'Eco Companion Turismo Ltda',
+    cnpj: '12.345.678/0001-90',
+    endereco: 'Rua das Viagens, 123 - São Paulo/SP'
+  };
+
+  res.render('carrinho/pagamento-boleto', {
+    title: 'Pagamento via Boleto - Eco Companion',
+    description: 'Imprima o boleto e pague em qualquer banco, lotérica ou aplicativo.',
+    carrinho: carrinho,
+    total: subtotal,
+    boleto: boletoData,
+    dadosCliente: req.session?.dadosCliente || {}
+  });
+});
+
+// Processar pagamento com cartão
+router.post('/processar/cartao', (req, res) => {
+  const { numeroCartao, nomeCartao, expiracaoCartao, cvvCartao, tipoCartao } = req.body;
+  
+  // Aqui você integraria com gateway de pagamento real (Stripe, PagSeguro, etc.)
+  // Por enquanto, simular processamento
+  
+  if (!numeroCartao || !nomeCartao || !expiracaoCartao || !cvvCartao) {
+    return res.redirect('/carrinho/pagamento/cartao?erro=dados-incompletos');
+  }
+
+  // Simular processamento (em produção, usar gateway real)
+  const sucesso = Math.random() > 0.1; // 90% de sucesso
+  
+  if (sucesso) {
+    // Processar cashback e limpar carrinho
+    let valorTotalCompra = 0;
+    let descricaoCompra = '';
+    
+    carrinho.forEach(item => {
+      const precoNum = parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+      valorTotalCompra += precoNum * item.quantidade;
+      if (descricaoCompra) descricaoCompra += ', ';
+      descricaoCompra += item.destino;
+    });
+    
+    let pontosGanhos = 0;
+    try {
+      pontosGanhos = cashbackRouter.adicionarPontosPorCompra(valorTotalCompra, `Pacote: ${descricaoCompra}`);
+    } catch (error) {
+      console.error('Erro ao processar cashback:', error);
+    }
+    
+    const numeroReserva = 'RES' + Date.now();
+    const itensPedido = [...carrinho];
+    carrinho = [];
+    
+    return res.render('carrinho/sucesso', {
+      title: 'Pagamento Aprovado!',
+      description: 'Seu pagamento foi processado com sucesso.',
+      numeroReserva: numeroReserva,
+      itens: itensPedido,
+      dadosCliente: req.session?.dadosCliente || {},
+      cashback: {
+        pontosGanhos: pontosGanhos,
+        valorTotal: valorTotalCompra,
+        dadosUsuario: cashbackRouter.dadosUsuario
+      }
+    });
+  } else {
+    return res.redirect('/carrinho/pagamento/cartao?erro=pagamento-recusado');
+  }
+});
+
 module.exports = router;

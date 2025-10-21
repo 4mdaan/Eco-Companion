@@ -1,0 +1,287 @@
+<%- include('../partials/head', { pageCSS: 'carrinho' }) %>
+
+<%- include('../partials/header', { currentPage: 'pagamento' }) %>
+
+<!-- Hero do Pagamento PIX -->
+<section class="pagamento-hero pix-hero">
+  <section class="container">
+    <h1 class="pagamento-title inter-font">🔲 Pagamento via PIX</h1>
+    <p class="pagamento-subtitle">Pagamento instantâneo, seguro e disponível 24h</p>
+    
+    <!-- Progress Steps -->
+    <section class="checkout-steps">
+      <section class="step completed">
+        <section class="step-number">1</section>
+        <section class="step-label">Carrinho</section>
+      </section>
+      <section class="step completed">
+        <section class="step-number">2</section>
+        <section class="step-label">Checkout</section>
+      </section>
+      <section class="step active">
+        <section class="step-number">3</section>
+        <section class="step-label">Pagamento</section>
+      </section>
+      <section class="step">
+        <section class="step-number">4</section>
+        <section class="step-label">Confirmação</section>
+      </section>
+    </section>
+  </section>
+</section>
+
+<!-- Conteúdo do Pagamento PIX -->
+<section class="pagamento-content">
+  <section class="container">
+    <section class="pix-grid">
+      <!-- QR Code e Instruções -->
+      <section class="pix-payment-container">
+        <section class="pix-header">
+          <h2 class="pix-title inter-font">Escaneie o QR Code</h2>
+          <p class="pix-subtitle">Use o aplicativo do seu banco ou carteira digital</p>
+        </section>
+
+        <!-- QR Code -->
+        <section class="qr-code-container">
+          <section class="qr-code-wrapper">
+            <img src="<%= qrCodeUrl %>" alt="QR Code PIX" class="qr-code-image" id="qrCodeImage">
+            <section class="qr-loading" id="qrLoading" style="display: none;">
+              <section class="loading-spinner"></section>
+              <p>Gerando QR Code...</p>
+            </section>
+          </section>
+          
+          <section class="qr-info">
+            <section class="valor-pix">
+              <span class="valor-label">Valor a pagar:</span>
+              <span class="valor-amount">R$ <%= total.toLocaleString('pt-BR') %></span>
+            </section>
+            
+            <section class="tempo-expiracao">
+              ⏱️ Expira em: <span id="tempoExpiracao">15:00</span>
+            </section>
+          </section>
+        </section>
+
+        <!-- Código PIX Copia e Cola -->
+        <section class="codigo-pix-section">
+          <h3 class="codigo-title inter-font">Ou copie o código PIX:</h3>
+          <section class="codigo-container">
+            <textarea id="codigoPix" class="codigo-pix" readonly><%= codigoPix %></textarea>
+            <button type="button" id="btnCopiarPix" class="btn-copiar">
+              📋 Copiar Código
+            </button>
+          </section>
+        </section>
+
+        <!-- Instruções -->
+        <section class="pix-instrucoes">
+          <h3 class="instrucoes-title inter-font">Como pagar com PIX:</h3>
+          <ol class="instrucoes-list">
+            <li>
+              <strong>Abra o app do seu banco</strong>
+              <p>Acesse a área PIX no aplicativo do seu banco</p>
+            </li>
+            <li>
+              <strong>Escaneie o QR Code</strong>
+              <p>Aponte a câmera para o código ou copie e cole o código PIX</p>
+            </li>
+            <li>
+              <strong>Confirme o pagamento</strong>
+              <p>Verifique os dados e confirme a transação</p>
+            </li>
+            <li>
+              <strong>Pronto!</strong>
+              <p>Sua compra será confirmada automaticamente</p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- Status do Pagamento -->
+        <section class="pix-status" id="pixStatus">
+          <section class="status-waiting">
+            <section class="status-icon">⏳</section>
+            <section class="status-text">
+              <h4>Aguardando pagamento...</h4>
+              <p>Assim que o pagamento for confirmado, você será redirecionado automaticamente.</p>
+            </section>
+          </section>
+        </section>
+
+        <!-- Botões -->
+        <section class="pix-actions">
+          <button type="button" onclick="history.back()" class="btn-voltar">
+            ← Escolher outro método
+          </button>
+          <button type="button" id="btnJaPaguei" class="btn-ja-paguei">
+            ✅ Já Paguei
+          </button>
+        </section>
+      </section>
+
+      <!-- Resumo do Pedido -->
+      <section class="resumo-pedido">
+        <h3 class="resumo-title">📋 Resumo do Pedido</h3>
+        
+        <section class="itens-resumo">
+          <% carrinho.forEach(function(item) { %>
+            <section class="item-resumo">
+              <section class="item-image <%= item.bgClass %>"></section>
+              <section class="item-details">
+                <h4 class="item-nome"><%= item.destino %></h4>
+                <p class="item-periodo"><%= item.periodo %></p>
+                <section class="item-preco">
+                  <span class="quantidade"><%= item.quantidade %>x</span>
+                  <span class="preco">R$ <%= item.preco %></span>
+                </section>
+              </section>
+            </section>
+          <% }); %>
+        </section>
+
+        <section class="total-resumo">
+          <section class="total-item">
+            <span class="total-label">Subtotal:</span>
+            <span class="total-valor">R$ <%= total.toLocaleString('pt-BR') %></span>
+          </section>
+          <section class="total-item pix-desconto">
+            <span class="total-label">📱 Desconto PIX (2%):</span>
+            <span class="total-valor">- R$ <%= (total * 0.02).toLocaleString('pt-BR') %></span>
+          </section>
+          <section class="total-item total-final">
+            <span class="total-label">Total com PIX:</span>
+            <span class="total-valor">R$ <%= (total * 0.98).toLocaleString('pt-BR') %></span>
+          </section>
+        </section>
+
+        <!-- Vantagens do PIX -->
+        <section class="pix-vantagens">
+          <h4 class="vantagens-title">✨ Vantagens do PIX:</h4>
+          <ul class="vantagens-list">
+            <li>✅ Pagamento instantâneo</li>
+            <li>✅ Disponível 24h por dia</li>
+            <li>✅ Sem taxas adicionais</li>
+            <li>✅ 2% de desconto</li>
+            <li>✅ Máxima segurança</li>
+          </ul>
+        </section>
+
+        <!-- Métodos alternativos -->
+        <section class="metodos-alternativos">
+          <h4 class="alt-title">Outros métodos de pagamento:</h4>
+          <section class="alt-buttons">
+            <a href="/carrinho/pagamento/cartao" class="btn-alt">
+              💳 Cartão
+            </a>
+            <a href="/carrinho/pagamento/boleto" class="btn-alt">
+              📄 Boleto
+            </a>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Timer de expiração (15 minutos)
+  let tempoRestante = 15 * 60; // 15 minutos em segundos
+  const timerElement = document.getElementById('tempoExpiracao');
+  
+  function atualizarTimer() {
+    const minutos = Math.floor(tempoRestante / 60);
+    const segundos = tempoRestante % 60;
+    timerElement.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    
+    if (tempoRestante <= 0) {
+      // Expirou - recarregar página para gerar novo QR Code
+      location.reload();
+    } else {
+      tempoRestante--;
+    }
+  }
+  
+  // Atualizar timer a cada segundo
+  setInterval(atualizarTimer, 1000);
+  
+  // Copiar código PIX
+  document.getElementById('btnCopiarPix').addEventListener('click', function() {
+    const codigoPix = document.getElementById('codigoPix');
+    codigoPix.select();
+    document.execCommand('copy');
+    
+    this.innerHTML = '✅ Código Copiado!';
+    setTimeout(() => {
+      this.innerHTML = '📋 Copiar Código';
+    }, 2000);
+  });
+  
+  // Simular verificação de pagamento
+  let verificandoPagamento = false;
+  
+  function verificarStatusPagamento() {
+    if (verificandoPagamento) return;
+    
+    verificandoPagamento = true;
+    
+    // Simular verificação (em produção, fazer requisição para API)
+    setTimeout(() => {
+      const pago = Math.random() > 0.7; // 30% de chance de ser "pago" para teste
+      
+      if (pago) {
+        // Pagamento confirmado
+        document.getElementById('pixStatus').innerHTML = `
+          <section class="status-success">
+            <section class="status-icon">✅</section>
+            <section class="status-text">
+              <h4>Pagamento confirmado!</h4>
+              <p>Redirecionando para confirmação...</p>
+            </section>
+          </section>
+        `;
+        
+        // Redirecionar para página de sucesso
+        setTimeout(() => {
+          window.location.href = '/carrinho/sucesso?metodo=pix';
+        }, 2000);
+      } else {
+        verificandoPagamento = false;
+      }
+    }, 3000);
+  }
+  
+  // Verificar pagamento automaticamente a cada 10 segundos
+  setInterval(() => {
+    if (!verificandoPagamento) {
+      verificarStatusPagamento();
+    }
+  }, 10000);
+  
+  // Botão "Já Paguei"
+  document.getElementById('btnJaPaguei').addEventListener('click', function() {
+    this.innerHTML = '⏳ Verificando...';
+    this.disabled = true;
+    
+    verificarStatusPagamento();
+    
+    setTimeout(() => {
+      this.innerHTML = '✅ Já Paguei';
+      this.disabled = false;
+    }, 3000);
+  });
+  
+  // Tratar erro no carregamento do QR Code
+  document.getElementById('qrCodeImage').addEventListener('error', function() {
+    this.style.display = 'none';
+    document.getElementById('qrLoading').style.display = 'block';
+    document.getElementById('qrLoading').innerHTML = `
+      <p>⚠️ Erro ao carregar QR Code</p>
+      <button onclick="location.reload()" class="btn-reload">🔄 Tentar novamente</button>
+    `;
+  });
+});
+</script>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

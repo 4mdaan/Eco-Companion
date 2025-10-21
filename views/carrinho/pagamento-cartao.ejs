@@ -1,0 +1,290 @@
+<%- include('../partials/head', { pageCSS: 'carrinho' }) %>
+
+<%- include('../partials/header', { currentPage: 'pagamento' }) %>
+
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- Hero do Pagamento -->
+<section class="pagamento-hero">
+  <section class="container">
+    <h1 class="pagamento-title inter-font">💳 Pagamento com Cartão</h1>
+    <p class="pagamento-subtitle">Insira os dados do seu cartão para finalizar a compra com segurança</p>
+    
+    <!-- Progress Steps -->
+    <section class="checkout-steps">
+      <section class="step completed">
+        <section class="step-number">1</section>
+        <section class="step-label">Carrinho</section>
+      </section>
+      <section class="step completed">
+        <section class="step-number">2</section>
+        <section class="step-label">Checkout</section>
+      </section>
+      <section class="step active">
+        <section class="step-number">3</section>
+        <section class="step-label">Pagamento</section>
+      </section>
+      <section class="step">
+        <section class="step-number">4</section>
+        <section class="step-label">Confirmação</section>
+      </section>
+    </section>
+  </section>
+</section>
+
+<!-- Conteúdo do Pagamento -->
+<section class="pagamento-content">
+  <section class="container">
+    <% if (typeof req !== 'undefined' && req.query && req.query.erro) { %>
+      <section class="alert alert-error">
+        <% if (req.query.erro === 'dados-incompletos') { %>
+          ❌ Por favor, preencha todos os dados do cartão.
+        <% } else if (req.query.erro === 'pagamento-recusado') { %>
+          ❌ Pagamento recusado. Verifique os dados do cartão ou tente outro método.
+        <% } else { %>
+          ❌ Ocorreu um erro no processamento. Tente novamente.
+        <% } %>
+      </section>
+    <% } %>
+
+    <section class="pagamento-grid">
+      <!-- Formulário do Cartão -->
+      <section class="cartao-form-container">
+        <h2 class="form-title inter-font">Dados do Cartão</h2>
+        
+        <form id="cartao-form" method="POST" action="/carrinho/processar/cartao" novalidate>
+          <!-- Tipo de Cartão -->
+          <section class="form-group">
+            <label for="tipoCartao" class="form-label">Tipo do Cartão</label>
+            <select id="tipoCartao" name="tipoCartao" class="form-select" required>
+              <option value="">Selecione o tipo</option>
+              <option value="credito">Cartão de Crédito</option>
+              <option value="debito">Cartão de Débito</option>
+            </select>
+          </section>
+
+          <!-- Número do Cartão -->
+          <section class="form-group">
+            <label for="numeroCartao" class="form-label">Número do Cartão</label>
+            <section class="input-with-icon">
+              <input type="text" id="numeroCartao" name="numeroCartao" class="form-input" 
+                     placeholder="1234 5678 9012 3456" maxlength="19" required>
+              <section class="card-brand" id="cardBrand"></section>
+            </section>
+          </section>
+
+          <!-- Nome no Cartão -->
+          <section class="form-group">
+            <label for="nomeCartao" class="form-label">Nome no Cartão</label>
+            <input type="text" id="nomeCartao" name="nomeCartao" class="form-input" 
+                   placeholder="Nome como está no cartão" required>
+          </section>
+
+          <!-- Expiração e CVV -->
+          <section class="form-row">
+            <section class="form-group">
+              <label for="expiracaoCartao" class="form-label">Validade</label>
+              <input type="text" id="expiracaoCartao" name="expiracaoCartao" class="form-input" 
+                     placeholder="MM/AA" maxlength="5" required>
+            </section>
+            <section class="form-group">
+              <label for="cvvCartao" class="form-label">CVV</label>
+              <input type="text" id="cvvCartao" name="cvvCartao" class="form-input" 
+                     placeholder="123" maxlength="4" required>
+            </section>
+          </section>
+
+          <!-- Parcelamento (para crédito) -->
+          <section class="form-group" id="parcelamentoGroup" style="display: none;">
+            <label for="parcelas" class="form-label">Parcelamento</label>
+            <select id="parcelas" name="parcelas" class="form-select">
+              <option value="1">1x de R$ <span id="valor1x"><%= total.toLocaleString('pt-BR') %></span> à vista</option>
+              <option value="2">2x de R$ <span id="valor2x"><%= (total/2).toLocaleString('pt-BR') %></span></option>
+              <option value="3">3x de R$ <span id="valor3x"><%= (total/3).toLocaleString('pt-BR') %></span></option>
+              <option value="4">4x de R$ <span id="valor4x"><%= (total/4).toLocaleString('pt-BR') %></span></option>
+              <option value="5">5x de R$ <span id="valor5x"><%= (total/5).toLocaleString('pt-BR') %></span></option>
+              <option value="6">6x de R$ <span id="valor6x"><%= (total/6).toLocaleString('pt-BR') %></span></option>
+            </select>
+          </section>
+
+          <!-- Segurança -->
+          <section class="seguranca-info">
+            <h3 class="seguranca-title">🔒 Ambiente Seguro</h3>
+            <ul class="seguranca-list">
+              <li>✅ Conexão criptografada SSL</li>
+              <li>✅ Dados protegidos PCI DSS</li>
+              <li>✅ Não armazenamos dados do cartão</li>
+            </ul>
+          </section>
+
+          <!-- Botões -->
+          <section class="form-actions">
+            <button type="button" onclick="history.back()" class="btn-voltar">
+              ← Voltar ao Checkout
+            </button>
+            <button type="submit" class="btn-pagar" id="btnPagar">
+              <span class="btn-loading" style="display: none;">⏳ Processando...</span>
+              <span class="btn-text">Pagar R$ <%= total.toLocaleString('pt-BR') %></span>
+            </button>
+          </section>
+        </form>
+      </section>
+
+      <!-- Resumo do Pedido -->
+      <section class="resumo-pedido">
+        <h3 class="resumo-title">📋 Resumo do Pedido</h3>
+        
+        <section class="itens-resumo">
+          <% carrinho.forEach(function(item) { %>
+            <section class="item-resumo">
+              <section class="item-image <%= item.bgClass %>"></section>
+              <section class="item-details">
+                <h4 class="item-nome"><%= item.destino %></h4>
+                <p class="item-periodo"><%= item.periodo %></p>
+                <section class="item-preco">
+                  <span class="quantidade"><%= item.quantidade %>x</span>
+                  <span class="preco">R$ <%= item.preco %></span>
+                </section>
+              </section>
+            </section>
+          <% }); %>
+        </section>
+
+        <section class="total-resumo">
+          <section class="total-item">
+            <span class="total-label">Subtotal:</span>
+            <span class="total-valor">R$ <%= total.toLocaleString('pt-BR') %></span>
+          </section>
+          <section class="total-item total-final">
+            <span class="total-label">Total:</span>
+            <span class="total-valor">R$ <%= total.toLocaleString('pt-BR') %></span>
+          </section>
+        </section>
+
+        <!-- Métodos alternativos -->
+        <section class="metodos-alternativos">
+          <h4 class="alt-title">Outros métodos de pagamento:</h4>
+          <section class="alt-buttons">
+            <a href="/carrinho/pagamento/pix" class="btn-alt">
+              🔲 PIX
+            </a>
+            <a href="/carrinho/pagamento/boleto" class="btn-alt">
+              📄 Boleto
+            </a>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('cartao-form');
+  const numeroCartao = document.getElementById('numeroCartao');
+  const expiracaoCartao = document.getElementById('expiracaoCartao');
+  const cvvCartao = document.getElementById('cvvCartao');
+  const tipoCartao = document.getElementById('tipoCartao');
+  const parcelamentoGroup = document.getElementById('parcelamentoGroup');
+  const cardBrand = document.getElementById('cardBrand');
+  
+  // Máscara para número do cartão
+  numeroCartao.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\s/g, '');
+    let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+    if (formattedValue.length > 19) formattedValue = formattedValue.substr(0, 19);
+    e.target.value = formattedValue;
+    
+    // Detectar bandeira
+    detectCardBrand(value);
+  });
+  
+  // Máscara para expiração
+  expiracaoCartao.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    }
+    e.target.value = value;
+  });
+  
+  // Apenas números para CVV
+  cvvCartao.addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/\D/g, '');
+  });
+  
+  // Mostrar parcelamento apenas para crédito
+  tipoCartao.addEventListener('change', function(e) {
+    if (e.target.value === 'credito') {
+      parcelamentoGroup.style.display = 'block';
+    } else {
+      parcelamentoGroup.style.display = 'none';
+    }
+  });
+  
+  // Detectar bandeira do cartão
+  function detectCardBrand(number) {
+    const brands = {
+      visa: /^4/,
+      mastercard: /^5[1-5]/,
+      amex: /^3[47]/,
+      elo: /^(4011|4312|4389|4514|4573|5041|5066|5067|627780|636297|636368)/
+    };
+    
+    let detectedBrand = '';
+    for (let brand in brands) {
+      if (brands[brand].test(number)) {
+        detectedBrand = brand;
+        break;
+      }
+    }
+    
+    cardBrand.className = 'card-brand';
+    if (detectedBrand) {
+      cardBrand.classList.add(detectedBrand);
+      cardBrand.innerHTML = getBrandIcon(detectedBrand);
+    } else {
+      cardBrand.innerHTML = '';
+    }
+  }
+  
+  function getBrandIcon(brand) {
+    const icons = {
+      visa: '💳 Visa',
+      mastercard: '💳 Mastercard',
+      amex: '💳 Amex',
+      elo: '💳 Elo'
+    };
+    return icons[brand] || '';
+  }
+  
+  // Validação e envio do formulário
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const btnPagar = document.getElementById('btnPagar');
+    const btnText = btnPagar.querySelector('.btn-text');
+    const btnLoading = btnPagar.querySelector('.btn-loading');
+    
+    // Validar campos
+    if (!numeroCartao.value || !expiracaoCartao.value || !cvvCartao.value || !tipoCartao.value) {
+      alert('Por favor, preencha todos os dados do cartão.');
+      return;
+    }
+    
+    // Mostrar loading
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    btnPagar.disabled = true;
+    
+    // Simular processamento e enviar formulário
+    setTimeout(() => {
+      form.submit();
+    }, 2000);
+  });
+});
+</script>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
