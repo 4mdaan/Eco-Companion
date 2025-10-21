@@ -7,9 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
     initPasswordToggle();
     initFormValidation();
     initSocialLogin();
+    initAccessibilityFeatures();
     
     // Auto-hide alerts após 5 segundos
     autoHideAlerts();
+    
+    // Mostrar indicações visuais de campos obrigatórios
+    highlightRequiredFields();
+    
+    // Log para debugging
+    console.log('✅ Validação de login inicializada');
 });
 
 /**
@@ -56,21 +63,29 @@ function initFormValidation() {
     const forms = document.querySelectorAll('.auth-form');
     
     forms.forEach(form => {
-        // Validação de email
+        // Selecionar campos uma única vez
         const emailField = form.querySelector('input[type="email"]');
+        const passwordField = form.querySelector('input[name="senha"]');
+        const confirmField = form.querySelector('input[name="confirmarSenha"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        // Validação de email
         if (emailField) {
             emailField.addEventListener('blur', validateEmail);
             emailField.addEventListener('input', clearFieldError);
+            emailField.addEventListener('input', () => updateFieldStatus(emailField));
+            emailField.addEventListener('blur', () => updateFieldStatus(emailField));
         }
         
         // Validação de senha
-        const passwordField = form.querySelector('input[name="senha"]');
         if (passwordField) {
             passwordField.addEventListener('input', validatePassword);
+            passwordField.addEventListener('blur', validateLoginPassword);
+            passwordField.addEventListener('input', () => updateFieldStatus(passwordField));
+            passwordField.addEventListener('blur', () => updateFieldStatus(passwordField));
         }
         
         // Confirmação de senha
-        const confirmField = form.querySelector('input[name="confirmarSenha"]');
         if (confirmField && passwordField) {
             confirmField.addEventListener('input', () => validatePasswordMatch(passwordField, confirmField));
             passwordField.addEventListener('input', () => validatePasswordMatch(passwordField, confirmField));
@@ -78,10 +93,22 @@ function initFormValidation() {
         
         // Validação no submit
         form.addEventListener('submit', (e) => {
-            if (!validateForm(form)) {
+            if (!validateLoginForm(form)) {
                 e.preventDefault();
             }
         });
+        
+        // Adicionar loading state ao botão de submit
+        if (submitBtn) {
+            form.addEventListener('submit', (e) => {
+                if (validateLoginForm(form)) {
+                    showLoadingState(submitBtn);
+                }
+            });
+        }
+        
+        // Atualizar contador de tentativas
+        updateAttemptsCounter();
     });
 }
 
@@ -102,7 +129,7 @@ function validateEmail(event) {
 }
 
 /**
- * Valida força da senha
+ * Valida força da senha (para registro)
  */
 function validatePassword(event) {
     const field = event.target;
@@ -133,6 +160,108 @@ function validatePassword(event) {
     
     clearFieldError(field);
     return true;
+}
+
+/**
+ * Valida senha para login (menos rigorosa)
+ */
+function validateLoginPassword(event) {
+    const field = event.target;
+    const password = field.value;
+    
+    if (password.length === 0) {
+        showFieldError(field, 'Senha é obrigatória');
+        return false;
+    }
+    
+    if (password.length < 3) {
+        showFieldError(field, 'Senha muito curta');
+        return false;
+    }
+    
+    clearFieldError(field);
+    return true;
+}
+
+/**
+ * Validação completa do formulário de login
+ */
+function validateLoginForm(form) {
+    // Verificar rate limiting primeiro
+    if (!checkRateLimit()) {
+        updateAttemptsCounter();
+        return false;
+    }
+    
+    let isValid = true;
+    const errors = [];
+    
+    // Validar email
+    const emailField = form.querySelector('input[type="email"]');
+    if (emailField) {
+        const email = emailField.value.trim();
+        
+        if (!email) {
+            showFieldError(emailField, 'Email é obrigatório');
+            errors.push('Email é obrigatório');
+            isValid = false;
+        } else if (!isValidEmail(email)) {
+            showFieldError(emailField, 'Email inválido');
+            errors.push('Email inválido');
+            isValid = false;
+        } else {
+            clearFieldError(emailField);
+        }
+        
+        updateFieldStatus(emailField);
+    }
+    
+    // Validar senha
+    const passwordField = form.querySelector('input[name="senha"]');
+    if (passwordField) {
+        const password = passwordField.value;
+        
+        if (!password) {
+            showFieldError(passwordField, 'Senha é obrigatória');
+            errors.push('Senha é obrigatória');
+            isValid = false;
+        } else if (password.length < 3) {
+            showFieldError(passwordField, 'Senha muito curta');
+            errors.push('Senha muito curta');
+            isValid = false;
+        } else {
+            clearFieldError(passwordField);
+        }
+        
+        updateFieldStatus(passwordField);
+    }
+    
+    // Mostrar resumo de validação
+    showValidationSummary(errors);
+    
+    // Validações de segurança adicional
+    if (isValid) {
+        validateSecurityFields(form);
+    }
+    
+    // Mostrar feedback visual
+    if (isValid) {
+        showNotification('✅ Validando credenciais...', 'info');
+    } else {
+        showNotification('❌ Por favor, corrija os erros antes de continuar', 'error');
+        // Incrementar tentativas apenas em caso de erro
+        updateAttemptsCounter();
+    }
+    
+    return isValid;
+}
+
+/**
+ * Verifica se o email é válido
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 /**
@@ -428,3 +557,264 @@ function getNotificationIcon(type) {
     };
     return icons[type] || icons.info;
 }
+
+/**
+ * Mostra estado de loading no botão
+ */
+function showLoadingState(button) {
+    const originalText = button.innerHTML;
+    const originalDisabled = button.disabled;
+    
+    button.disabled = true;
+    button.innerHTML = `
+        <span class="loading-spinner"></span>
+        Entrando...
+    `;
+    
+    // Adicionar CSS para spinner se não existir
+    if (!document.querySelector('#loading-spinner-styles')) {
+        const styles = document.createElement('style');
+        styles.id = 'loading-spinner-styles';
+        styles.textContent = `
+            .loading-spinner {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #ffffff40;
+                border-left-color: #ffffff;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-right: 8px;
+            }
+            
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+    
+    // Restaurar estado original após timeout (caso não haja redirecionamento)
+    setTimeout(() => {
+        button.disabled = originalDisabled;
+        button.innerHTML = originalText;
+    }, 10000);
+}
+
+/**
+ * Validação de segurança adicional
+ */
+function validateSecurityFields(form) {
+    const emailField = form.querySelector('input[type="email"]');
+    const passwordField = form.querySelector('input[name="senha"]');
+    
+    if (emailField && passwordField) {
+        const email = emailField.value.trim();
+        const password = passwordField.value;
+        
+        // Verificar se não são valores padrão/suspeitos
+        const suspiciousPatterns = [
+            'test@test.com',
+            'admin@admin.com', 
+            '123456',
+            'password',
+            'admin'
+        ];
+        
+        // Avisos para senhas fracas comuns
+        if (suspiciousPatterns.some(pattern => 
+            email.toLowerCase().includes(pattern) || 
+            password.toLowerCase().includes(pattern))) {
+            
+            showNotification('⚠️ Credenciais detectadas como potencialmente inseguras', 'warning');
+        }
+        
+        // Validar domínio de email
+        const emailDomain = email.split('@')[1];
+        if (emailDomain && ['tempmail.com', '10minutemail.com', 'guerrillamail.com'].includes(emailDomain)) {
+            showNotification('⚠️ Emails temporários podem causar problemas de recuperação', 'warning');
+        }
+    }
+}
+
+/**
+ * Detectar tentativas de força bruta
+ */
+let loginAttempts = 0;
+let lastAttemptTime = 0;
+
+function checkRateLimit() {
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastAttemptTime;
+    
+    // Reset contador após 5 minutos
+    if (timeDiff > 300000) {
+        loginAttempts = 0;
+    }
+    
+    loginAttempts++;
+    lastAttemptTime = currentTime;
+    
+    // Bloquear após 5 tentativas
+    if (loginAttempts >= 5) {
+        const waitTime = Math.min(300, loginAttempts * 30); // Máximo 5 minutos
+        showNotification(`🚫 Muitas tentativas. Tente novamente em ${waitTime} segundos`, 'error');
+        
+        // Desabilitar formulário temporariamente
+        const form = document.querySelector('.auth-form');
+        if (form) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                }, waitTime * 1000);
+            }
+        }
+        
+        return false;
+    }
+    
+    return true;
+}
+
+/**
+ * Atualiza o status visual dos campos
+ */
+function updateFieldStatus(field) {
+    const wrapper = field.closest('.form-group');
+    const inputStatus = wrapper.querySelector('.input-status');
+    
+    if (!inputStatus) return;
+    
+    const validIcon = inputStatus.querySelector('.valid-icon');
+    const invalidIcon = inputStatus.querySelector('.invalid-icon');
+    
+    // Reset icons
+    validIcon.style.display = 'none';
+    invalidIcon.style.display = 'none';
+    
+    if (field.value.trim() === '') {
+        field.removeAttribute('aria-invalid');
+        return;
+    }
+    
+    let isValid = true;
+    
+    if (field.type === 'email') {
+        isValid = isValidEmail(field.value);
+    } else if (field.name === 'senha') {
+        isValid = field.value.length >= 3;
+    }
+    
+    if (isValid) {
+        validIcon.style.display = 'inline';
+        field.setAttribute('aria-invalid', 'false');
+    } else {
+        invalidIcon.style.display = 'inline';
+        field.setAttribute('aria-invalid', 'true');
+    }
+}
+
+/**
+ * Atualiza contador de tentativas de login
+ */
+function updateAttemptsCounter() {
+    const attemptsContainer = document.querySelector('.login-attempts');
+    const attemptsRemaining = document.getElementById('attempts-remaining');
+    
+    if (attemptsContainer && attemptsRemaining) {
+        const remaining = Math.max(0, 5 - loginAttempts);
+        attemptsRemaining.textContent = remaining;
+        
+        if (loginAttempts >= 3) {
+            attemptsContainer.style.display = 'block';
+        } else {
+            attemptsContainer.style.display = 'none';
+        }
+        
+        if (remaining === 0) {
+            attemptsContainer.style.background = '#fee2e2';
+            attemptsContainer.style.color = '#dc2626';
+        }
+    }
+}
+
+/**
+ * Mostra resumo de validação
+ */
+function showValidationSummary(errors) {
+    const summary = document.querySelector('.validation-summary');
+    
+    if (!summary) return;
+    
+    if (errors.length === 0) {
+        summary.style.display = 'none';
+        return;
+    }
+    
+    const validationText = summary.querySelector('.validation-text');
+    if (validationText) {
+        validationText.textContent = errors[0]; // Mostrar primeiro erro
+    }
+    
+    summary.style.display = 'block';
+}
+
+/**
+ * Destaca campos obrigatórios
+ */
+function highlightRequiredFields() {
+    const requiredFields = document.querySelectorAll('input[required]');
+    requiredFields.forEach(field => {
+        const label = document.querySelector(`label[for="${field.id}"]`);
+        if (label && !label.textContent.includes('*')) {
+            // Já marcado no HTML, mas garantir visualmente
+            field.setAttribute('aria-required', 'true');
+        }
+    });
+}
+
+/**
+ * Funcionalidades de acessibilidade
+ */
+function initAccessibilityFeatures() {
+    // Adicionar descrições para screen readers
+    const emailField = document.getElementById('email');
+    const passwordField = document.getElementById('senha');
+    
+    if (emailField) {
+        emailField.setAttribute('aria-describedby', 'email-help');
+        const helpText = document.createElement('span');
+        helpText.id = 'email-help';
+        helpText.className = 'sr-only';
+        helpText.textContent = 'Digite seu endereço de email válido';
+        emailField.parentElement.appendChild(helpText);
+    }
+    
+    if (passwordField) {
+        passwordField.setAttribute('aria-describedby', 'password-help');
+        const helpText = document.createElement('span');
+        helpText.id = 'password-help';
+        helpText.className = 'sr-only';
+        helpText.textContent = 'Digite sua senha, mínimo 3 caracteres';
+        passwordField.parentElement.appendChild(helpText);
+    }
+}
+
+/**
+ * Limpeza de recursos ao sair da página
+ */
+window.addEventListener('beforeunload', function() {
+    // Limpar timers se houver
+    const submitBtn = document.querySelector('#login-btn');
+    if (submitBtn && submitBtn.disabled) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span class="btn-text">Entrar</span><span class="btn-icon">→</span>';
+    }
+    
+    // Log para debugging
+    console.log('🔄 Recursos de validação limpos');
+});

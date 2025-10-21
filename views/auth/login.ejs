@@ -37,21 +37,29 @@
     <% } %>
 
     <!-- Formulário de Login -->
-    <form method="POST" action="/auth" class="auth-form">
+    <form method="POST" action="/auth" class="auth-form" novalidate>
       <section class="form-group">
-        <label for="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          value="<%= typeof email !== 'undefined' ? email : '' %>"
-          placeholder="seu@email.com"
-          required
-        >
+        <label for="email">Email *</label>
+        <section class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            value="<%= typeof email !== 'undefined' ? email : '' %>"
+            placeholder="seu@email.com"
+            required
+            autocomplete="email"
+            maxlength="254"
+          >
+          <section class="input-status">
+            <span class="valid-icon" style="display: none;">✅</span>
+            <span class="invalid-icon" style="display: none;">❌</span>
+          </section>
+        </section>
       </section>
 
       <section class="form-group">
-        <label for="senha">Senha</label>
+        <label for="senha">Senha *</label>
         <section class="password-field">
           <input 
             type="password" 
@@ -59,27 +67,50 @@
             name="senha" 
             placeholder="••••••••"
             required
+            autocomplete="current-password"
+            minlength="3"
+            maxlength="128"
           >
-          <button type="button" class="password-toggle" onclick="togglePassword('senha')">
+          <button type="button" class="password-toggle" onclick="togglePassword('senha')" tabindex="-1">
             <span class="show-password">👁️</span>
             <span class="hide-password" style="display: none;">🙈</span>
           </button>
+          <section class="input-status">
+            <span class="valid-icon" style="display: none;">✅</span>
+            <span class="invalid-icon" style="display: none;">❌</span>
+          </section>
         </section>
       </section>
 
       <section class="form-options">
         <label class="checkbox-label">
-          <input type="checkbox" name="lembrar" value="1">
+          <input type="checkbox" name="lembrar" value="1" id="lembrar">
           <span class="checkmark"></span>
-          Lembrar de mim
+          Lembrar de mim por 30 dias
         </label>
         <a href="/auth/esqueceu-senha" class="forgot-password">Esqueceu a senha?</a>
       </section>
 
-      <button type="submit" class="btn btn-primary btn-full">
-        Entrar
+      <!-- Indicadores de validação -->
+      <section class="validation-summary" style="display: none;">
+        <section class="validation-item">
+          <span class="validation-icon">⚠️</span>
+          <span class="validation-text">Preencha todos os campos obrigatórios</span>
+        </section>
+      </section>
+
+      <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+        <span class="btn-text">Entrar</span>
         <span class="btn-icon">→</span>
       </button>
+      
+      <!-- Contador de tentativas -->
+      <section class="login-attempts" style="display: none;">
+        <small class="text-muted">
+          <span class="attempts-icon">🔒</span>
+          Tentativas restantes: <span id="attempts-remaining">5</span>
+        </small>
+      </section>
     </form>
 
     <!-- Divisor -->

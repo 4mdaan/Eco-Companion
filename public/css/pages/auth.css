@@ -559,3 +559,240 @@
         font-size: 0.875rem;
     }
 }
+
+/* Estilos para validação em tempo real */
+.input-wrapper {
+    position: relative;
+}
+
+.input-status {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.password-field .input-status {
+    right: 48px;
+}
+
+.valid-icon,
+.invalid-icon {
+    font-size: 14px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Resumo de validação */
+.validation-summary {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.validation-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #dc2626;
+}
+
+.validation-icon {
+    font-size: 16px;
+}
+
+/* Contador de tentativas */
+.login-attempts {
+    margin-top: 8px;
+    text-align: center;
+    padding: 8px;
+    background: #fef3c7;
+    border-radius: 6px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.attempts-icon {
+    margin-right: 4px;
+}
+
+.text-muted {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* Estados do campo de entrada */
+.form-group input:valid + .input-status .valid-icon {
+    display: inline;
+    color: #16a34a;
+}
+
+.form-group input:invalid + .input-status .invalid-icon {
+    display: inline;
+    color: #dc2626;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Estados de erro específicos */
+.field-error {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.field-error:before {
+    content: '⚠️';
+    font-size: 12px;
+}
+
+/* Botão com loading */
+.btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn.loading .btn-text {
+    opacity: 0;
+}
+
+.loading-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Melhorias de acessibilidade */
+input[aria-invalid="true"] {
+    border-color: #dc2626;
+    background-color: #fef2f2;
+}
+
+input[aria-invalid="false"] {
+    border-color: #16a34a;
+    background-color: #f0fdf4;
+}
+
+/* Tooltip de ajuda */
+.help-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    margin-left: 4px;
+    color: #6b7280;
+}
+
+.help-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 4px;
+}
+
+.help-tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #1f2937;
+    margin-bottom: -4px;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus indicators aprimorados */
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Indicador de campo obrigatório */
+input[required]:not(:focus):not(:valid):not(:placeholder-shown) {
+    border-color: #fbbf24;
+    background-color: #fffbeb;
+}
+
+/* Estados de sucesso */
+.form-success {
+    border-color: #16a34a;
+    background-color: #f0fdf4;
+}
+
+.form-success + .input-status .valid-icon {
+    display: inline !important;
+}
+
+/* Melhorias para modo escuro */
+@media (prefers-color-scheme: dark) {
+    .validation-summary {
+        background: #450a0a;
+        border-color: #7f1d1d;
+        color: #fca5a5;
+    }
+    
+    .login-attempts {
+        background: #451a03;
+        color: #fed7aa;
+    }
+    
+    .field-error {
+        color: #fca5a5;
+    }
+}

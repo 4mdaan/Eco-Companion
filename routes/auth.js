@@ -30,12 +30,46 @@ router.get('/', (req, res) => {
   });
 });
 
+// Sistema de rate limiting por IP
+const loginAttempts = new Map();
+
 // POST - Processar login
 router.post('/', (req, res) => {
   const { email, senha, lembrar } = req.body;
+  const clientIP = req.ip || req.connection.remoteAddress;
   
-  // Validação básica
+  // Rate limiting - verificar tentativas por IP
+  const attempts = loginAttempts.get(clientIP) || { count: 0, lastAttempt: 0 };
+  const now = Date.now();
+  
+  // Reset contador após 5 minutos
+  if (now - attempts.lastAttempt > 300000) {
+    attempts.count = 0;
+  }
+  
+  // Verificar se excedeu limite de tentativas
+  if (attempts.count >= 5) {
+    const waitTime = Math.min(300, attempts.count * 30);
+    const remainingTime = Math.ceil((attempts.lastAttempt + waitTime * 1000 - now) / 1000);
+    
+    if (remainingTime > 0) {
+      return res.render('auth/login', {
+        title: 'Login',
+        currentPage: 'login',
+        pageCSS: 'auth',
+        pageJS: 'auth',
+        error: `Muitas tentativas de login. Tente novamente em ${remainingTime} segundos`,
+        email: email
+      });
+    }
+  }
+  
+  // Validações de entrada
   if (!email || !senha) {
+    attempts.count++;
+    attempts.lastAttempt = now;
+    loginAttempts.set(clientIP, attempts);
+    
     return res.render('auth/login', {
       title: 'Login',
       currentPage: 'login',
@@ -46,10 +80,47 @@ router.post('/', (req, res) => {
     });
   }
   
+  // Validar formato do email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    attempts.count++;
+    attempts.lastAttempt = now;
+    loginAttempts.set(clientIP, attempts);
+    
+    return res.render('auth/login', {
+      title: 'Login',
+      currentPage: 'login',
+      pageCSS: 'auth',
+      pageJS: 'auth',
+      error: 'Formato de email inválido',
+      email: email
+    });
+  }
+  
+  // Validar tamanho mínimo da senha
+  if (senha.length < 3) {
+    attempts.count++;
+    attempts.lastAttempt = now;
+    loginAttempts.set(clientIP, attempts);
+    
+    return res.render('auth/login', {
+      title: 'Login',
+      currentPage: 'login',
+      pageCSS: 'auth',
+      pageJS: 'auth',
+      error: 'Senha muito curta',
+      email: email
+    });
+  }
+  
   // Buscar usuário
-  const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+  const usuario = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha);
   
   if (!usuario) {
+    attempts.count++;
+    attempts.lastAttempt = now;
+    loginAttempts.set(clientIP, attempts);
+    
     return res.render('auth/login', {
       title: 'Login',
       currentPage: 'login',
@@ -60,12 +131,26 @@ router.post('/', (req, res) => {
     });
   }
   
-  // Simular sessão (em um projeto real, usaria express-session)
-  // Por enquanto, apenas redirecionar
+  // Login bem-sucedido - limpar tentativas
+  loginAttempts.delete(clientIP);
+  
+  // Simular criação de sessão
+  req.session = req.session || {};
+  req.session.user = {
+    id: usuario.id,
+    email: usuario.email,
+    nome: usuario.nome,
+    tipo: usuario.tipo
+  };
+  
+  // Log de segurança
+  console.log(`Login bem-sucedido: ${usuario.email} (${clientIP}) em ${new Date().toISOString()}`);
+  
+  // Redirecionar baseado no tipo de usuário
   if (usuario.tipo === 'admin') {
     res.redirect('/admin/dashboard');
   } else {
-    res.redirect('/dashboard');
+    res.redirect('/');
   }
 });
 
