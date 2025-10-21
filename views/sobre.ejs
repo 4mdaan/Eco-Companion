@@ -97,92 +97,7 @@
 </section>
 
 <!-- Nossa Equipe -->
-<section class="nossa-equipe">
-  <section class="container">
-    <h2 class="section-title center">👥 Conheça Nossa Equipe</h2>
-    <p class="equipe-intro">
-      Profissionais apaixonados por viagens, cada um especialista em diferentes aspectos do turismo mundial.
-    </p>
-    
-    <section class="equipe-grid">
-      <section class="membro-card">
-        <section class="membro-photo">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Ana Silva">
-        </section>
-        <section class="membro-info">
-          <h4>Ana Silva</h4>
-          <p class="cargo">Fundadora & CEO</p>
-          <p class="descricao">
-            Especialista em ecoturismo com mais de 15 anos de experiência. Formada em Turismo e 
-            apaixonada por destinos sustentáveis.
-          </p>
-          <section class="especialidades">
-            <span>Ecoturismo</span>
-            <span>Turismo Sustentável</span>
-            <span>Gestão</span>
-          </section>
-        </section>
-      </section>
-      
-      <section class="membro-card">
-        <section class="membro-photo">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80" alt="Carlos Santos">
-        </section>
-        <section class="membro-info">
-          <h4>Carlos Santos</h4>
-          <p class="cargo">Diretor de Operações</p>
-          <p class="descricao">
-            Expert em turismo internacional e luxury travel. Responsável por nossa cartela de 
-            destinos exclusivos e experiências premium.
-          </p>
-          <section class="especialidades">
-            <span>Turismo de Luxo</span>
-            <span>Destinos Internacionais</span>
-            <span>Operações</span>
-          </section>
-        </section>
-      </section>
-      
-      <section class="membro-card">
-        <section class="membro-photo">
-          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b692?auto=format&fit=crop&w=300&q=80" alt="Marina Costa">
-        </section>
-        <section class="membro-info">
-          <h4>Marina Costa</h4>
-          <p class="cargo">Especialista em Experiências</p>
-          <p class="descricao">
-            Curadora de experiências únicas e roteiros personalizados. Especialista em destinos 
-            nacionais e turismo de aventura.
-          </p>
-          <section class="especialidades">
-            <span>Turismo de Aventura</span>
-            <span>Brasil</span>
-            <span>Experiências</span>
-          </section>
-        </section>
-      </section>
-      
-      <section class="membro-card">
-        <section class="membro-photo">
-          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80" alt="Roberto Lima">
-        </section>
-        <section class="membro-info">
-          <h4>Roberto Lima</h4>
-          <p class="cargo">Consultor de Viagens</p>
-          <p class="descricao">
-            Especialista em atendimento personalizado e planejamento de viagens familiares. 
-            Foco em criar experiências memoráveis para todos os perfis de viajantes.
-          </p>
-          <section class="especialidades">
-            <span>Atendimento</span>
-            <span>Viagens Familiares</span>
-            <span>Planejamento</span>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
-</section>
+<!-- Nossa Equipe removida a pedido do cliente -->
 
 <!-- Nossos Diferenciais -->
 <section class="diferenciais">
@@ -320,7 +235,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Aplicar animações aos elementos
-document.querySelectorAll('.pilar-card, .membro-card, .diferencial-item, .premio-item').forEach(el => {
+document.querySelectorAll('.pilar-card, .diferencial-item, .premio-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
