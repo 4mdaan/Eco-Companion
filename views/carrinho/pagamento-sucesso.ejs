@@ -1,0 +1,412 @@
+<%- include('../partials/head', { pageCSS: 'carrinho' }) %>
+<%- include('../partials/header', { currentPage: 'pagamento-sucesso' }) %>
+
+<section class="payment-success-hero">
+  <section class="container">
+    <section class="success-content">
+      <section class="success-icon">
+        ✅
+      </section>
+      
+      <h1 class="success-title">Pagamento Realizado com Sucesso!</h1>
+      
+      <p class="success-message">
+        Sua reserva foi confirmada e você receberá todos os detalhes por e-mail em instantes.
+      </p>
+
+      <section class="order-details" id="order-details">
+        <!-- Detalhes do pedido serão carregados via JavaScript -->
+      </section>
+
+      <section class="success-actions">
+        <a href="/destinos" class="btn-primary">
+          Explorar Mais Destinos
+        </a>
+        
+        <a href="/" class="btn-secondary">
+          Voltar ao Início
+        </a>
+
+        <button onclick="window.print()" class="btn-print">
+          🖨️ Imprimir Comprovante
+        </button>
+      </section>
+
+      <section class="next-steps">
+        <h3>Próximos Passos</h3>
+        
+        <section class="steps-list">
+          <section class="step">
+            <section class="step-icon">📧</section>
+            <section class="step-content">
+              <h4>Confirmação por E-mail</h4>
+              <p>Verifique sua caixa de entrada para os detalhes completos da reserva.</p>
+            </section>
+          </section>
+
+          <section class="step">
+            <section class="step-icon">📱</section>
+            <section class="step-content">
+              <h4>Contato da Agência</h4>
+              <p>Nossa equipe entrará em contato em até 24 horas para finalizar os detalhes.</p>
+            </section>
+          </section>
+
+          <section class="step">
+            <section class="step-icon">✈️</section>
+            <section class="step-content">
+              <h4>Preparação da Viagem</h4>
+              <p>Receba todas as informações necessárias para sua viagem dos sonhos.</p>
+            </section>
+          </section>
+        </section>
+      </section>
+
+      <section class="support-info">
+        <h3>Precisa de Ajuda?</h3>
+        <p>
+          Entre em contato conosco:
+          <strong>(11) 99999-9999</strong> | 
+          <strong>contato@ecocompanion.com.br</strong>
+        </p>
+      </section>
+    </section>
+  </section>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<style>
+.payment-success-hero {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  text-align: center;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.success-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  animation: successPulse 2s infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.success-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.order-details {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.order-details h3 {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.order-item:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.success-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.btn-primary, .btn-secondary, .btn-print {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: #1f2937;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #111827;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-print {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-print:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.next-steps {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.next-steps h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.steps-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.step-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  margin-bottom: 0.5rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.step-content p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.support-info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.support-info h3 {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.support-info p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .payment-success-hero {
+    padding: 2rem 0;
+  }
+
+  .success-title {
+    font-size: 2rem;
+  }
+
+  .success-message {
+    font-size: 1.1rem;
+  }
+
+  .success-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary, .btn-secondary, .btn-print {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .order-details, .next-steps, .support-info {
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Print styles */
+@media print {
+  .success-actions, .next-steps, .support-info {
+    display: none;
+  }
+
+  .payment-success-hero {
+    background: white;
+    color: black;
+    padding: 2rem;
+  }
+
+  .order-details {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Obter informações do pagamento da URL ou localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('orderId') || localStorage.getItem('lastOrderId');
+  
+  if (orderId) {
+    loadOrderDetails(orderId);
+    // Limpar carrinho após sucesso
+    localStorage.removeItem('carrinho');
+    localStorage.setItem('lastOrderId', orderId);
+  } else {
+    // Carregar detalhes básicos do carrinho se não houver orderId
+    loadCartDetails();
+  }
+});
+
+async function loadOrderDetails(orderId) {
+  try {
+    const response = await fetch(`/api/payments/order/${orderId}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      displayOrderDetails(data.order);
+    } else {
+      console.error('Erro ao carregar detalhes do pedido:', data.error);
+      loadCartDetails();
+    }
+  } catch (error) {
+    console.error('Erro ao carregar pedido:', error);
+    loadCartDetails();
+  }
+}
+
+function loadCartDetails() {
+  // Carregar do localStorage como fallback
+  const carrinho = JSON.parse(localStorage.getItem('carrinho-backup') || '[]');
+  
+  if (carrinho.length > 0) {
+    const total = carrinho.reduce((sum, item) => {
+      const preco = parseFloat(item.preco.replace('R$ ', '').replace('.', '').replace(',', '.'));
+      return sum + (preco * item.quantidade);
+    }, 0);
+
+    const orderDetails = {
+      id: 'TEMP_' + Date.now(),
+      items: carrinho,
+      total: total,
+      status: 'paid',
+      createdAt: new Date().toISOString()
+    };
+
+    displayOrderDetails(orderDetails);
+  }
+}
+
+function displayOrderDetails(order) {
+  const container = document.getElementById('order-details');
+  
+  let itemsHtml = '';
+  if (order.items && Array.isArray(order.items)) {
+    itemsHtml = order.items.map(item => `
+      <div class="order-item">
+        <span>${item.name || item.destino} (x${item.quantity || item.quantidade})</span>
+        <span>R$ ${formatCurrency(item.price * (item.quantity || item.quantidade) || parseFloat(item.preco.replace('R$ ', '').replace('.', '').replace(',', '.')) * item.quantidade)}</span>
+      </div>
+    `).join('');
+  }
+
+  container.innerHTML = `
+    <h3>Detalhes do Pedido</h3>
+    <div class="order-item">
+      <span><strong>Número do Pedido:</strong></span>
+      <span>${order.id}</span>
+    </div>
+    <div class="order-item">
+      <span><strong>Data:</strong></span>
+      <span>${new Date(order.createdAt || order.paidAt).toLocaleDateString('pt-BR')}</span>
+    </div>
+    <div class="order-item">
+      <span><strong>Status:</strong></span>
+      <span>✅ Confirmado</span>
+    </div>
+    ${itemsHtml}
+    <div class="order-item">
+      <span><strong>Total Pago:</strong></span>
+      <span><strong>R$ ${formatCurrency(order.total)}</strong></span>
+    </div>
+  `;
+}
+
+function formatCurrency(value) {
+  if (typeof value === 'string') {
+    value = parseFloat(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
+  }
+  return value.toLocaleString('pt-BR', { 
+    minimumFractionDigits: 2, 
+    maximumFractionDigits: 2 
+  });
+}
+</script>

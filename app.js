@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,9 @@ app.get('/debug-carrinho.html', (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Middleware especial para webhook do Stripe (deve vir antes do express.json())
+app.use('/api/payments/webhook/stripe', express.raw({type: 'application/json'}));
+
 // Importar rotas
 const indexRoutes = require('./routes/index');
 const pacotesRoutes = require('./routes/pacotes');
@@ -30,6 +34,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const chatRoutes = require('./routes/chat');
 const legalRoutes = require('./routes/legal');
+const paymentsRoutes = require('./routes/payments');
 
 // Usar as rotas
 app.use('/', indexRoutes);
@@ -40,6 +45,7 @@ app.use('/cashback', cashbackRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/chat', chatRoutes);
+app.use('/api/payments', paymentsRoutes);
 app.use('/', legalRoutes);
 
 // Middleware para tratamento de erros 404

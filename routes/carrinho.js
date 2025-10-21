@@ -313,4 +313,26 @@ router.get('/api/quantidade', (req, res) => {
   res.json({ quantidade });
 });
 
+// Página de sucesso do pagamento
+router.get('/pagamento-sucesso', (req, res) => {
+  res.render('carrinho/pagamento-sucesso', {
+    title: 'Pagamento Realizado - Eco Companion'
+  });
+});
+
+// Página de erro do pagamento
+router.get('/pagamento-erro', (req, res) => {
+  res.render('carrinho/pagamento-erro', {
+    title: 'Erro no Pagamento - Eco Companion',
+    erro: req.query.erro || 'Erro desconhecido'
+  });
+});
+
+// Página de pagamento pendente
+router.get('/pagamento-pendente', (req, res) => {
+  res.render('carrinho/pagamento-pendente', {
+    title: 'Pagamento Pendente - Eco Companion'
+  });
+});
+
 module.exports = router;
