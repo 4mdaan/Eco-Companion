@@ -233,7 +233,7 @@ router.get('/:slug', (req, res) => {
   });
 });
 
-// Rota para página de compra direta do destino
+// Rota para compra direta do destino - redireciona para checkout
 router.get('/:slug/comprar', (req, res) => {
   const { slug } = req.params;
   
@@ -339,11 +339,39 @@ router.get('/:slug/comprar', (req, res) => {
     });
   }
   
-  res.render('destinos/comprar', {
-    title: `Comprar ${destino.nome}`,
-    description: `Finalize sua reserva para ${destino.nome} preenchendo os dados abaixo.`,
-    destino: destino
-  });
+  // Criar item para adicionar ao carrinho
+  const itemCarrinho = {
+    id: destino.id.toString(),
+    nome: destino.nome,
+    preco: destino.preco || 1200,
+    periodo: destino.duracao || '5 dias / 4 noites',
+    imagem: getImageClass(destino.nome),
+    tipo: 'destino',
+    quantidade: 1
+  };
+  
+  // Função para mapear nome do destino para classe CSS
+  function getImageClass(nome) {
+    const nomeNormalizado = nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    
+    const mapeamento = {
+      'rio de janeiro': 'bg-rio',
+      'florianopolis': 'bg-florianopolis',
+      'porto seguro': 'bg-porto-seguro',
+      'fernando de noronha': 'bg-fernando-noronha',
+      'chapada diamantina': 'bg-chapada-diamantina',
+      'natal': 'bg-natal',
+      'maceio': 'bg-maceio',
+      'gramado': 'bg-gramado',
+      'paris': 'bg-paris'
+    };
+    
+    return mapeamento[nomeNormalizado] || 'bg-default';
+  }
+  
+  // Redirecionar para checkout com parâmetros do item e mensagem de sucesso
+  const itemQuery = encodeURIComponent(JSON.stringify(itemCarrinho));
+  res.redirect(`/carrinho/checkout?item=${itemQuery}&adicionado=true&nome=${encodeURIComponent(destino.nome)}`);
 });
 
 // Rota para processar compra direta do destino

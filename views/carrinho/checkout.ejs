@@ -49,6 +49,30 @@
       </section>
     <% } %>
     
+    <% if (typeof req !== 'undefined' && req.query && req.query.adicionado) { %>
+      <section class="alert alert-success" style="background: linear-gradient(135deg, #d4edda, #c3e6cb); color: #155724; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 2px solid #10b981; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); animation: slideInDown 0.5s ease-out;">
+        <section style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">🎉</span>
+          <section>
+            <strong style="font-size: 1.1rem;">Destino adicionado com sucesso!</strong><br>
+            <span style="font-size: 0.95rem;"><%= req.query.nome || 'Seu destino escolhido' %> está pronto para o checkout.</span>
+          </section>
+        </section>
+      </section>
+      <style>
+        @keyframes slideInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      </style>
+    <% } %>
+    
     <section class="checkout-grid">
       <!-- Formulário de Dados -->
       <section class="checkout-dados">
@@ -338,5 +362,18 @@ async function sincronizarCarrinho() {
 // Sincronizar carrinho quando a página carrega
 document.addEventListener('DOMContentLoaded', function() {
   sincronizarCarrinho();
+  
+  // Auto-remover mensagem de sucesso após 5 segundos
+  const alertSuccess = document.querySelector('.alert-success');
+  if (alertSuccess) {
+    setTimeout(() => {
+      alertSuccess.style.transition = 'all 0.5s ease-out';
+      alertSuccess.style.opacity = '0';
+      alertSuccess.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        alertSuccess.remove();
+      }, 500);
+    }, 5000);
+  }
 });
 </script>

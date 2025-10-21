@@ -146,6 +146,43 @@ router.post('/atualizar', (req, res) => {
 
 // Rota para checkout
 router.get('/checkout', (req, res) => {
+  // Verificar se há item para adicionar via query parameter
+  if (req.query.item) {
+    try {
+      const novoItem = JSON.parse(decodeURIComponent(req.query.item));
+      
+      // Verificar se o item já está no carrinho
+      const itemExistente = carrinho.find(item => item.id === novoItem.id && item.tipo === novoItem.tipo);
+      
+      if (itemExistente) {
+        itemExistente.quantidade += novoItem.quantidade || 1;
+      } else {
+        // Adicionar novo item ao carrinho
+        carrinho.push({
+          id: novoItem.id,
+          destino: novoItem.nome,
+          slug: novoItem.id,
+          preco: novoItem.preco.toString(),
+          precoOriginal: novoItem.preco.toString(),
+          quantidade: novoItem.quantidade || 1,
+          periodo: novoItem.periodo,
+          bgClass: novoItem.imagem,
+          categoria: 'destino',
+          avaliacao: 4.5,
+          disponivel: true,
+          descricao: `Experiência completa em ${novoItem.nome}`,
+          dataAdicao: new Date()
+        });
+      }
+      
+      // Redirecionar sem o parâmetro para limpar a URL, mas preservar mensagem de sucesso
+      const redirectUrl = req.query.adicionado ? `/carrinho/checkout?adicionado=true&nome=${req.query.nome}` : '/carrinho/checkout';
+      return res.redirect(redirectUrl);
+    } catch (error) {
+      console.error('Erro ao processar item do query parameter:', error);
+    }
+  }
+  
   if (carrinho.length === 0) {
     return res.redirect('/carrinho?vazio=true');
   }
