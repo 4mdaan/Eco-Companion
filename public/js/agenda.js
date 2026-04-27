@@ -255,37 +255,37 @@ class ModernAgendaManager {
         }
 
         container.innerHTML = this.filteredTrips.map(trip => `
-            <div class="trip-card" onclick="window.agendaManager.showTripDetails(${trip.id})">
+            <section class="trip-card" onclick="window.agendaManager.showTripDetails(${trip.id})">
                 ${trip.image ? `
-                    <div class="trip-image ${trip.image}">
+                    <section class="trip-image ${trip.image}">
                         <span class="trip-category">${this.getCategoryIcon(trip.category)} ${this.getCategoryName(trip.category)}</span>
                         <span class="trip-status status-${trip.status}">${this.getStatusName(trip.status)}</span>
-                    </div>` 
+                    </section>` 
                 : `
-                    <div class="trip-header">
+                    <section class="trip-header">
                         <span class="trip-category">${this.getCategoryIcon(trip.category)} ${this.getCategoryName(trip.category)}</span>
                         <span class="trip-status status-${trip.status}">${this.getStatusName(trip.status)}</span>
-                    </div>`}
-                <div class="trip-content">
+                    </section>`}
+                <section class="trip-content">
                     <h3 class="trip-title">${trip.destination}</h3>
-                    <div class="trip-dates">
+                    <section class="trip-dates">
                         <i class="fas fa-calendar"></i>
                         ${this.formatDateRange(trip.startDate, trip.endDate)}
-                    </div>
+                    </section>
                     <p class="trip-description">${trip.description}</p>
-                    <div class="trip-footer">
+                    <section class="trip-footer">
                         <span class="trip-price">R$ ${trip.price.toLocaleString()}</span>
-                        <div class="trip-actions">
+                        <section class="trip-actions">
                             <button class="trip-action-btn btn-edit" onclick="event.stopPropagation(); window.agendaManager.editTrip(${trip.id})">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button class="trip-action-btn btn-delete" onclick="event.stopPropagation(); window.agendaManager.deleteTrip(${trip.id})">
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
         `).join('');
     }
 
@@ -371,16 +371,16 @@ class ModernAgendaManager {
         const sortedTrips = [...this.filteredTrips].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
         container.innerHTML = sortedTrips.map(trip => `
-            <div class="timeline-item">
-                <div class="timeline-date">${this.formatDate(trip.startDate)}</div>
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
+            <section class="timeline-item">
+                <section class="timeline-date">${this.formatDate(trip.startDate)}</section>
+                <section class="timeline-marker"></section>
+                <section class="timeline-content">
                     <h4>${trip.destination}</h4>
                     <p>Duração: ${this.calculateDuration(trip.startDate, trip.endDate)} dias</p>
                     <p>Preço: R$ ${trip.price.toLocaleString()}</p>
                     <span class="trip-status status-${trip.status}">${this.getStatusName(trip.status)}</span>
-                </div>
-            </div>
+                </section>
+            </section>
         `).join('');
     }
 
@@ -475,7 +475,7 @@ class ModernAgendaManager {
         const markerIcon = L.divIcon({
             className: 'custom-marker',
             html: `
-                <div style="
+                <section style="
                     width: 24px; 
                     height: 24px; 
                     background-color: ${getMarkerColor(trip.status)}; 
@@ -490,7 +490,7 @@ class ModernAgendaManager {
                     font-size: 10px;
                 ">
                     ${this.getCategoryIcon(trip.category)}
-                </div>
+                </section>
             `,
             iconSize: [24, 24],
             iconAnchor: [12, 12]
@@ -533,26 +533,26 @@ class ModernAgendaManager {
         };
 
         return `
-            <div class="popup-trip-info">
+            <section class="popup-trip-info">
                 <h4>${trip.destination}</h4>
-                <div class="popup-trip-details">
-                    <div class="popup-detail">
+                <section class="popup-trip-details">
+                    <section class="popup-detail">
                         <i class="fas fa-calendar"></i>
                         ${this.formatDateRange(trip.startDate, trip.endDate)}
-                    </div>
-                    <div class="popup-detail">
+                    </section>
+                    <section class="popup-detail">
                         <i class="fas fa-money-bill-wave"></i>
                         R$ ${trip.price.toLocaleString('pt-BR')}
-                    </div>
-                    <div class="popup-detail">
+                    </section>
+                    <section class="popup-detail">
                         <i class="fas fa-tag"></i>
                         ${this.getCategoryLabel(trip.category)}
-                    </div>
-                </div>
-                <div class="popup-status ${trip.status}">
+                    </section>
+                </section>
+                <section class="popup-status ${trip.status}">
                     ${statusLabels[trip.status] || trip.status}
-                </div>
-            </div>
+                </section>
+            </section>
         `;
     }
 
@@ -587,24 +587,24 @@ class ModernAgendaManager {
 
         infoElement.innerHTML = `
             <h4>${trip.destination}</h4>
-            <div class="selected-trip-details">
-                <div class="detail-item">
+            <section class="selected-trip-details">
+                <section class="detail-item">
                     <i class="fas fa-calendar"></i>
                     <span>${this.formatDateRange(trip.startDate, trip.endDate)}</span>
-                </div>
-                <div class="detail-item">
+                </section>
+                <section class="detail-item">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>R$ ${trip.price.toLocaleString('pt-BR')}</span>
-                </div>
-                <div class="detail-item">
+                </section>
+                <section class="detail-item">
                     <i class="fas fa-tag"></i>
                     <span>${this.getCategoryLabel(trip.category)}</span>
-                </div>
-                <div class="detail-item">
+                </section>
+                <section class="detail-item">
                     <i class="fas fa-info-circle"></i>
                     <span>${statusLabels[trip.status]}</span>
-                </div>
-            </div>
+                </section>
+            </section>
             <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">${trip.description}</p>
         `;
         
@@ -867,11 +867,11 @@ class ModernAgendaManager {
 
     getEmptyState(title, message) {
         return `
-            <div class="empty-state" style="grid-column: 1/-1;">
+            <section class="empty-state" style="grid-column: 1/-1;">
                 <i class="fas fa-search"></i>
                 <h3>${title}</h3>
                 <p>${message}</p>
-            </div>
+            </section>
         `;
     }
 
@@ -888,25 +888,25 @@ class ModernAgendaManager {
         
         if (content) {
             content.innerHTML = `
-                <div class="trip-detail-grid">
-                    <div class="detail-section">
+                <section class="trip-detail-grid">
+                    <section class="detail-section">
                         <h4>Informações Gerais</h4>
                         <p><strong>Destino:</strong> ${trip.destination}</p>
                         <p><strong>Categoria:</strong> ${this.getCategoryIcon(trip.category)} ${this.getCategoryName(trip.category)}</p>
                         <p><strong>Status:</strong> <span class="trip-status status-${trip.status}">${this.getStatusName(trip.status)}</span></p>
-                    </div>
-                    <div class="detail-section">
+                    </section>
+                    <section class="detail-section">
                         <h4>Datas e Preços</h4>
                         <p><strong>Data de Início:</strong> ${new Date(trip.startDate).toLocaleDateString('pt-BR')}</p>
                         <p><strong>Data de Término:</strong> ${new Date(trip.endDate).toLocaleDateString('pt-BR')}</p>
                         <p><strong>Duração:</strong> ${this.calculateDuration(trip.startDate, trip.endDate)} dias</p>
                         <p><strong>Preço:</strong> R$ ${trip.price.toLocaleString()}</p>
-                    </div>
-                    <div class="detail-section full-width">
+                    </section>
+                    <section class="detail-section full-width">
                         <h4>Descrição</h4>
                         <p>${trip.description}</p>
-                    </div>
-                </div>
+                    </section>
+                </section>
             `;
         }
         

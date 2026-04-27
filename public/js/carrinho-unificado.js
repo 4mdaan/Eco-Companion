@@ -56,12 +56,12 @@ function mostrarCarrinhoVazio() {
     const container = document.querySelector('.carrinho-content .container');
     if (container) {
         container.innerHTML = `
-            <div class="carrinho-vazio">
-                <div class="vazio-icon">🛒</div>
+            <section class="carrinho-vazio">
+                <section class="vazio-icon">🛒</section>
                 <h2 class="vazio-title">Seu carrinho está vazio</h2>
                 <p class="vazio-texto">Que tal explorar nossos incríveis pacotes de viagem?</p>
                 <a href="/pacotes" class="btn-explorar">Explorar Pacotes</a>
-            </div>
+            </section>
         `;
     }
 }
@@ -74,36 +74,36 @@ function exibirCarrinhoNaPagina(carrinho) {
     const totais = calcularTotaisCarrinho(carrinho);
     
     container.innerHTML = `
-        <div class="carrinho-grid">
-            <div class="carrinho-items">
+        <section class="carrinho-grid">
+            <section class="carrinho-items">
                 <h2 class="section-title">Seus Pacotes</h2>
                 ${carrinho.map(item => criarHTMLItemCarrinho(item)).join('')}
-            </div>
+            </section>
             
-            <div class="carrinho-resumo">
+            <section class="carrinho-resumo">
                 <h2 class="section-title">Resumo da Compra</h2>
                 
-                <div class="resumo-detalhes">
-                    <div class="resumo-linha">
+                <section class="resumo-detalhes">
+                    <section class="resumo-linha">
                         <span class="resumo-label">Subtotal:</span>
                         <span class="resumo-valor">R$ ${totais.subtotal.toLocaleString('pt-BR')}</span>
-                    </div>
+                    </section>
                     
                     ${totais.desconto > 0 ? `
-                        <div class="resumo-linha desconto">
+                        <section class="resumo-linha desconto">
                             <span class="resumo-label">Desconto:</span>
                             <span class="resumo-valor">- R$ ${totais.desconto.toLocaleString('pt-BR')}</span>
-                        </div>
+                        </section>
                     ` : ''}
                     
-                    <div class="resumo-divider"></div>
+                    <section class="resumo-divider"></section>
                     
-                    <div class="resumo-total">
+                    <section class="resumo-total">
                         <span class="total-label">Total:</span>
                         <span class="total-valor">R$ ${totais.total.toLocaleString('pt-BR')}</span>
-                    </div>
+                    </section>
                     
-                    <div class="resumo-actions">
+                    <section class="resumo-actions">
                         <button onclick="finalizarCompraUnificada()" class="btn-checkout">
                             Finalizar Compra
                         </button>
@@ -111,44 +111,44 @@ function exibirCarrinhoNaPagina(carrinho) {
                         <a href="/pacotes" class="btn-continuar">
                             Continuar Comprando
                         </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
     `;
 }
 
 // Função para criar HTML de item do carrinho
 function criarHTMLItemCarrinho(item) {
     return `
-        <div class="carrinho-item" data-id="${item.id}">
-            <div class="item-image ${item.bgClass || 'bg-default'}"></div>
+        <section class="carrinho-item" data-id="${item.id}">
+            <section class="item-image ${item.bgClass || 'bg-default'}"></section>
             
-            <div class="item-info">
+            <section class="item-info">
                 <h3 class="item-titulo">${item.nome || item.destino}</h3>
                 <p class="item-periodo">${item.periodo || 'Data a definir'}</p>
                 
-                <div class="item-precos">
+                <section class="item-precos">
                     ${item.precoOriginal && item.precoOriginal !== item.preco ? `
                         <span class="preco-original">R$ ${formatarPrecoExibicao(item.precoOriginal)}</span>
                     ` : ''}
                     <span class="preco-atual">R$ ${formatarPrecoExibicao(item.preco)}</span>
-                </div>
-            </div>
+                </section>
+            </section>
             
-            <div class="item-actions">
-                <div class="quantidade-controls">
+            <section class="item-actions">
+                <section class="quantidade-controls">
                     <button onclick="alterarQuantidadeItem('${item.id}', -1)">-</button>
                     <input type="number" value="${item.quantidade}" min="1" 
                            onchange="atualizarQuantidadeItem('${item.id}', this.value)">
                     <button onclick="alterarQuantidadeItem('${item.id}', 1)">+</button>
-                </div>
+                </section>
                 
                 <button onclick="removerItemCarrinho('${item.id}')" class="btn-remover">
                     🗑️ Remover
                 </button>
-            </div>
-        </div>
+            </section>
+        </section>
     `;
 }
 
@@ -266,13 +266,13 @@ function mostrarNotificacao(mensagem, tipo = 'success') {
     const notificacao = document.createElement('section');
     notificacao.className = `notification notification-${tipo}`;
     notificacao.innerHTML = `
-        <div class="notification-content">
+        <section class="notification-content">
             <span class="notification-icon">
                 ${tipo === 'success' ? '✅' : tipo === 'info' ? 'ℹ️' : tipo === 'error' ? '❌' : '⚠️'}
             </span>
             <span class="notification-message">${mensagem}</span>
             <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
+        </section>
     `;
     
     document.body.appendChild(notificacao);

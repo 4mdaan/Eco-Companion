@@ -371,32 +371,32 @@ function displayOrderDetails(order) {
   let itemsHtml = '';
   if (order.items && Array.isArray(order.items)) {
     itemsHtml = order.items.map(item => `
-      <div class="order-item">
+      <section class="order-item">
         <span>${item.name || item.destino} (x${item.quantity || item.quantidade})</span>
         <span>R$ ${formatCurrency(item.price * (item.quantity || item.quantidade) || parseFloat(item.preco.replace('R$ ', '').replace('.', '').replace(',', '.')) * item.quantidade)}</span>
-      </div>
+      </section>
     `).join('');
   }
 
   container.innerHTML = `
     <h3>Detalhes do Pedido</h3>
-    <div class="order-item">
+    <section class="order-item">
       <span><strong>Número do Pedido:</strong></span>
       <span>${order.id}</span>
-    </div>
-    <div class="order-item">
+    </section>
+    <section class="order-item">
       <span><strong>Data:</strong></span>
       <span>${new Date(order.createdAt || order.paidAt).toLocaleDateString('pt-BR')}</span>
-    </div>
-    <div class="order-item">
+    </section>
+    <section class="order-item">
       <span><strong>Status:</strong></span>
       <span>✅ Confirmado</span>
-    </div>
+    </section>
     ${itemsHtml}
-    <div class="order-item">
+    <section class="order-item">
       <span><strong>Total Pago:</strong></span>
       <span><strong>R$ ${formatCurrency(order.total)}</strong></span>
-    </div>
+    </section>
   `;
 }
 

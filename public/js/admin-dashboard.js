@@ -89,11 +89,11 @@ function createLoadingOverlay() {
     `;
     
     overlay.innerHTML = `
-        <div style="text-align: center;">
-            <div style="font-size: 3rem; margin-bottom: 20px; animation: spin 1s linear infinite;">⚙️</div>
-            <div style="font-size: 1.2rem; color: #2c3e50; font-weight: 600;">Carregando Dashboard...</div>
-            <div style="color: #7f8c8d; margin-top: 10px;">Verificando integrações e coletando métricas</div>
-        </div>
+        <section style="text-align: center;">
+            <section style="font-size: 3rem; margin-bottom: 20px; animation: spin 1s linear infinite;">⚙️</section>
+            <section style="font-size: 1.2rem; color: #2c3e50; font-weight: 600;">Carregando Dashboard...</section>
+            <section style="color: #7f8c8d; margin-top: 10px;">Verificando integrações e coletando métricas</section>
+        </section>
     `;
     
     return overlay;
@@ -259,15 +259,15 @@ function addNewReviewToPanel(review) {
     const reviewItem = document.createElement('section');
     reviewItem.className = 'review-item new-review';
     reviewItem.innerHTML = `
-        <div class="review-content">
+        <section class="review-content">
             <strong>${review.name}</strong>
             <span class="review-rating">
                 ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
             </span>
-        </div>
-        <div class="review-text">"${review.text}"</div>
-        <div class="review-time">Agora mesmo</div>
-        <div class="live-indicator">🔴 Novo</div>
+        </section>
+        <section class="review-text">"${review.text}"</section>
+        <section class="review-time">Agora mesmo</section>
+        <section class="live-indicator">🔴 Novo</section>
     `;
     
     // Adicionar no topo
@@ -542,13 +542,13 @@ function showEventNotification(event) {
     const notification = document.createElement('section');
     notification.className = `event-notification ${event.severity}`;
     notification.innerHTML = `
-        <div class="event-icon">
+        <section class="event-icon">
             ${event.type === 'security' ? '🛡️' : 
               event.type === 'performance' ? '⚡' :
               event.type === 'integration' ? '🔗' :
               event.type === 'user' ? '👤' : '💾'}
-        </div>
-        <div class="event-message">${event.message}</div>
+        </section>
+        <section class="event-message">${event.message}</section>
     `;
     
     notification.style.cssText = `
@@ -634,17 +634,17 @@ window.viewSecurityLogs = function() {
             .then(response => response.json())
             .then(logs => {
                 logsContainer.innerHTML = logs.map(log => `
-                    <div class="log-item ${log.severity}">
-                        <div class="log-info">
-                            <div class="log-message">${log.message}</div>
-                            <div class="log-details">
+                    <section class="log-item ${log.severity}">
+                        <section class="log-info">
+                            <section class="log-message">${log.message}</section>
+                            <section class="log-details">
                                 ${new Date(log.timestamp).toLocaleString('pt-BR')} - 
                                 IP: ${log.ip} - 
                                 Tipo: ${log.type}
-                            </div>
-                        </div>
-                        <div class="log-severity ${log.severity}">${log.severity}</div>
-                    </div>
+                            </section>
+                        </section>
+                        <section class="log-severity ${log.severity}">${log.severity}</section>
+                    </section>
                 `).join('');
                 
                 modal.classList.add('active');

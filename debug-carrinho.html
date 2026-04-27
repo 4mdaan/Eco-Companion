@@ -18,42 +18,42 @@
 <body>
     <h1>🛒 Debug do Carrinho - Eco Companion</h1>
     
-    <div class="section">
+    <section class="section">
         <h2>1. Adicionar Itens de Teste ao Carrinho</h2>
         <button onclick="adicionarItemTeste()">Adicionar Rio de Janeiro</button>
         <button onclick="adicionarItemTeste2()">Adicionar Florianópolis</button>
         <button onclick="limparCarrinho()">Limpar Carrinho</button>
-    </div>
+    </section>
     
-    <div class="section">
+    <section class="section">
         <h2>2. Verificar Carrinho Local</h2>
         <button onclick="verificarCarrinhoLocal()">Ver Carrinho localStorage</button>
-        <div id="carrinho-local" class="output"></div>
-    </div>
+        <section id="carrinho-local" class="output"></section>
+    </section>
     
-    <div class="section">
+    <section class="section">
         <h2>3. Sincronizar com Backend</h2>
         <button onclick="sincronizarCarrinho()">Sincronizar</button>
-        <div id="sync-result" class="output"></div>
-    </div>
+        <section id="sync-result" class="output"></section>
+    </section>
     
-    <div class="section">
+    <section class="section">
         <h2>4. Testar Checkout</h2>
         <button onclick="testarCheckout()">Ir para Checkout</button>
-        <div id="checkout-result" class="output"></div>
-    </div>
+        <section id="checkout-result" class="output"></section>
+    </section>
     
-    <div class="section">
+    <section class="section">
         <h2>5. Verificar Backend</h2>
         <button onclick="verificarQuantidadeBackend()">Quantidade no Backend</button>
-        <div id="backend-result" class="output"></div>
-    </div>
+        <section id="backend-result" class="output"></section>
+    </section>
 
     <script>
         function log(message, type = 'info') {
             console.log(message);
             const className = type === 'success' ? 'success' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : '';
-            return `<div class="${className}">${new Date().toLocaleTimeString()}: ${message}</div>`;
+            return `<section class="${className}">${new Date().toLocaleTimeString()}: ${message}</section>`;
         }
 
         function adicionarItemTeste() {

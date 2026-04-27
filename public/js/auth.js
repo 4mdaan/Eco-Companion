@@ -297,7 +297,7 @@ function showPasswordStrength(field, text, color) {
     indicator.innerHTML = `
         <section class="strength-bar">
             <section class="strength-fill" style="width: ${(text === 'Muito fraca' ? 20 : text === 'Fraca' ? 40 : text === 'Regular' ? 60 : text === 'Boa' ? 80 : 100)}%; background: ${color}"></section>
-        </div>
+        </section>
         <span style="color: ${color}; font-size: 0.75rem; font-weight: 500;">${text}</span>
     `;
     

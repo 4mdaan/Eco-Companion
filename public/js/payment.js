@@ -94,11 +94,11 @@ class PaymentSystem {
             methodDiv.innerHTML = `
                 <label class="payment-method-label">
                     <input type="radio" name="payment-method" value="${method.id}" />
-                    <div class="payment-method-info">
+                    <section class="payment-method-info">
                         <h4>${method.name} ${discount}</h4>
                         <p>${method.description}</p>
                         <small>Taxa: ${fee}</small>
-                    </div>
+                    </section>
                 </label>
             `;
 
@@ -325,18 +325,18 @@ class PaymentSystem {
         const modal = document.createElement('div');
         modal.className = 'payment-modal pix-instructions';
         modal.innerHTML = `
-            <div class="modal-content">
+            <section class="modal-content">
                 <h3>Pagamento PIX</h3>
                 <p>Seu pedido foi criado! Complete o pagamento na janela que foi aberta.</p>
                 <p><strong>Pedido:</strong> ${orderId}</p>
-                <div class="pix-status" id="pix-status">
-                    <div class="status-indicator pending"></div>
+                <section class="pix-status" id="pix-status">
+                    <section class="status-indicator pending"></section>
                     <span>Aguardando pagamento...</span>
-                </div>
+                </section>
                 <button onclick="this.parentElement.parentElement.remove()" class="btn-secondary">
                     Fechar
                 </button>
-            </div>
+            </section>
         `;
         document.body.appendChild(modal);
 
@@ -348,19 +348,19 @@ class PaymentSystem {
         const modal = document.createElement('div');
         modal.className = 'payment-modal boleto-instructions';
         modal.innerHTML = `
-            <div class="modal-content">
+            <section class="modal-content">
                 <h3>Boleto Bancário</h3>
                 <p>Seu boleto foi gerado! Complete o pagamento na janela que foi aberta.</p>
                 <p><strong>Pedido:</strong> ${orderId}</p>
                 <p><strong>Vencimento:</strong> 3 dias úteis</p>
-                <div class="boleto-status" id="boleto-status">
-                    <div class="status-indicator pending"></div>
+                <section class="boleto-status" id="boleto-status">
+                    <section class="status-indicator pending"></section>
                     <span>Aguardando pagamento...</span>
-                </div>
+                </section>
                 <button onclick="this.parentElement.parentElement.remove()" class="btn-secondary">
                     Fechar
                 </button>
-            </div>
+            </section>
         `;
         document.body.appendChild(modal);
 
@@ -447,28 +447,28 @@ class PaymentSystem {
         if (!totalContainer) return;
 
         totalContainer.innerHTML = `
-            <div class="total-breakdown">
-                <div class="total-line">
+            <section class="total-breakdown">
+                <section class="total-line">
                     <span>Subtotal:</span>
                     <span>R$ ${baseTotal.toFixed(2)}</span>
-                </div>
+                </section>
                 ${fee > 0 ? `
-                <div class="total-line fee">
+                <section class="total-line fee">
                     <span>Taxa:</span>
                     <span>R$ ${fee.toFixed(2)}</span>
-                </div>
+                </section>
                 ` : ''}
                 ${discount > 0 ? `
-                <div class="total-line discount">
+                <section class="total-line discount">
                     <span>Desconto:</span>
                     <span>-R$ ${discount.toFixed(2)}</span>
-                </div>
+                </section>
                 ` : ''}
-                <div class="total-line final">
+                <section class="total-line final">
                     <span><strong>Total:</strong></span>
                     <span><strong>R$ ${finalTotal.toFixed(2)}</strong></span>
-                </div>
-            </div>
+                </section>
+            </section>
         `;
     }
 
@@ -554,11 +554,11 @@ class PaymentSystem {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'payment-error';
         errorDiv.innerHTML = `
-            <div class="error-content">
+            <section class="error-content">
                 <span class="error-icon">⚠️</span>
                 <span>${message}</span>
                 <button onclick="this.parentElement.parentElement.remove()" class="error-close">×</button>
-            </div>
+            </section>
         `;
         
         document.body.appendChild(errorDiv);
@@ -572,10 +572,10 @@ class PaymentSystem {
         const successDiv = document.createElement('div');
         successDiv.className = 'payment-success';
         successDiv.innerHTML = `
-            <div class="success-content">
+            <section class="success-content">
                 <span class="success-icon">✅</span>
                 <span>${message}</span>
-            </div>
+            </section>
         `;
         
         document.body.appendChild(successDiv);
