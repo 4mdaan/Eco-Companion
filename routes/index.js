@@ -1,5 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const { validateContato } = require('../config/validators');
+
+// Middleware customizado para tratamento de erros de validação com redirect
+const handleValidationErrorsHtml = (req, res, next) => {
+  const { validationResult } = require('express-validator');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessage = errors.array()[0].msg;
+    return res.render('contato', {
+      title: 'Contato',
+      description: 'Entre em contato conosco para planejar sua próxima aventura.',
+      error: errorMessage,
+      formData: req.body
+    });
+  }
+  next();
+};
 
 // Rota para a página inicial
 router.get('/', (req, res) => {
@@ -68,19 +85,14 @@ router.get('/contato', (req, res) => {
 });
 
 // Rota para processar formulário de contato
-router.post('/contato', (req, res) => {
+router.post('/contato', validateContato, handleValidationErrorsHtml, (req, res) => {
     const { nome, email, telefone, servico, mensagem, newsletter } = req.body;
-    
-    // Aqui você pode implementar:
-    // - Validação dos dados
-    // - Salvamento no banco de dados
-    // - Envio de email
-    // - Integração com CRM
     
     // Gerar protocolo único
     const protocolo = `ECO${Date.now()}`;
     
-    console.log('Contato recebido:', { nome, email, telefone, servico, mensagem, newsletter, protocolo });
+    console.log(`✉️ Contato recebido - Protocolo: ${protocolo}`);
+    console.log({ nome, email, telefone, servico, newsletter });
     
     res.render('contato-sucesso', { 
         title: 'Contato Enviado - Eco Companion',

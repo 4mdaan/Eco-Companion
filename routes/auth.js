@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { validateLogin, validateRegistro, validateEsqueceuSenha } = require('../config/validators');
 
 // Dados simulados de usuários (em um projeto real, seria um banco de dados)
 const usuarios = [
@@ -33,8 +34,26 @@ router.get('/', (req, res) => {
 // Sistema de rate limiting por IP
 const loginAttempts = new Map();
 
+// Middleware customizado para tratamento de erros de validação com redirect
+const handleValidationErrorsHtml = (req, res, next) => {
+  const { validationResult } = require('express-validator');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessage = errors.array()[0].msg;
+    return res.render('auth/login', {
+      title: 'Login',
+      currentPage: 'login',
+      pageCSS: 'auth',
+      pageJS: 'auth',
+      error: errorMessage,
+      email: req.body.email || ''
+    });
+  }
+  next();
+};
+
 // POST - Processar login
-router.post('/', (req, res) => {
+router.post('/', validateLogin, handleValidationErrorsHtml, (req, res) => {
   const { email, senha, lembrar } = req.body;
   const clientIP = req.ip || req.connection.remoteAddress;
   
@@ -62,55 +81,6 @@ router.post('/', (req, res) => {
         email: email
       });
     }
-  }
-  
-  // Validações de entrada
-  if (!email || !senha) {
-    attempts.count++;
-    attempts.lastAttempt = now;
-    loginAttempts.set(clientIP, attempts);
-    
-    return res.render('auth/login', {
-      title: 'Login',
-      currentPage: 'login',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'Email e senha são obrigatórios',
-      email: email
-    });
-  }
-  
-  // Validar formato do email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    attempts.count++;
-    attempts.lastAttempt = now;
-    loginAttempts.set(clientIP, attempts);
-    
-    return res.render('auth/login', {
-      title: 'Login',
-      currentPage: 'login',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'Formato de email inválido',
-      email: email
-    });
-  }
-  
-  // Validar tamanho mínimo da senha
-  if (senha.length < 3) {
-    attempts.count++;
-    attempts.lastAttempt = now;
-    loginAttempts.set(clientIP, attempts);
-    
-    return res.render('auth/login', {
-      title: 'Login',
-      currentPage: 'login',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'Senha muito curta',
-      email: email
-    });
   }
   
   // Buscar usuário
@@ -144,7 +114,7 @@ router.post('/', (req, res) => {
   };
   
   // Log de segurança
-  console.log(`Login bem-sucedido: ${usuario.email} (${clientIP}) em ${new Date().toISOString()}`);
+  console.log(`✅ Login bem-sucedido: ${usuario.email} (${clientIP}) em ${new Date().toISOString()}`);
   
   // Redirecionar baseado no tipo de usuário
   if (usuario.tipo === 'admin') {
@@ -152,7 +122,6 @@ router.post('/', (req, res) => {
   } else {
     res.redirect('/');
   }
-});
 
 // GET - Página de registro
 router.get('/registro', (req, res) => {
@@ -167,40 +136,19 @@ router.get('/registro', (req, res) => {
 });
 
 // POST - Processar registro
-router.post('/registro', (req, res) => {
-  const { nome, email, senha, confirmarSenha, termos } = req.body;
+router.post('/registro', validateRegistro, handleValidationErrorsHtml, (req, res) => {
+  const { nome, email, senha, termos } = req.body;
   
-  // Validações
-  if (!nome || !email || !senha || !confirmarSenha) {
+  // Verificar se email já existe
+  const emailExiste = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase());
+  if (emailExiste) {
     return res.render('auth/registro', {
       title: 'Criar Conta',
       currentPage: 'registro',
       pageCSS: 'auth',
       pageJS: 'auth',
-      error: 'Todos os campos são obrigatórios',
-      nome, email
-    });
-  }
-  
-  if (senha !== confirmarSenha) {
-    return res.render('auth/registro', {
-      title: 'Criar Conta',
-      currentPage: 'registro',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'As senhas não coincidem',
-      nome, email
-    });
-  }
-  
-  if (senha.length < 6) {
-    return res.render('auth/registro', {
-      title: 'Criar Conta',
-      currentPage: 'registro',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'A senha deve ter pelo menos 6 caracteres',
-      nome, email
+      error: 'Este email já está cadastrado',
+      nome
     });
   }
   
@@ -215,19 +163,6 @@ router.post('/registro', (req, res) => {
     });
   }
   
-  // Verificar se email já existe
-  const emailExiste = usuarios.find(u => u.email === email);
-  if (emailExiste) {
-    return res.render('auth/registro', {
-      title: 'Criar Conta',
-      currentPage: 'registro',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'Este email já está cadastrado',
-      nome
-    });
-  }
-  
   // Criar novo usuário
   const novoUsuario = {
     id: usuarios.length + 1,
@@ -238,6 +173,8 @@ router.post('/registro', (req, res) => {
   };
   
   usuarios.push(novoUsuario);
+  
+  console.log(`✅ Novo usuário registrado: ${email} em ${new Date().toISOString()}`);
   
   // Sucesso
   res.render('auth/login', {
@@ -263,20 +200,10 @@ router.get('/esqueceu-senha', (req, res) => {
 });
 
 // POST - Processar esqueceu a senha
-router.post('/esqueceu-senha', (req, res) => {
+router.post('/esqueceu-senha', validateEsqueceuSenha, handleValidationErrorsHtml, (req, res) => {
   const { email } = req.body;
   
-  if (!email) {
-    return res.render('auth/esqueceu-senha', {
-      title: 'Esqueceu a Senha',
-      currentPage: 'esqueceu-senha',
-      pageCSS: 'auth',
-      pageJS: 'auth',
-      error: 'Email é obrigatório'
-    });
-  }
-  
-  const usuario = usuarios.find(u => u.email === email);
+  const usuario = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase());
   
   if (!usuario) {
     return res.render('auth/esqueceu-senha', {
@@ -290,6 +217,8 @@ router.post('/esqueceu-senha', (req, res) => {
   }
   
   // Simular envio de email
+  console.log(`📧 Link de recuperação enviado para: ${email}`);
+  
   res.render('auth/esqueceu-senha', {
     title: 'Esqueceu a Senha',
     currentPage: 'esqueceu-senha',

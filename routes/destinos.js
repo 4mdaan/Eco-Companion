@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const { validateCompraDestino, validateDetalhesDestino, handleValidationErrors } = require('../config/validators');
+const { securityLogger, apiRateLimiter } = require('../config/security-middleware');
 
 // Rota para listar todos os destinos
-router.get('/', (req, res) => {
+router.get('/', securityLogger, apiRateLimiter, (req, res) => {
   const destinos = [
     {
       id: 1,
@@ -90,7 +92,7 @@ router.get('/', (req, res) => {
 });
 
 // Rota para detalhes de um destino específico
-router.get('/:slug', (req, res) => {
+router.get('/:slug', securityLogger, apiRateLimiter, validateDetalhesDestino, handleValidationErrors, (req, res) => {
   const { slug } = req.params;
   
   // Simular busca do destino pelo slug - incluindo todos os destinos
@@ -375,7 +377,7 @@ router.get('/:slug/comprar', (req, res) => {
 });
 
 // Rota para processar compra direta do destino
-router.post('/:slug/comprar', (req, res) => {
+router.post('/:slug/comprar', securityLogger, apiRateLimiter, validateCompraDestino, handleValidationErrors, (req, res) => {
   const { slug } = req.params;
   const { nome, email, telefone, cpf, metodoPagamento, endereco, pessoas } = req.body;
   

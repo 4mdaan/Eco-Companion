@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
-// Importar funções do cashback
-const cashbackRouter = require('./cashback');
+const { validateAdicionarAoCarrinho, validateRemoverCarrinho, validateAtualizarCarrinho, validateAplicarCupom, handleValidationErrors } = require('../config/validators');
+const { securityLogger, apiRateLimiter } = require('../config/security-middleware');
 
 // Simulação de sessão de carrinho (em produção, usar sessões reais ou banco de dados)
 let carrinho = [];
@@ -55,7 +54,7 @@ function encontrarPacote(slug) {
 }
 
 // Rota para visualizar o carrinho
-router.get('/', (req, res) => {
+router.get('/', securityLogger, apiRateLimiter, (req, res) => {
   // Calcular totais
   let subtotal = 0;
   let descontoTotal = 0;
@@ -84,7 +83,7 @@ router.get('/', (req, res) => {
 });
 
 // Rota para adicionar item ao carrinho
-router.post('/adicionar', (req, res) => {
+router.post('/adicionar', securityLogger, apiRateLimiter, validateAdicionarAoCarrinho, handleValidationErrors, (req, res) => {
   const { slug, quantidade = 1 } = req.body;
   const pacote = encontrarPacote(slug);
   
@@ -116,7 +115,7 @@ router.post('/adicionar', (req, res) => {
 });
 
 // Rota para remover item do carrinho
-router.post('/remover', (req, res) => {
+router.post('/remover', securityLogger, apiRateLimiter, validateRemoverCarrinho, handleValidationErrors, (req, res) => {
   const { slug } = req.body;
   
   carrinho = carrinho.filter(item => item.slug !== slug);
@@ -129,7 +128,7 @@ router.post('/remover', (req, res) => {
 });
 
 // Rota para atualizar quantidade
-router.post('/atualizar', (req, res) => {
+router.post('/atualizar', securityLogger, apiRateLimiter, validateAtualizarCarrinho, handleValidationErrors, (req, res) => {
   const { slug, quantidade } = req.body;
   const item = carrinho.find(item => item.slug === slug);
   

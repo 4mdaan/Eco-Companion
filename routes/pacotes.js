@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const { validateFiltrosPacotes, validateDetalhePacote, handleValidationErrors } = require('../config/validators');
+const { securityLogger, apiRateLimiter } = require('../config/security-middleware');
 
 // Rota para listar todos os pacotes
-router.get('/', (req, res) => {
+router.get('/', securityLogger, apiRateLimiter, validateFiltrosPacotes, handleValidationErrors, (req, res) => {
   const { categoria } = req.query;
   
   // Dados simulados de pacotes (em produção, viriam do banco de dados)
@@ -146,7 +148,7 @@ router.get('/', (req, res) => {
 });
 
 // Rota para detalhes de um pacote específico
-router.get('/:slug', (req, res) => {
+router.get('/:slug', securityLogger, apiRateLimiter, validateDetalhePacote, handleValidationErrors, (req, res) => {
   const { slug } = req.params;
   
   // Simular busca do pacote pelo slug (em produção, seria uma consulta ao banco)

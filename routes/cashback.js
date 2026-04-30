@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { validateResgateCashback, validateHistoricoCashback, handleValidationErrors } = require('../config/validators');
+const { securityLogger, apiRateLimiter } = require('../config/security-middleware');
 
 // Simulação de dados do usuário e cashback (em produção, usar banco de dados)
 let dadosUsuario = {
@@ -126,7 +128,7 @@ let recompensas = [
 ];
 
 // Rota principal do dashboard de cashback
-router.get('/', (req, res) => {
+router.get('/', securityLogger, apiRateLimiter, (req, res) => {
     // Calcular estatísticas
     const totalGasto = historicoTransacoes
         .filter(t => t.tipo === 'compra' && t.status === 'confirmado')
@@ -193,7 +195,7 @@ router.get('/recompensas', (req, res) => {
 });
 
 // Rota para resgatar recompensa
-router.post('/resgatar/:id', (req, res) => {
+router.post('/resgatar/:id', securityLogger, apiRateLimiter, validateResgateCashback, handleValidationErrors, (req, res) => {
     const recompensaId = parseInt(req.params.id);
     const recompensa = recompensas.find(r => r.id === recompensaId);
     
