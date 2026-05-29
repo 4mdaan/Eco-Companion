@@ -212,60 +212,87 @@ const validateDetalhePacote = [
 // ========== VALIDAÇÕES DE DESTINOS ==========
 
 const validateCompraDestino = [
-  body('destinoId')
+  param('slug')
     .trim()
-    .notEmpty().withMessage('ID do destino é obrigatório')
-    .isInt({ min: 1 }).withMessage('ID do destino deve ser um número válido'),
-  body('dataPartida')
+    .notEmpty().withMessage('Slug do destino é obrigatório')
+    .isLength({ min: 2 }).withMessage('Slug do destino é inválido'),
+  body('pessoas')
     .trim()
-    .notEmpty().withMessage('Data de partida é obrigatória')
-    .isISO8601().withMessage('Data de partida deve estar em formato válido')
+    .notEmpty().withMessage('Número de pessoas é obrigatório')
+    .isInt({ min: 1, max: 20 }).withMessage('O número de pessoas deve ser entre 1 e 20'),
+  body('dataViagem')
+    .trim()
+    .notEmpty().withMessage('Data da viagem é obrigatória')
+    .isISO8601().withMessage('Data da viagem deve estar em formato válido')
     .custom(value => {
       const data = new Date(value);
       const agora = new Date();
       if (data < agora) {
-        throw new Error('Data de partida não pode estar no passado');
+        throw new Error('Data da viagem não pode estar no passado');
       }
       return true;
     }),
-  body('dataRetorno')
+  body('nome')
     .trim()
-    .notEmpty().withMessage('Data de retorno é obrigatória')
-    .isISO8601().withMessage('Data de retorno deve estar em formato válido')
-    .custom((value, { req }) => {
-      const dataPartida = new Date(req.body.dataPartida);
-      const dataRetorno = new Date(value);
-      
-      if (dataRetorno <= dataPartida) {
-        throw new Error('Data de retorno deve ser após a data de partida');
+    .notEmpty().withMessage('Nome é obrigatório')
+    .isLength({ min: 3, max: 100 }).withMessage('Nome deve ter entre 3 e 100 caracteres'),
+  body('email')
+    .trim()
+    .notEmpty().withMessage('Email é obrigatório')
+    .isEmail().withMessage('Email inválido')
+    .normalizeEmail(),
+  body('telefone')
+    .trim()
+    .notEmpty().withMessage('Telefone é obrigatório')
+    .custom(value => {
+      const digits = value.replace(/\D/g, '');
+      if (!/^\d{10,11}$/.test(digits)) {
+        throw new Error('Telefone deve ter 10 ou 11 dígitos');
       }
-      
-      // Máximo de 30 dias
-      const diffMs = dataRetorno - dataPartida;
-      const diffDias = diffMs / (1000 * 60 * 60 * 24);
-      
-      if (diffDias > 30) {
-        throw new Error('Período máximo de 30 dias');
-      }
-      
       return true;
     }),
-  body('hospedes')
+  body('cpf')
     .trim()
-    .notEmpty().withMessage('Quantidade de hóspedes é obrigatória')
-    .isInt({ min: 1, max: 20 }).withMessage('Hóspedes deve estar entre 1 e 20'),
-  body('acomodacao')
-    .optional()
+    .notEmpty().withMessage('CPF é obrigatório')
+    .custom(value => {
+      const digits = value.replace(/\D/g, '');
+      if (!/^\d{11}$/.test(digits)) {
+        throw new Error('CPF inválido');
+      }
+      return true;
+    }),
+  body('nascimento')
     .trim()
-    .isIn(['simples', 'confortavel', 'luxo']).withMessage('Acomodação inválida'),
+    .notEmpty().withMessage('Data de nascimento é obrigatória')
+    .isISO8601().withMessage('Data de nascimento inválida'),
+  body('metodoPagamento')
+    .trim()
+    .notEmpty().withMessage('Método de pagamento é obrigatório')
+    .isIn(['cartao', 'pix', 'boleto']).withMessage('Método de pagamento inválido'),
+  body('endereco.cep')
+    .trim()
+    .notEmpty().withMessage('CEP é obrigatório')
+    .matches(/^\d{8}$/).withMessage('CEP inválido'),
+  body('endereco.cidade')
+    .trim()
+    .notEmpty().withMessage('Cidade é obrigatória'),
+  body('endereco.estado')
+    .trim()
+    .notEmpty().withMessage('Estado é obrigatório'),
+  body('endereco.logradouro')
+    .trim()
+    .notEmpty().withMessage('Endereço é obrigatório'),
+  body('endereco.numero')
+    .trim()
+    .notEmpty().withMessage('Número é obrigatório'),
   handleValidationErrors
 ];
 
 const validateDetalhesDestino = [
-  param('destinoId')
+  param('slug')
     .trim()
-    .notEmpty().withMessage('ID do destino é obrigatório')
-    .isInt({ min: 1 }).withMessage('ID do destino deve ser um número válido'),
+    .notEmpty().withMessage('Slug do destino é obrigatório')
+    .isLength({ min: 2 }).withMessage('Slug inválido'),
   handleValidationErrors
 ];
 
