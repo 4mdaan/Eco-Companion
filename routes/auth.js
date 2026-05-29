@@ -122,6 +122,7 @@ router.post('/', validateLogin, handleValidationErrorsHtml, (req, res) => {
   } else {
     res.redirect('/');
   }
+});
 
 // GET - Página de registro
 router.get('/registro', (req, res) => {
@@ -230,8 +231,13 @@ router.post('/esqueceu-senha', validateEsqueceuSenha, handleValidationErrorsHtml
 
 // GET - Logout
 router.get('/logout', (req, res) => {
-  // Limpar sessão (quando implementada)
-  res.redirect('/auth?logout=success');
+  if (req.session) {
+    req.session.destroy(() => {
+      res.redirect('/auth?logout=success');
+    });
+  } else {
+    res.redirect('/auth?logout=success');
+  }
 });
 
 module.exports = router;

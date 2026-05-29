@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
+const session = require('express-session');
 require('dotenv').config();
 
 const connectDB = require('./config/database');
@@ -19,12 +20,25 @@ app.use(securityLogger);
 
 // ========== CONFIGURAÇÃO DO APP ==========
 
-// Conectar ao banco de dados
-connectDB();
-
 // Configurar EJS como template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Configurar sessão
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'eco_companion_session_secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true
+  }
+}));
+
+app.use((req, res, next) => {
+  res.locals.user = req.session && req.session.user ? req.session.user : null;
+  next();
+});
 
 // Servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,6 +56,18 @@ app.use('/api/payments/webhook/stripe', express.raw({type: 'application/json'}))
 
 // Middleware para JSON (DEPOIS do webhook)
 app.use(express.json({ limit: '10mb' }));
+
+const startServer = () => {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+    console.log(`📁 Estrutura do projeto configurada com sucesso!`);
+    console.log(`🔐 Middleware de segurança ativo`);
+    console.log(`✅ Validações expressivas implementadas`);
+    console.log(`� Ambiente: ${process.env.NODE_ENV || 'development'}`);
+  });
+};
+
+startServer();
 
 // ========== ROTAS ==========
 
@@ -76,14 +102,5 @@ app.use(notFoundHandler);
 
 // Middleware global de tratamento de erros (DEVE SER O ÚLTIMO)
 app.use(errorHandler);
-
-// Iniciar o servidor
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
-  console.log(`📁 Estrutura do projeto configurada com sucesso!`);
-  console.log(`🔐 Middleware de segurança ativo`);
-  console.log(`✅ Validações expressivas implementadas`);
-  console.log(`� Ambiente: ${process.env.NODE_ENV || 'development'}`);
-});
 
 module.exports = app;

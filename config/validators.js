@@ -339,14 +339,6 @@ const validateDeletarPacote = [
   handleValidationErrors
 ];
 
-const validateDeletarPacote = [
-  param('id')
-    .trim()
-    .notEmpty().withMessage('ID é obrigatório')
-    .isInt({ min: 1 }).withMessage('ID deve ser um número válido'),
-  handleValidationErrors
-];
-
 // ========== VALIDAÇÕES DE PAGAMENTOS ==========
 
 const validateIniciaPagamento = [

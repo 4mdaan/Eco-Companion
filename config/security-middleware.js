@@ -111,7 +111,8 @@ const securityLogger = (req, res, next) => {
   const timestamp = new Date().toISOString();
   
   // Verificar padrões suspeitos
-  const body = JSON.stringify(req.body).toLowerCase();
+  const rawBody = typeof req.body === 'undefined' ? '' : JSON.stringify(req.body);
+  const body = rawBody ? rawBody.toLowerCase() : '';
   const isSuspicious = 
     body.includes('<script') ||
     body.includes('union') ||
