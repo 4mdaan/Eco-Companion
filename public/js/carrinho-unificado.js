@@ -182,7 +182,7 @@ function formatarPrecoExibicao(preco) {
 // Função para alterar quantidade
 function alterarQuantidadeItem(itemId, delta) {
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const item = carrinho.find(i => i.id === itemId);
+    const item = carrinho.find(i => i.id == itemId);
     
     if (item) {
         item.quantidade = Math.max(1, item.quantidade + delta);
@@ -195,7 +195,7 @@ function alterarQuantidadeItem(itemId, delta) {
 // Função para atualizar quantidade diretamente
 function atualizarQuantidadeItem(itemId, novaQuantidade) {
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const item = carrinho.find(i => i.id === itemId);
+    const item = carrinho.find(i => i.id == itemId);
     
     if (item) {
         item.quantidade = Math.max(1, parseInt(novaQuantidade) || 1);
@@ -209,7 +209,7 @@ function atualizarQuantidadeItem(itemId, novaQuantidade) {
 function removerItemCarrinho(itemId) {
     if (confirm('Deseja remover este pacote do carrinho?')) {
         let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-        carrinho = carrinho.filter(i => i.id !== itemId);
+        carrinho = carrinho.filter(i => i.id != itemId);
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
         carregarCarrinhoUnificado();
         atualizarContadorCarrinho();

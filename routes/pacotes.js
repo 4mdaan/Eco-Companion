@@ -106,7 +106,7 @@ router.get('/', securityLogger, apiRateLimiter, validateFiltrosPacotes, handleVa
       precoOriginal: '1.650',
       descricao: 'Explore as dunas de Genipabu e as belas praias do Rio Grande do Norte neste pacote aventura.',
       inclusos: ['Hospedagem por 5 noites', 'Café da manhã', 'Passeio de buggy', 'Dunas de Genipabu', 'Transfer aeroporto'],
-      imagem: 'https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg',
+      imagem: '/imagens/natal.png',
       bgClass: 'bg-natal',
       slug: 'natal',
       categoria: 'nacional',
@@ -121,7 +121,7 @@ router.get('/', securityLogger, apiRateLimiter, validateFiltrosPacotes, handleVa
       precoOriginal: '1.580',
       descricao: 'Relaxe nas piscinas naturais de Maragogi e curta as praias paradisíacas de Alagoas.',
       inclusos: ['Hospedagem por 5 noites', 'Café da manhã', 'Passeio de jangada', 'Piscinas naturais', 'Praia de Pajuçara'],
-      imagem: 'https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg',
+      imagem: '/imagens/maceio.png',
       bgClass: 'bg-maceio',
       slug: 'maceio',
       categoria: 'nacional',
@@ -379,8 +379,8 @@ router.get('/:slug', securityLogger, apiRateLimiter, validateDetalhePacote, hand
         'Gorjetas'
       ],
       imagens: [
-        'https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg',
-        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60'
+        '/imagens/natal.png',
+        '/imagens/gramado.png'
       ],
       bgClass: 'bg-natal',
       slug: 'natal',
@@ -424,8 +424,8 @@ router.get('/:slug', securityLogger, apiRateLimiter, validateDetalhePacote, hand
         'Gastos pessoais'
       ],
       imagens: [
-        'https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg',
-        'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=60'
+        '/imagens/maceio.png',
+        '/imagens/paris.png'
       ],
       bgClass: 'bg-maceio',
       slug: 'maceio',

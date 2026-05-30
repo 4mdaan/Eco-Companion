@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const session = require('express-session');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
 const { securityLogger, errorHandler, notFoundHandler } = require('./config/security-middleware');
 
 const app = express();
@@ -57,13 +56,13 @@ app.use('/api/payments/webhook/stripe', express.raw({type: 'application/json'}))
 // Middleware para JSON (DEPOIS do webhook)
 app.use(express.json({ limit: '10mb' }));
 
-const startServer = () => {
+const startServer = async () => {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
     console.log(`📁 Estrutura do projeto configurada com sucesso!`);
     console.log(`🔐 Middleware de segurança ativo`);
     console.log(`✅ Validações expressivas implementadas`);
-    console.log(`� Ambiente: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🌐 Ambiente: ${process.env.NODE_ENV || 'development'}`);
   });
 };
 

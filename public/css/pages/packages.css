@@ -576,7 +576,7 @@
 }
 
 .bg-florianopolis {
-    background-image: url('/imagens/Florianópolis.png');
+    background-image: url('/imagens/florianopolis.png');
 }
 
 .bg-porto-seguro {
@@ -600,11 +600,11 @@
 }
 
 .bg-natal {
-    background-image: url('https://www.brasil-turismo.com/rio-grande-norte/imagens/natal-rn.jpg');
+    background-image: url('/imagens/natal.svg');
 }
 
 .bg-maceio {
-    background-image: url('https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2021/11/Maceio-vista-aerea.jpg');
+    background-image: url('/imagens/maceio.svg');
 }
 
 /* Galeria de Imagens */
